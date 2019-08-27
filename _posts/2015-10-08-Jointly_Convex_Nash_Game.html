@@ -1,0 +1,167 @@
+---
+layout: post
+title: Jointly Convex Generalized Nash Equilibrium Problems
+categories: [game theory]
+tags: [convex optimization]
+comments: true
+---
+
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8" />
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    jax: ["input/TeX","output/HTML-CSS"],
+    extensions: [],
+    TeX: {
+      extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+    },
+    showMathMenu: false
+  });
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+      
+  </head>
+  <body class='markdown-preview'><p>In this blog, we are going to talk about jointly convex generalized Nash equilibrium problem. For more details please see the excellent review paper:
+<em>Facchinei, F. &amp; Kanzow, C. Generalized Nash equilibrium problems 4OR, Springer, 2007, 5, 173-210.</em></p>
+<p><strong>Game setup.</strong> Consider a game with <span class="math"><script type="math/tex">N</script></span> players. Each player <span class="math"><script type="math/tex">i</script></span>
+controls variables <span class="math"><script type="math/tex">x_{i}\in\mathbf{R}^{n_{i}}</script></span>. The vector formed by
+concatenating all decision variables is denoted by
+<span class="math"><script type="math/tex">x=(x_{1,}\ldots,x_{N})</script></span>, where <span class="math"><script type="math/tex">n=\sum_{i=1}^{N}n_{i}</script></span>. The vector
+formed by the decision variables of all players except player <span class="math"><script type="math/tex">i</script></span> is
+denoted by <span class="math"><script type="math/tex">x_{-i}=(x_{1},\ldots,x_{i-1},x_{i+1},\ldots,x_{n}).</script></span> So we
+have <span class="math"><script type="math/tex">x=\text{rearrange}(x_{i},x_{-i})</script></span>, for convenience we will drop
+the rearrange term and write just <span class="math"><script type="math/tex">x=(x_{i},x_{-i})</script></span>. <em>The feasible set of the game</em> is denoted by
+<span class="math"><script type="math/tex">X</script></span>. The feasible set for player <span class="math"><script type="math/tex">i</script></span>, given other players strategies
+<span class="math"><script type="math/tex">x_{-i}</script></span>, is denoted by <span class="math"><script type="math/tex">X_{i}(x_{-i})</script></span>; we call such a feasible set <em>individual feasible set</em>.
+The optimization problem for player <span class="math"><script type="math/tex">i</script></span> is given by</p>
+<span class="math"><script type="math/tex; mode=display">\begin{aligned} & \text{minimize}_{x_{i}} &  & f_{i}(x_{i},x_{-i})\\
+ & \text{subject to} &  & x_{i}\in X_{i}(x_{-i})\\
+ &  &  & x_{i}\in\mathbf{R}^{n_{i}}.
+\end{aligned}
+</script></span>
+<p>The set of all solutions of this optimization problem is denoted by
+<span class="math"><script type="math/tex">S_{i}(x_{-i})</script></span>.</p>
+<!-- more -->
+<p><strong>Generalized Nash Equilibrium Problem (GNEP).</strong> The GNEP is the
+following search problem.</p>
+<span class="math"><script type="math/tex; mode=display">\begin{aligned} & \text{find} &  & x^{*}\in\mathbf{R}^{n}\\
+ & \text{such that } &  & \forall i\in\left\{ 1,\ldots,N\right\} \quad\forall x_{i}\in X_{i}(x_{-i}^{*})\quad f_{i}(x_{i}^{*},x_{-i}^{*})\leq f_{i}(x_{i},x_{i}^{*})\\
+ &  &  & x\in\mathbf{R}^{n}.
+\end{aligned}</script></span>
+<p>Such a solution of the problem above, denoted by <span class="math"><script type="math/tex">x^{*}</script></span>
+is called the <em>Generalized Nash Equilibrium (GNE)</em> of the game. We can
+also define GNEP as the following search problem.</p>
+<span class="math"><script type="math/tex; mode=display">\begin{aligned} & \text{find} &  & x^{*}\in\mathbf{R}^{n}\\
+ & \text{such that} &  & x_{i}^{*}\in S_{i}(x_{-i}^{*}),\quad i=1,\ldots,N
+\end{aligned}
+.</script></span>
+<p>Now we we define the most well studied class of GNEP problems: jointly
+convex GNEP.</p>
+<p><strong>Jointly Convex GNEP.</strong> A GNEP is called <em>jointly convex</em> if the
+feasible set of the game is closed and convex, and its relationship with
+the individual feasible sets is given by
+<span class="math"><script type="math/tex">\forall i\in\{1,\ldots,N\}\;X_{i}(x_{-i})=\{x_{i}\in\mathbf{R}^{n_{i}}\mid(x_{i},x_{-i})\in X\}</script></span>.
+Intuitively, it means that the individual feasible set for any player is
+associated with the same feasible set (feasible set of the game). In
+this case the optimization problem for the <span class="math"><script type="math/tex">i</script></span>th player can be written
+as:</p>
+<span class="math"><script type="math/tex; mode=display">\begin{aligned} & \text{minimize}_{x_{i}} &  & f_{i}(x_{i},x_{-i})\\
+ & \text{subject to} &  & (x_{i},x_{-i})\in X\\
+ &  &  & x_{i}\in\mathbf{R}^{n_{i}}.
+\end{aligned}
+</script></span>
+<p>Recall, <span class="math"><script type="math/tex">X</script></span> is a closed convex set. So, without loss of generality, we
+write <span class="math"><script type="math/tex">X</script></span> as a conjunction of inequalities:</p>
+<span class="math"><script type="math/tex; mode=display">X=\left\{ x\in\mathbf{R}^{n}\mid\forall j\in\{1,\ldots,m\}\;g_{j}(x)\leq0\right\} ,\qquad (1)
+</script></span>
+<p>where <span class="math"><script type="math/tex">g_{j}(x)</script></span> is a convex function in <span class="math"><script type="math/tex">x</script></span> for all <span class="math"><script type="math/tex">j=1,\ldots,m</script></span>. Let
+us rewrite the optimization problem for <span class="math"><script type="math/tex">i</script></span>th player:</p>
+<span class="math"><script type="math/tex; mode=display">\begin{aligned} & \text{minimize}_{x_{i}} &  & f_{i}(x_{i},x_{-i})\\
+ & \text{subject to} &  & g_{j}(x)\leq0,\quad j=1,\ldots,m\\
+ &  &  & x_{i}\in\mathbf{R}^{n_{i}}.
+\end{aligned}
+</script></span>
+<p>The pseudo-gradient of the game is defined as</p>
+<span class="math"><script type="math/tex; mode=display">F(x)=\begin{bmatrix}\nabla_{x_{1}}f_{1}(x_{1},x_{-1})\\
+\nabla_{x_{2}}f_{2}(x_{2},x_{-2})\\
+\vdots\\
+\nabla_{x_{N}}f_{N}(x_{N},x_{-1})
+\end{bmatrix}. \qquad (2)</script></span>
+<p><strong>Importance of jointly convex GNEP.</strong> Why is jointly convex GNEP an
+important problem? Because we can solve them! More precisely, if a GNEP
+problem is jointly convex, then we can solve it by solving a variational
+inequality (VI) problem.</p>
+<p><strong>Variational Inequality.</strong> Consider the relation
+<span class="math"><script type="math/tex">F:\mathbf{R}^{n}\to\mathbf{R}^{n}</script></span>, and some constraint set <span class="math"><script type="math/tex">K</script></span>. The
+variational inequality problem, denoted by <span class="math"><script type="math/tex">\text{VI}(K,F)</script></span> is as
+follows.</p>
+<span class="math"><script type="math/tex; mode=display">\begin{aligned} & \text{find} &  & x\\
+ & \text{such that} &  & \forall y\in K\quad F(x)^{T}(y-x)\geq0.
+\end{aligned}</script></span>
+<p>Variational inequality problems arises in many branches
+of science and engineering. If <span class="math"><script type="math/tex">F</script></span> is monotone and <span class="math"><script type="math/tex">K</script></span> is convex, then a
+variational inequality problem can be solved using monotone operator
+methods.</p>
+<p><strong>Jointly convex GNEP solving via VI.</strong> Consider the jointly convex GNEP
+described above. If the following assumptions hold for this GNEP:</p>
+<p><span class="math"><script type="math/tex">\bullet\quad</script></span><span class="math"><script type="math/tex">\forall i\in\{1,\ldots,N\}\quad f_{i}(x)</script></span> : continuously
+differentiable on <span class="math"><script type="math/tex">X</script></span></p>
+<p><span class="math"><script type="math/tex">\bullet\quad</script></span><span class="math"><script type="math/tex">\forall i\in\{1,\ldots,N\}\quad\forall x_{i}:(\exists\bar{x}_{-i}(x_{i},\bar{x}_{-i})\in X)\quad\left(f_{i}(x_{i},x_{-i})\text{ : convex in }x_{i}\right)</script></span>,</p>
+<p><span class="math"><script type="math/tex">\bullet\quad</script></span><span class="math"><script type="math/tex">\forall j\in\{1,\ldots,m\}</script></span> <span class="math"><script type="math/tex">g_{j}(x)</script></span> : continuously
+differentiable in <span class="math"><script type="math/tex">x</script></span></p>
+<p><span class="math"><script type="math/tex">\bullet\quad</script></span><span class="math"><script type="math/tex">\forall j\in\{1,\ldots,m\}\quad\forall i\in\{1,\ldots,N\}\quad\forall x_{i}:(\exists\bar{x}_{-i}(x_{i},\bar{x}_{-i})\in X) \quad \left(g_{j}(x_{i},x_{-i})\text{ : convex in }x_{i}\right)</script></span></p>
+<p>Then any solution of the variational inequality problem <span class="math"><script type="math/tex">\text{VI}(X,F)</script></span>
+will be a GNE, where <span class="math"><script type="math/tex">X</script></span> is given by Equation <span class="math"><script type="math/tex">(1)</script></span> and
+<span class="math"><script type="math/tex">F</script></span> is given by Equation <span class="math"><script type="math/tex">(2)</script></span>.</p>
+<p>It should be noted that, the other direction is not true, i.e., a GNE is
+not necessarily a solution of <span class="math"><script type="math/tex">\text{VI}(X,F)</script></span>. So by solving
+<span class="math"><script type="math/tex">\text{VI}(X,F)</script></span>, we can hope to recover only some of the GNEs. This
+motivates us to define <em>variational GNE</em>, i.e., those GNEs which we can find by solving
+the <span class="math"><script type="math/tex">\text{VI}(X,F)</script></span>. Before proceeding further, let us recall the KKT
+conditions for a convex optimization problem.</p>
+<p><strong>KKT Conditions.</strong> Consider the convex optimization problem:</p>
+<span class="math"><script type="math/tex; mode=display">\begin{aligned} & \text{minimize}_{x} &  & f_{o}(x)\\
+ & \text{subject to} &  & g_{j}(x)\leq0,\\
+ &  &  & x\in\mathbf{R}^{n},
+\end{aligned}
+\quad j=1,\ldots,m</script></span>
+<p>where <span class="math"><script type="math/tex">f_{0},g_{1},\ldots,g_{m}</script></span> are differentiable
+convex functions. The primal dual optimal pair <span class="math"><script type="math/tex">(x^{*},\lambda^{*})</script></span>
+will satisfy the following KKT conditions:</p>
+<p><span class="math"><script type="math/tex">\bullet\;</script></span><span class="math"><script type="math/tex">\nabla f_{o}(x)+\sum_{j=1}^{m}\lambda_{j}^{*}\nabla g_{j}(x^{*})=0</script></span><span class="math"><script type="math/tex">\quad</script></span><code style="font-family: Noto Sans;">\* Vanishing gradient of the Lagrangian*\</code></p>
+<p><span class="math"><script type="math/tex">\bullet\;</script></span><span class="math"><script type="math/tex">\forall j\in\{1,\ldots,m\}\quad g_{j}(x^{*})\leq0</script></span>
+<span class="math"><script type="math/tex">\quad</script></span><code style="font-family: Noto Sans;">\* Primal feasibility *\</code></p>
+<p><span class="math"><script type="math/tex">\bullet\;</script></span><span class="math"><script type="math/tex">\forall j\in\{1,\ldots,m\}\quad\lambda_{j}^{*}\geq0</script></span>
+<span class="math"><script type="math/tex">\quad</script></span><code style="font-family: Noto Sans;">\* Dual feasibility *\</code></p>
+<p><span class="math"><script type="math/tex">\bullet\;</script></span><span class="math"><script type="math/tex">\forall j\in\{1,\ldots,m\}\quad\lambda_{j}^{*}g_{j}(x^{*})=0</script></span><span class="math"><script type="math/tex">\quad</script></span><code style="font-family: Noto Sans;">\* Complementary slackness *\</code></p>
+<p><strong>Characterization of variational GNE.</strong> Suppose in <span class="math"><script type="math/tex">i</script></span>th player’s
+optimization problem, the KKT conditions hold and the dual multipliers
+are unique, which can happen if the dual function is a strongly concave
+function. If <span class="math"><script type="math/tex">x^{*}</script></span> is a solution of the jointly convex GNEP, then for
+all <span class="math"><script type="math/tex">i=1,\ldots,N</script></span>, strategy <span class="math"><script type="math/tex">x_{i}^{*}</script></span> must be an optimal solution to
+<span class="math"><script type="math/tex">i</script></span>th player’s optimization problem. Again, we have assumed that the
+associated dual multiplier
+<span class="math"><script type="math/tex">\lambda_{i}^{*}=(\lambda_{ij}^{*})_{j=1}^{m}\in\mathbf{R}^{m}</script></span> is
+unique. So for <span class="math"><script type="math/tex">i</script></span>th player’s optimization problem we have the KKT
+conditions:</p>
+<span class="math"><script type="math/tex; mode=display">\begin{aligned}
+\nabla_{x_{i}}f_{i}(x_{i}^{*},x_{-i}^{*})+\sum_{j=1}^{m}\lambda_{ij}^{*}\nabla_{x_{i}}g_{j}(x_{i}^{*},x_{-i}^{*}) & = & 0\\
+\forall j\in\{1,\ldots,m\}\quad g_{j}(x^{*})\leq0\\
+\forall j\in\{1,\ldots,m\}\quad\lambda_{ij}^{*}\geq0\\
+\forall j\in\{1,\ldots,m\}\quad\lambda_{ij}^{*}g_{j}(x^{*})=0\end{aligned}</script></span>
+<p>The dimension of the dual multipliers is same for all the players’
+optimization problem, however in generally they are not necessarily the
+same. For example, the Lagrangian for <span class="math"><script type="math/tex">i</script></span>th player is
+<span class="math"><script type="math/tex">L_{i}(x_{i},\lambda_{i})=f_{i}(x_{i},x_{-i})+\sum_{j=1}^{m}\lambda_{ij}g_{j}(x_{i},x_{-i})</script></span>.
+The dual function for the <span class="math"><script type="math/tex">i</script></span>th player is
+<span class="math"><script type="math/tex">d_{i}(\lambda_{i})=\inf_{x}L_{i}(x_{i},\lambda_{i})</script></span>, and his dual
+problem is <span class="math"><script type="math/tex">\text{maximize}_{\lambda_{i}\succeq0}d_{i}(\lambda_{i})</script></span>.
+Clearly, the dual problem for each player is different, so different
+optimization problem will have different dual multipliers. However, it
+turns out that when the dual multipliers are the same for all the
+players, only then the vector <span class="math"><script type="math/tex">x^{*}=(x_{1}^{*},\ldots,x_{N}^{*})</script></span>
+formed by concatenating the solution of the individual optimization
+problems <span class="math"><script type="math/tex">x_{1}^{*},\ldots,x_{N}^{*}</script></span>, will be a variational GNE.</p></body>
+</html>

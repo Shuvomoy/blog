@@ -1,0 +1,20 @@
+// Font imports file. If you don't want these fonts, comment out these and add your own into the fonts directory 
+// and point the src attribute to the file.
+// 
+
+@font-face { 
+	font-family: ETBembo;
+    src: url("../fonts/ETBembo-RomanLF.ttf"); 
+}
+
+@font-face { 
+	font-family: "CMU Concrete";
+        src: url("../fonts/cmunorm.ttf"); 
+}
+
+@font-face { 
+	font-family: Shambhala;
+        src: url("../fonts/Shambhala-Regular.ttf"); 
+}
+
+

@@ -1,0 +1,210 @@
+---
+layout: post
+title: Investigating Iterative Methods in Optimization Algorithms
+categories: [optimization]
+tags: [convex optimization]
+comments: true
+---
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+</head>
+<body>
+<p>In this blog, we will state some results on investigating different iterative schemes. In optimization problem solving, nonlinear analysis we often construct iteration scheme in the hope that the scheme will eventually produce a desired point, <em>e.g.,</em> fixed point of some operator. There are four main methods of investigating iteration schemes: Lyapunov’s first method, Lyapunov’s second method, Banach-Picard iteration and Krasnosel’skii-Mann iteration for nonexpansive operator.<!-- more --> A pdf of this blog is available <a href="https://shuvomoy.github.io/site/Notes/Investigating_iterative_schemes.pdf">here</a>.</p>
+<h2 id="lyapunovs-first-method" class="unnumbered">1. Lyapunov’s First Method </h2>
+<h4 id="notation." class="unnumbered">Notation.</h4>
+<p>We will use the following notation throughout the blog.</p>
+<p><span class="math">\(\bullet\)</span> <span class="math">\(\mathbf{N}\)</span> : The set of natural numbers <span class="math">\(0,1,\ldots\)</span></p>
+<p><span class="math">\(\bullet\)</span> <span class="math">\(\rho(A)\)</span> : Spectral radius of a square matrix <span class="math">\(A\in\mathbf{R}^{n\times n}\)</span>, where <span class="math">\[\rho(A)=\max_{1\leq i\leq n}|\lambda_{i}|.\]</span></p>
+<p><span class="math">\(\bullet\)</span> <span class="math">\(\textrm{Fix}T\)</span> : the set of fixed points of the operator <span class="math">\(T:\mathbf{R}^{n}\to\mathbf{R}^{n}\)</span>, <em>i.e.,</em> if <span class="math">\(x^{*}\in\textrm{Fix}T\)</span> then <span class="math">\(Tx^{*}=x^{*}\)</span>. Often the optimal solution of an optimization problem is the fixed point of some operator.</p>
+<p><span class="math">\(\bullet\)</span> <span class="math">\(DTx\)</span> : Derivative (or Jacobian) of the differentiable operator <span class="math">\(T:\mathbf{R}^{n}\to\mathbf{R}^{m}\)</span> evaluated at point <span class="math">\(x\)</span>. <span class="math">\(DTx\in\mathbf{R}^{m\times n}\)</span> is a matrix, given by <span class="math">\[(DTx)_{ij}=\frac{\partial T_{i}(x)}{\partial x_{j}}\quad i=1,\ldots,m,\;j=1,\ldots,n.\]</span></p>
+<p><span class="math">\(\bullet\)</span> <span class="math">\(\|x\|\)</span> : Euclidean norm of the vector <span class="math">\(x\in\mathbf{R}^{n}\)</span>.</p>
+<p><span class="math">\(\bullet\)</span> <span class="math">\(I_{n}\in\mathbf{R}^{n\times n}\)</span> : Identity matrix.</p>
+<p><span class="math">\(\bullet\)</span> <span class="math">\(0_{n}\in\mathbf{R}^{n\times n}\)</span> : a matrix containing all zeros.</p>
+<p><span class="math">\(\bullet\)</span> <span class="math">\(x_{n}\rightarrow x^{*}\)</span> means that the sequence <span class="math">\((x_{n})_{n\in\mathbf{N}}\subseteq\mathbf{R}^{n}\)</span> converges to <span class="math">\(x^{*}\)</span>, <em>i.e.,</em> <span class="math">\[\lim_{n\to\infty}\|x_{n}-x^{*}\|=0.\]</span></p>
+<p>Consider the sequences <span class="math">\((x_{n})_{n\in\mathbf{N}}\)</span>, <span class="math">\((y_{n})_{n\in\mathbf{N}}\)</span>.</p>
+<p><strong><span class="math">\(\bullet\)</span></strong> Small o notation.We say that <span class="math">\(x_{n}=o(y_{n})\)</span> if <span class="math">\[\lim_{n\to\infty}\frac{\|x_{n}\|}{\|y_{n}\|}=0.\]</span></p>
+<p><strong><span class="math">\(\bullet\)</span></strong> Big O notation. We say that <span class="math">\(x_{n}=O(y_{n})\)</span> if there exists some <span class="math">\(\alpha&gt;0\)</span> such that <span class="math">\[\frac{\|x_{n}\|}{\|y_{n}\|}\leq\alpha\;\textrm{as }n\to\infty.\]</span> Clearly the small <span class="math">\(o\)</span> notation gives a more powerful statement in comparison with big <span class="math">\(O\)</span>.</p>
+<h4 id="convergence-of-linear-iteration-scheme." class="unnumbered">Convergence of linear iteration scheme. </h4>
+<p>The iteration scheme <span class="math">\[\left(\forall n\in\mathbf{N}\right)\quad x_{n+1}=\underbrace{A}_{\in\mathbf{R}^{n\times n}}x_{n}\]</span> converges to zero, <em>i.e., <span class="math">\(x_{n}\rightarrow0\)</span></em> if and only if <span class="math">\(\rho(A)&lt;1\)</span>.</p>
+<h4 id="local-convergence-of-nonlinear-iteration-scheme." class="unnumbered">Local convergence of nonlinear iteration scheme.</h4>
+<p>Suppose</p>
+<p><span class="math">\(\bullet\)</span> <span class="math">\(T\)</span> : some differentiable operator from <span class="math">\(\mathbf{R}^{n}\)</span> to <span class="math">\(\mathbf{R}^{n}\)</span>,</p>
+<p><span class="math">\(\bullet\)</span> <span class="math">\(x^{*}\in\textrm{Fix}\)</span>T,</p>
+<p><span class="math">\(\bullet\)</span> <span class="math">\(\rho=\rho\left(DTx^{*}\right)&lt;1\)</span>.</p>
+<p>Consider the iterative scheme <span class="math">\[\left(\forall n\in\mathbf{N}\right)\quad x_{n+1}=Tx_{n}.\]</span></p>
+<p>Then,</p>
+<p><span class="math">\(\bullet\)</span> <span class="math">\(x_{n}\overset{\textrm{local}}{\rightarrow}x^{*}\)</span>, <em>i.e.,</em> if <span class="math">\(x_{0}\)</span> is close to <span class="math">\(x^{*}\)</span> then <span class="math">\(x_{n}\)</span> will converge to <span class="math">\(x^{*}\)</span>,</p>
+<p><span class="math">\(\bullet\)</span> more specifically, <span class="math">\[\left(\forall\epsilon\in(0,1-\rho)\right)\;\left(\exists\delta&gt;0:\|x_{0}-x^{*}\|\leq\delta\right)\;\left(\exists c\geq0\right)\quad\|x_{n}-x^{*}\|\leq c(\rho+\epsilon)^{n}.\]</span></p>
+<h4 id="global-convergence-of-nonlinear-iteration-scheme." class="unnumbered">Global convergence of nonlinear iteration scheme.</h4>
+<p>Suppose,</p>
+<p><span class="math">\(\bullet\)</span> <span class="math">\(A\in\mathbf{R}^{n\times n}\)</span> : every eigenvalue of <span class="math">\(-A\)</span> has an absolute value smaller than <span class="math">\(0\)</span>, <em>i.e.,</em> <span class="math">\[\left(\forall i\in\{1,\ldots,n\}\right)\quad|\lambda_{i}(-A)|&lt;0.\]</span></p>
+<p><span class="math">\(\bullet\)</span> <span class="math">\(U\in\mathbf{R}^{n\times n}\)</span> : solution of the matrix equation <span class="math">\[UA+A^{T}U=I_{n},\]</span></p>
+<p><span class="math">\(\bullet\)</span> <span class="math">\(T\)</span> : some nonlinear operator from <span class="math">\(\mathbf{R}^{n}\to\mathbf{R}^{n}\)</span>, such that it satisfies <span class="math">\[\|Tx\|\leq L\|x\|,\;L&lt;\frac{1}{2\|U\|},\]</span></p>
+<p><span class="math">\(\bullet\)</span> <span class="math">\(\gamma\)</span> : <span class="math">\(\gamma\in\left(0,\frac{\|U\|^{-1}-2L}{(L+\|A\|)^{2}}\right),\)</span></p>
+<p><span class="math">\(\bullet\)</span> <span class="math">\(q\)</span> : <span class="math">\[q=1+\gamma L+\frac{\gamma^{2}(\|A\|+L)^{2}-\gamma\|U\|^{-1}}{2}.\]</span></p>
+<p>Consider the iteration scheme <span class="math">\[\left(\forall n\in\mathbf{N}\right)\quad x_{n+1}=x_{n}-\gamma\left(Ax_{n}+Tx_{n}\right).\]</span></p>
+<p>Then,</p>
+<p><span class="math">\(\bullet\)</span> <span class="math">\(x_{n}\rightarrow0\)</span> with rate of geometric progression,</p>
+<p><span class="math">\(\bullet\)</span> More specifically, <span class="math">\[\left(\forall n\in\mathbf{N}\right)\quad\|x_{n}\|^{2}\leq\|x_{0}\|^{2}\|U^{-1}\|\|U\|q^{n}.\]</span></p>
+<h4 id="superlinear-convergence-of-nonlinear-iteration-scheme." class="unnumbered">Superlinear convergence of nonlinear iteration scheme.</h4>
+<p>Superlinear convergence means that an iteration scheme converges faster that any geometric progression. Suppose</p>
+<p><span class="math">\(\bullet\)</span> <span class="math">\(x^{*}\in\textrm{Fix}\)</span>T,</p>
+<p><span class="math">\(\bullet\)</span> <span class="math">\(S=\{x\in\mathbf{R}^{n}\mid\|x-x^{*}\|\leq\|x_{0}-x^{*}\|\}\)</span>, where <span class="math">\(x_{0}\)</span> is the initial point of the iteration scheme,</p>
+<p><span class="math">\(\bullet\)</span> <span class="math">\(T\)</span> : some operator from <span class="math">\(\mathbf{R}^{n}\)</span> to <span class="math">\(\mathbf{R}^{n}\)</span>; for <span class="math">\(x\in S\)</span>, <span class="math">\(T(x)\)</span> is differentiable,</p>
+<p><span class="math">\(\bullet\)</span> <span class="math">\(\left(\forall x,y\in S\right)\quad\|DTx-DTy\|\leq L\|x-y\|\)</span>,</p>
+<p><span class="math">\(\bullet\)</span> <span class="math">\(DTx^{*}=0_{n}\)</span>.</p>
+<p>Consider the iterative scheme <span class="math">\[\left(\forall n\in\mathbf{N}\right)\quad x_{n+1}=Tx_{n}.\]</span></p>
+<p>If <span class="math">\(q=\frac{L}{2}\|x_{0}-x^{*}\|&lt;1\)</span>, then</p>
+<p><span class="math">\(\bullet\)</span> <span class="math">\(x_{n}\rightarrow x^{*}\)</span>, and</p>
+<p><span class="math">\(\bullet\)</span> More specifically, <span class="math">\[\|x_{n}-x^{*}\|\leq\frac{2}{L}q^{2^{n}}.\]</span></p>
+<h2 id="lyapunovs-second-method" class="unnumbered">2. Lyapunov’s second method</h2>
+<h4 id="basic-steps-in-lyapunovs-second-method." class="unnumbered">Basic steps in Lyapunov’s second method.</h4>
+<p>The most commonly used method for proving the convergence of arbitrary iteration scheme is Lyapunov’s second method. The basic steps are of the scheme is given by the following algorithm.</p>
+<p><strong>Input:</strong> An iterative scheme</p>
+<p><span class="math">\[\left(\forall n\in\mathbf{N}\right)\quad x_{n+1}=Tx_{n}\qquad(1),\label{eq:original-iteration}\]</span></p>
+<p>where <span class="math">\(x_{n}\in\mathbf{R}^{n}\)</span>.</p>
+<p><strong>Output:</strong> A certificate that <span class="math">\(x_{n}\to x^{*}\)</span>, where <span class="math">\(x^{*}\in\textrm{Fix}T\)</span>.</p>
+<p><strong>Scheme:</strong></p>
+<p>1. Construct a nonnegative scalar function <span class="math">\[V:\mathbf{R}^{n}\to\mathbf{R}\]</span> , which is called the Lyapunov function, such that <span class="math">\[V(x^{*})=0,\]</span> and if <span class="math">\[V(x)\leq\delta,\]</span> then we have some estimate of how far is <span class="math">\(x\)</span> is from <span class="math">\(x^{*}\)</span>, <em>e.g.,</em> <span class="math">\(\|x-x^{*}\|\leq\delta\)</span>.</p>
+<p>2. Construct the nonnegative scalar sequence <span class="math">\((u_{n})_{n\in\mathbf{N}}\)</span> generated by the iterative scheme:</p>
+<p><span class="math">\[\left(\forall n\in\mathbf{N}\right)\quad u_{n}=V(x_{n}).\qquad(2)\label{eq:lyapunov-sequence-def}\]</span></p>
+<p>Find how <span class="math">\(u_{n}\)</span> is related with its previous term <span class="math">\(u_{n-1}\)</span>, <em>i.e.,</em> find a relation of type</p>
+<p><span class="math">\[u_{n+1}\leq\phi(u_{n}).\qquad(3)\label{eq:lyapunov sequence}\]</span></p>
+<p>3. By analyzing (3)</p>
+<ul>
+<li><p>if we can show that <span class="math">\(u_{n}\to0\)</span>, then <span class="math">\(x_{n}\to x^{*}\)</span>,</p></li>
+<li><p>if we can show that <span class="math">\(u_{n}\leq\delta\)</span> as <span class="math">\(n\to\infty\)</span>, then we have an estimate how far <span class="math">\(x_{n}\)</span> will be from <span class="math">\(x^{*}\)</span>, <em>e.g.,</em> <span class="math">\(\|x_{n}-x^{*}\|\leq\delta\)</span>. If we have some control over the parameter <span class="math">\(\delta\)</span>, then by making it arbitrarily small, we can reduce the gap between <span class="math">\(x_{n}\)</span> and <span class="math">\(x^{*}\)</span>, which may suffice for practical purpose.</p></li>
+</ul>
+<p>So, essentially succeeding in proving the convergence of the original iteration scheme (1), is equivalent to showing the convergence of the scheme (2) from inequality (3). The success of Lyapunov’s method hinges on whether we can guarantee the convergence of <span class="math">\(u_{n}\)</span> in (2), which again depends of nature of the function <span class="math">\(\phi\)</span> in (3). Now we consider different types of <span class="math">\(\phi\)</span> below.</p>
+<h4 id="when-phi-is-of-affine-type-with-constant-coefficients." class="unnumbered">When <span class="math">\(\phi\)</span> is of affine type with constant coefficients. </h4>
+<p>Suppose, <span class="math">\[u_{n+1}\leq\alpha u_{n}+\beta,\]</span> where <span class="math">\(\alpha\in[0,1)\)</span>, and <span class="math">\(\beta&gt;0\)</span>. Then, <span class="math">\[u_{n}\leq\frac{\beta}{1-\alpha}+\left(u_{0}-\frac{\beta}{1-\alpha}\right)\alpha^{n}.\]</span></p>
+<p>Note that <span class="math">\[u_{n}\leq\frac{\beta}{1-\alpha}+\left(u_{0}-\frac{\beta}{1-\alpha}\right)\alpha^{n}\]</span> means that <span class="math">\[u_{n}\leq\frac{\beta}{1-\alpha},\textrm{ as } n\to\infty,\]</span> as <span class="math">\(q\in[0,1)\)</span>.</p>
+<h4 id="when-phi-is-affine-but-with-two-other-sequences-as-coefficients-result-1." class="unnumbered">When <span class="math">\(\phi\)</span> is affine but with two other sequences as coefficients: Result 1. </h4>
+<p>Suppose,</p>
+<ul>
+<li><p><span class="math">\(u_{n}\geq0\)</span>,</p></li>
+<li><p><span class="math">\(u_{n+1}\leq(1+\boxed{\alpha_{n}})u_{n}+\boxed{\beta_{n}}\)</span>,</p></li>
+<li><p><span class="math">\(\alpha_{n}\geq0\)</span>, <span class="math">\(\sum_{n=0}^{\infty}\alpha_{n}&lt;\infty\)</span>,</p></li>
+<li><p><span class="math">\(\beta_{n}\geq0\)</span>, <span class="math">\(\sum_{n=0}^{\infty}\beta_{n}&lt;\infty\)</span>.</p></li>
+</ul>
+<p>Then, there exists a nonnegative number <span class="math">\(u\geq0\)</span>, <em>i.e.,</em> <span class="math">\(u_{n}\to u\geq0\)</span>. Often <span class="math">\(\alpha_{n}\)</span> and <span class="math">\(\beta_{n}\)</span> are associated with the step sizes in the related optimization problem.</p>
+<h4 id="when-phi-is-affine-but-with-two-other-sequences-as-coefficients-result-2." class="unnumbered">When <span class="math">\(\phi\)</span> is affine but with two other sequences as coefficients: Result 2. </h4>
+<p>Suppose,</p>
+<ul>
+<li><p><span class="math">\(u_{n+1}\leq\alpha_{n}u_{n}+\beta_{n}\)</span>,</p></li>
+<li><p><span class="math">\(\alpha_{n}\in[0,1)\)</span>, <span class="math">\(\sum_{n=0}^{\infty}(1-\alpha_{n})=\infty\)</span>,</p></li>
+<li><p><span class="math">\(\beta_{n}\geq0\)</span>,</p></li>
+<li><p><span class="math">\(\frac{\beta_{n}}{1-\alpha_{n}}\to0\)</span>.</p></li>
+</ul>
+<p>Then, <span class="math">\(u_{n}\leq0\)</span> as <span class="math">\(n\to\infty\)</span>. More specifically if <span class="math">\(u_{n}\geq0\)</span>, then <span class="math">\(u_{n}\to0\)</span>.</p>
+<h4 id="when-phi-is-affine-but-with-two-other-sequences-as-coefficients-chungs-1st-result." class="unnumbered">When <span class="math">\(\phi\)</span> is affine but with two other sequences as coefficients: Chung’s 1st result. </h4>
+<p>Suppose,</p>
+<ul>
+<li><p><span class="math">\(u_{n}\geq0\)</span>,</p></li>
+<li><p><span class="math">\(\boxed{u_{n+1}\leq\left(1-\frac{c}{n}\right)u_{n}+\frac{d}{n^{p+1}}}\)</span> : <span class="math">\(d&gt;0,\;p&gt;0,\;c&gt;0.\)</span></p></li>
+</ul>
+<p>Then,</p>
+<ul>
+<li><p>if <span class="math">\(c&gt;p\)</span>, then <span class="math">\[u_{n}\leq\frac{d}{(c-p)n^{p}}+o\left(\frac{1}{n^{p}}\right),\]</span></p></li>
+<li><p>if <span class="math">\(c=p\)</span>, then <span class="math">\[u_{n}=O\left(\frac{\log n}{n^{c}}\right),\]</span></p></li>
+<li><p>if <span class="math">\(c&lt;p\)</span>, then <span class="math">\[u_{n}=O\left(\frac{1}{n^{c}}\right).\]</span></p></li>
+</ul>
+<h4 id="when-phi-is-affine-but-with-two-other-sequences-as-coefficients-chungs-2nd-result." class="unnumbered">When <span class="math">\(\phi\)</span> is affine but with two other sequences as coefficients: Chung’s 2nd result. </h4>
+<p>Suppose,</p>
+<ul>
+<li><p><span class="math">\(u_{n}\geq0\)</span>,</p></li>
+<li><p><span class="math">\(\boxed{u_{n+1}\leq\left(1-\frac{c}{n^{s}}\right)u_{n}+\frac{d}{n^{t}}}\)</span> : <span class="math">\(s\in(0,1),t&gt;s\)</span>.</p></li>
+</ul>
+<p>Then, <span class="math">\[u_{n}\leq\frac{d}{cn^{t-s}}+o\left(\frac{1}{n^{t-s}}\right).\]</span></p>
+<h4 id="when-phi-is-nonlinear-result-1." class="unnumbered">When <span class="math">\(\phi\)</span> is nonlinear: Result 1. </h4>
+<p>Suppose,</p>
+<ul>
+<li><p><span class="math">\(u_{n}&gt;0\)</span> ,</p></li>
+<li><p><span class="math">\(\boxed{u_{n+1}\leq u_{n}-\alpha_{n}u_{n}^{1+p}}\)</span> : <span class="math">\(\alpha_{n}\geq0\)</span>, <span class="math">\(p&gt;0\)</span>.</p></li>
+</ul>
+<p>Then, <span class="math">\[u_{n}\leq u_{0}\left(1+pu_{0}^{p}\sum_{i=0}^{n-1}\alpha_{i}\right)^{-\frac{1}{p}}.\]</span></p>
+<h4 id="when-phi-is-nonlinear-result-2." class="unnumbered">When <span class="math">\(\phi\)</span> is nonlinear: Result 2. </h4>
+<p>Suppose,</p>
+<ul>
+<li><p><span class="math">\(u_{n}\geq0\)</span>,</p></li>
+<li><p><span class="math">\(\boxed{u_{n+1}\leq(1+\alpha_{n})u_{n}+\beta_{n}-\gamma_{n}f(u_{n})}\)</span> :</p>
+<ul>
+<li><p><span class="math">\(\alpha_{n},\beta_{n},\gamma_{n}\geq0\)</span>,</p></li>
+<li><p><span class="math">\(\alpha_{n}\to0\)</span>, <span class="math">\(\beta_{n}\to0\)</span>, <span class="math">\(\frac{\alpha_{n}}{\gamma_{n}}\to0\)</span>, <span class="math">\(\frac{\beta_{n}}{\gamma_{n}}\to0\)</span>,</p></li>
+<li><p><span class="math">\(\sum_{n=0}^{\infty}\gamma_{n}=\infty\)</span>,</p></li>
+<li><p><span class="math">\(f(0)=0\)</span>,</p></li>
+<li><p><span class="math">\(\left(\forall u&gt;0\right)\quad f(u)&gt;0,\)</span></p></li>
+<li><p><span class="math">\(\left(\forall v,u\right)\quad v\geq u\Rightarrow f(v)\geq f(u)\)</span>,</p></li>
+</ul></li>
+<li><p>Either <span class="math">\(\alpha_{n}=0\)</span>, or <span class="math">\(f\)</span> is a convex function.</p></li>
+</ul>
+<p>Then, <span class="math">\(u_{n}\to0\)</span>.</p>
+<h2 id="banach-picard-iteration-for-contraction-operator" class="unnumbered">3. Banach-Picard Iteration for contraction operator</h2>
+<h4 id="contraction-mapping." class="unnumbered">Contraction mapping. </h4>
+<p>An operator <span class="math">\(T:\mathbf{R}^{n}\to\mathbf{R}^{n}\)</span> is called a contraction operator if <span class="math">\[\left(\forall x\in\mathbf{R}^{n}\right)\;\left(\forall y\in\mathbf{R}^{n}\right)\quad\|Tx-Ty\|\leq L\|x-y\|,\]</span> where <span class="math">\(L\in[0,1)\)</span>. Any contraction mapping has a unique fixed point.</p>
+<h4 id="banach-picard-fixed-point-theorem." class="unnumbered">Banach-Picard fixed point theorem. </h4>
+<p>Suppose <span class="math">\(T:\mathbf{R}^{n}\to\mathbf{R}^{n}\)</span> is a contraction operator with Lipschitz constant <span class="math">\(L\in[0,1)\)</span>, and consider the Banach-Picard iteration scheme <span class="math">\[\left(\forall n\in\mathbf{N}\right)\quad x_{n+1}=Tx_{n}.\]</span> Then the following hold:</p>
+<ul>
+<li><p>There exists some <span class="math">\(x^{*}\in\mathbf{R}^{n}\)</span> such that <span class="math">\(\textrm{Fix}T=\{x^{*}\}\)</span>,</p></li>
+<li><p><span class="math">\(\left(\forall n\in\mathbf{N}\right)\quad\|x_{n+1}-x^{*}\|\leq L\|x_{n}-x^{*}\|\)</span>,</p></li>
+<li><p><span class="math">\(\left(\forall n\in\mathbf{N}\right)\|x_{n+1}-x^{*}\|\leq L^{n}\|x_{0}-x^{*}\|\)</span></p></li>
+<li><p><span class="math">\(x_{n}\to x^{*}\)</span>,</p></li>
+<li><p>A priori error estimate: <span class="math">\(\left(\forall n\in\mathbf{N}\right)\quad\|x_{n}-x^{*}\|\leq\frac{L^{n}}{1-L}\|x_{0}-x_{1}\|\)</span>,</p></li>
+<li><p>A posteriori error estimate: <span class="math">\(\left(\forall n\in\mathbf{N}\right)\quad\|x_{n}-x^{*}\|\leq\frac{1}{1-L}\|x_{n}-x_{n+1}\|\)</span> ,</p></li>
+<li><p><span class="math">\(\frac{1}{1+L}\|x_{0}-x_{1}\|\leq\|x_{0}-x^{*}\|\leq\frac{1}{1-L}\|x_{0}-x_{1}\|\)</span>.</p></li>
+</ul>
+<h4 id="a-variant-of-banach-picard-iteration." class="unnumbered">A variant of Banach-Picard iteration. </h4>
+<p>Suppose <span class="math">\(T:\mathbf{R}^{n}\to\mathbf{R}^{n}\)</span> is a mapping such that</p>
+<ul>
+<li><p><span class="math">\(T\)</span> satisfies <span class="math">\[\left(\forall n\in\mathbf{N}\right)\;\left(\forall x\in\mathbf{R}^{n}\right)\;\left(\forall y\in\mathbf{R}^{n}\right)\quad\|T^{n}x-T^{n}y\|\leq\beta_{n}\|x-y\|,\]</span> where <span class="math">\((\beta_{n})_{n=0}^{\infty}\)</span> is a nonnegative sequence which is summable <em>i.e.,</em> <span class="math">\(\sum_{n=0}^{\infty}\beta_{n}&lt;\infty\)</span>. Here, <span class="math">\(T^{0}x=Ix=x\)</span>, and for <span class="math">\(n\geq1\)</span>, <span class="math">\(T^{n}x=\underbrace{T\cdots T}_{n-\text{fold composition}}x\)</span>.</p></li>
+<li><p><span class="math">\(\left(\forall n\in\mathbf{N}\right)\quad\alpha_{n}=\sum_{k=n}^{\infty}\beta_{k}\)</span>.</p></li>
+</ul>
+<p>Consider the Banach-Picard iteration scheme, <span class="math">\[\left(\forall n\in\mathbf{N}\right)\quad x_{n+1}=Tx_{n}.\]</span> Then the following hold,</p>
+<ul>
+<li><p>There exists some <span class="math">\(x^{*}\in\mathbf{R}^{n}\)</span> such that <span class="math">\(\textrm{Fix}T=\{x^{*}\}\)</span>,</p></li>
+<li><p><span class="math">\(x_{n}\to x^{*}\)</span>,</p></li>
+<li><p><span class="math">\(\left(\forall n\in\mathbf{N}\right)\quad\|x_{n}-x^{*}\|\leq\alpha_{n}\|x_{0}-x_{1}\|.\)</span></p></li>
+</ul>
+<h2 id="krasnoselskii-mann-iteration-for-nonexpansive-operator" class="unnumbered">4. Krasnosel’skii-Mann Iteration for nonexpansive operator</h2>
+<h4 id="nonexpansive-operator." class="unnumbered">Nonexpansive operator. </h4>
+<p>Consider an operator <span class="math">\[T:\overbrace{D}^{\textrm{nonempty,}\subseteq\mathbf{R}^{n}}\to\mathbf{R}^{n}.\]</span> Then <span class="math">\(T\)</span> is a nonexpansive operator if <span class="math">\[\left(\forall x\in D\right)\;\left(\forall y\in D\right)\quad\|Tx-Ty\|\leq\|x-y\|.\]</span> This is a very important class of operators, as often a convex optimization problem can be reformulated as fixed point calculation problem of some nonexpansive operator. However, the set of fixed points of a nonexpansive operator may be empty. However there is Browder-Gohde-Kirk theorem that gives the condition of existence of fixed points for a nonexpansive operator.</p>
+<h4 id="browder-gohde-kirk-theorem-for-existence-of-fixed-points-for-a-nonexpansive-operator." class="unnumbered">Browder-Gohde-Kirk theorem for existence of fixed points for a nonexpansive operator. </h4>
+<p>Suppose,</p>
+<ul>
+<li><p><span class="math">\(D\)</span> : nonempty, bounded, convex, subset of <span class="math">\(\mathbf{R}^{n}\)</span>,</p></li>
+<li><p><span class="math">\(T:D\to D\)</span> : nonexpansive operator.</p></li>
+</ul>
+<p>Then <span class="math">\(\textrm{Fix}T\neq\emptyset\)</span>.</p>
+<h4 id="banach-picard-iteration-for-finding-fixed-point-of-a-nonexpansive-operator-may-fail." class="unnumbered">Banach-Picard iteration for finding fixed point of a nonexpansive operator may fail.</h4>
+<p>If we apply Banach-Picard iteration for finding the fixed point of a nonexpansive operator, it may fail. A simple example is when <span class="math">\(T=-I\)</span>, which is a nonexpansive operator, a fixed point of which is the <span class="math">\(0\)</span> vector. However if given Banach-Picard iteration <span class="math">\(x_{n+1}=Tx_{n}\)</span> and start with a nonzero vector <span class="math">\(x_{0}\neq0\)</span> as the initial iterate, then the scheme will fluctuate between <span class="math">\(x_{0}\)</span> and <span class="math">\(-x_{0}\)</span>, and will never converge to zero. Now it turns out that, it fails because a property called <em>asymptotic regularity</em> property does not hold in this case. If <span class="math">\(x_{n}-Tx_{n}\to0\)</span>, then we say asymptotic regularity property holds. When, the asymptotic regularity holds, then Banach-Picard iteration will indeed produce a fixed point of <span class="math">\(T\)</span>.</p>
+<h4 id="banach-picard-iteration-for-finding-fixed-point-of-a-nonexpansive-operator-works-when-asymptotic-regularity-holds." class="unnumbered">Banach-Picard iteration for finding fixed point of a nonexpansive operator works when asymptotic regularity holds. </h4>
+<p>Suppose,</p>
+<ul>
+<li><p><span class="math">\(D\)</span> : nonempty, closed, convex, subset of <span class="math">\(\mathbf{R}^{n}\)</span>,</p></li>
+<li><p><span class="math">\(T:D\to D\)</span> : nonexpansive operator, <span class="math">\(\textrm{Fix}T\neq\emptyset\)</span>,</p></li>
+<li><p><span class="math">\(x_{0}\in D\)</span>.</p></li>
+</ul>
+<p>Consider the Banach-Picard iteration scheme: <span class="math">\[\left(\forall n\in\mathbf{N}\right)\quad x_{n+1}=Tx_{n},\]</span> where the asymptotic regularity property holds, <em>i.e.,</em> <span class="math">\(x_{n}-Tx_{n}\to0\)</span>. Then, <span class="math">\(x_{n}\to x^{*}\)</span>, where <span class="math">\(x^{*}\in\textrm{Fix}T\)</span>.</p>
+<p>Now we state Krasnosel’skii-Mann iteration for nonexpansive operator which always produces a fixed point of <span class="math">\(T\)</span>.</p>
+<h4 id="krasnoselskii-mann-iteration-for-nonexpansive-operator." class="unnumbered">Krasnosel’skii-Mann iteration for nonexpansive operator.</h4>
+<p>Suppose,</p>
+<ul>
+<li><p><span class="math">\(D\)</span> : nonempty, closed, convex, subset of <span class="math">\(\mathbf{R}^{n}\)</span>,</p></li>
+<li><p><span class="math">\(T:D\to D\)</span> : nonexpansive operator, <span class="math">\(\textrm{Fix}T\neq\emptyset\)</span>,</p></li>
+<li><p><span class="math">\((\lambda_{n})_{n=0}^{\infty}\)</span> : nonnegative sequence, <span class="math">\(\left(\forall n\in\mathbf{N}\right)\quad\lambda_{n}\in[0,1]\)</span>, <span class="math">\(\sum_{n=0}^{\infty}\lambda_{n}(1-\lambda_{n})=\infty\)</span>,</p></li>
+<li><p><span class="math">\(x_{0}\in D\)</span>.</p></li>
+</ul>
+<p>Consider the Krasnosel’skii-Mann iteration scheme: <span class="math">\[\left(\forall n\in\mathbf{N}\right)\quad x_{n+1}=\lambda_{n}Tx_{n}+(1-\lambda_{n})x_{n}.\]</span> Then the following hold:</p>
+<ul>
+<li><p><span class="math">\((Tx_{n}-x_{n})_{n=0}^{\infty}\)</span> converges to <span class="math">\(0\)</span>,</p></li>
+<li><p><span class="math">\((x_{n})_{n=0}^{\infty}\)</span> converges to a fixed point of <span class="math">\(T\)</span>.</p></li>
+</ul>
+</body>
+</html>

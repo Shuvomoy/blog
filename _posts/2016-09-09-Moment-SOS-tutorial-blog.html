@@ -1,0 +1,194 @@
+--- 
+layout: post 
+title: Tutorial on Moment-SOS Method to Solve Nonconvex Optimization Problems
+categories: [optimization] 
+tags: [algebraic geometry] 
+comments: true 
+---
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+</head>
+<body>
+<p>In this tutorial we are going to talk about the moment-SOS method to solve nonconvex optimization problems. The class of nonconvex optimization problems that moment-SOS can solve is rather large - it can solve (subject to suitable conditions) any polynomial optimization problem. Polynomial optimization problems are those optimization problems where the objective and constraints are polynomial functions.<!-- more -->Consider the following optimization problem: </p>
+<p><span class="math">\[\begin{aligned}
+f^{*}= &amp; \left(\begin{aligned} &amp; \text{minimize} &amp;  &amp; f(x)\\
+ &amp; \text{subject to} &amp;  &amp; f_{i}(x)\geq0\quad i=1,\ldots,p\\
+ &amp;  &amp;  &amp; h_{i}(x)=0\quad i=1,\ldots,q\\
+ &amp;  &amp;  &amp; x\in\mathbf{R}^{n},
+\end{aligned}
+\right)\qquad\qquad(1)\label{eq:original_optimization_problem}\end{aligned}\]</span></p>
+<p>where <span class="math">\(f(x),f_{1}(x),\ldots,f_{p}(x),h_{1}(x),\ldots,h_{q}(x)\)</span> are polynomials and <span class="math">\(x\in\mathbf{R}^{n}\)</span> is the decision variable. Immediately we can see that this is a rather large class of problems that contains linear programming, mixed integer linear programming and much more. To see that, consider a mixed integer linear programming problem:</p>
+<p><span class="math">\[\begin{aligned}
+ &amp; \begin{aligned} &amp; \text{minimize} &amp;  &amp; c^{T}x\\
+ &amp; \text{subject to} &amp;  &amp; Ax=b\\
+ &amp;  &amp;  &amp; 0\preceq x\preceq M\mathbf{1}\\
+ &amp;  &amp;  &amp; x\in\mathbf{Z^{n}},
+\end{aligned}\end{aligned}\]</span></p>
+<p>where <span class="math">\(A\in\mathbf{R}^{p\times n}\)</span> is a full row rank matrix, <span class="math">\(M\)</span> is a positive integer, and <span class="math">\(\mathbf{1}\)</span> is an <span class="math">\(n\)</span>-dimensional vector with all components 1. Now the hardness of the problem comes from the last two constraints <span class="math">\(0\leq x_{i}\leq M\)</span>, and <span class="math">\(x_{i}\)</span> integer all <span class="math">\(i=1,\ldots,n\)</span>. We can write them as polynomials: <span class="math">\(x_{i}(x_{i}-1)\ldots(x_{i}-M)=0\)</span> for all <span class="math">\(i=1,\ldots,n\)</span>. So, in polynomial format the problem becomes:</p>
+<p><span class="math">\[\begin{aligned}
+ &amp; \begin{aligned} &amp; \text{minimize} &amp;  &amp; c^{T}x\\
+ &amp; \text{subject to} &amp;  &amp; Ax=b\\
+ &amp;  &amp;  &amp; x_{i}(x_{i}-1)\ldots(x_{i}-M)=0\quad i=1,\ldots,n\\
+ &amp;  &amp;  &amp; x\in\mathbf{R}^{n}.
+\end{aligned}\end{aligned}\]</span></p>
+<p>Before proceeding further let’s introduce the related concepts.</p>
+<h1 id="background" class="unnumbered">Background</h1>
+<h4 id="basic-notation." class="unnumbered">Basic Notation. </h4>
+<p>The set of all nonnegative integers is denoted by <span class="math">\(\mathbf{N}=\{0,1,2,\ldots\}\)</span>. By <span class="math">\(\mathbf{N}^{n}\)</span> we mean the set of all <span class="math">\(n\)</span> dimensional vectors with the components of the vectors being nonnegative integers. For example, <span class="math">\[\mathbf{N}^{2}=\left\{ (0,0),(0,1),(0,-1),\ldots,(1,2),\ldots\right\} .\]</span> The set of all <span class="math">\(n\)</span>dimensional nonnegative integers with degree bound <span class="math">\(d\)</span> is denoted by <span class="math">\[\mathbf{N}_{d}^{n}=\{\alpha\in\mathbf{N}^{n}\mid\alpha\succeq0,|\alpha|\leq d\}.\]</span> The total number of elements in <span class="math">\(\mathbf{N}_{d}^{n}\)</span> is <span class="math">\(\binom{n+d}{d}\)</span>. For example,</p>
+<p><span class="math">\[\begin{aligned}
+\mathbf{N}_{2}^{2} &amp; = &amp; \{\alpha\in\mathbf{N}^{2}\mid\alpha\succeq0,|\alpha|\leq2\}\\
+ &amp; = &amp; \{(0,0),(0,1),(1,0),(1,1),(0,2),(2,0)\}.\end{aligned}\]</span></p>
+<h4 id="monomial." class="unnumbered">Monomial. </h4>
+<p>A monomial in variables <span class="math">\(x=(x_{1},x_{2},\ldots,x_{n})\)</span> is a product of the structure <span class="math">\(x^{\alpha}=(x_{1},\ldots,x_{n})^{(\alpha_{1},\ldots,\alpha^{n})}=x_{1}^{\alpha_{1}}\cdots x_{n}^{\alpha_{n}},\)</span> where <span class="math">\(\alpha=(\alpha_{1},\ldots,\alpha_{n})\in\mathbf{N}{}^{n}\)</span>. Degree of a monomial <span class="math">\(x^{\alpha}\)</span> is <span class="math">\(|\alpha|=\sum_{i=1}^{n}{\alpha_{i}}\)</span>.</p>
+<h4 id="the-truncated-zeta-vector." class="unnumbered">The truncated zeta vector. </h4>
+<p>The truncated zeta vector of dimension <span class="math">\(n\)</span> and degree <span class="math">\(d\)</span>, denoted by <span class="math">\([x]_{d}\)</span> is a vector containing all the monomials in <span class="math">\(n\)</span> variables with degree smaller than <span class="math">\(d\)</span>. It is expressed as <span class="math">\[[x]_{d}=\left(\underbrace{1}_{\textrm{degree 0 monomial}},\overbrace{x_{1},x_{2},\ldots,x_{n}}^{\textrm{degree 1 monomials}},\underbrace{x_{1}^{2},\ldots x_{n-1}x_{n},x_{n}^{2}}_{\textrm{degree 2 monomials}},\ldots,\overbrace{x_{1}^{d},\ldots,x_{n}^{d}}^{\textrm{degree d monomials}}\right).\]</span> Clearly, total number of elements in <span class="math">\([x]_{d}\)</span> is same as the cardinality of <span class="math">\(\mathbf{N}_{d}^{n}\)</span>, <em>i.e.,</em> <span class="math">\(\binom{n+d}{d}\)</span>. For example, if we take <span class="math">\(n=2,d=2\)</span>, we have the truncated zeta vector, <span class="math">\[[x]_{2}=\left(1,x_{1},x_{2},x_{1}^{2},x_{1}x_{2},x_{2}^{2}\right).\]</span></p>
+<h4 id="polynomial." class="unnumbered">Polynomial. </h4>
+<p>A (real) polynomial is an expression that is the sum of finite number of terms with each term being a monomial times a real coefficient. A polynomial <span class="math">\(f\)</span> can be represented as <span class="math">\[f(x)=\sum_{\alpha\in S}f_{\alpha}x^{\alpha},\]</span> where <span class="math">\(S\subset\mathbf{N}^{n}\)</span> and finite, and for all <span class="math">\(\alpha\in S\)</span> the corresponding monomial coefficient <span class="math">\(f_{\alpha}\)</span> is a real number. The set of all real polynomials in <span class="math">\(x=(x_{1},\ldots,x_{n})\)</span> with real coefficients is denoted by <span class="math">\(\mathbf{R}[x]=\mathbf{R}[x_{1},x_{2},\ldots,x_{n}]\)</span>. So we say, <span class="math">\(f\in\mathbf{R}[x]\)</span>. The degree of a polynomial is the maximum degree over all its constituent monomials. Degree of a polynomial <span class="math">\(f\)</span> is denoted by <span class="math">\(\textrm{degree}(f)\)</span>.</p>
+<p>For example <span class="math">\(f=-3x_{1}x_{2}^{2}x_{3}+4x_{3}^{2}+5x_{1}x_{3}^{3}\)</span> is a polynomial in <span class="math">\(\mathbf{R}[x_{1},x_{2},x_{3}]\)</span>. It has 3 monomials <span class="math">\(x_{1}x_{2}^{2}x_{3}\)</span> with coefficient -3 and degree 4, <span class="math">\(x_{3}^{2}\)</span> with coefficient 5 and degree 2 and <span class="math">\(x_{1}x_{3}^{3}\)</span> with coefficient 5 and degree 4. The maximum degree over the monomials is 4, so <span class="math">\(\textrm{degree}(f)=4\)</span>.</p>
+<h4 id="sum-of-squares-sos-polynomials." class="unnumbered">Sum of squares (SOS) polynomials. </h4>
+<p>A polynomial is a sum of squares if it can be written as a sum of squares of a finite number of polynomials. Consider a polynomial <span class="math">\(p\in\mathbf{R}[x]\)</span>. It is a sum of squares if there exists a finite number of polynomials <span class="math">\(q_{1},q_{2},\ldots,q_{m}\in\mathbf{R}[x]\)</span>, such that <span class="math">\[p(x)=\sum_{i=1}^{m}q_{i}(x)^{2}.\]</span> Naturally <span class="math">\(p\)</span> needs to have an even degree and the constituent polynomials would have a degree smaller than or equal to half of <span class="math">\(\textrm{degree}(p)\)</span>. For example, <span class="math">\((x_{1}^{3}x_{2}-3x_{3}x_{5}^{2})^{2}+(2x_{3}x_{4}+7x_{1}x_{5}+x_{5})^{2}\)</span> is an SOS polynomial. The set of all SOS polynomials is denoted by <span class="math">\(\Sigma[x]\)</span>.</p>
+<h4 id="riesz-linear-functional-and-moment-vector." class="unnumbered">Riesz linear functional and moment vector. </h4>
+<p>If <span class="math">\(f(x)=\sum_{\alpha\in S}f_{\alpha}x^{\alpha}\)</span>, then its Riesz linear functional is <span class="math">\(L_{y}(f)=\sum_{\alpha\in S}f_{\alpha}y_{\alpha}\)</span> with <span class="math">\(y=(y_{\alpha})_{\alpha\in S}\)</span> being a new decision vector, which is called moment vector. For example, consider the polynomial</p>
+<p><span class="math">\[\begin{aligned}
+f &amp; =-3x_{1}x_{2}^{2}x_{3}+5x_{1}x_{3}^{3}+4x_{3}^{2}\\
+ &amp; =-3(x_{1},x_{2},x_{3})^{(1,2,1)}+5(x_{1},x_{2},x_{3})^{(1,0,3)}+4(x_{1},x_{2},x_{3})^{(0,0,2)}\end{aligned}\]</span></p>
+<p>for this the Riesz linear functional is <span class="math">\[L_{y}(f)=-3y_{(1,2,1)}+5y_{(1,0,3)}+4y_{(0,0,2)},\]</span> where now we have a linear functional now in the new variables <span class="math">\[y=\left(y_{(1,2,1)},y_{(1,0,3)},y_{(0,0,2)}\right).\]</span> As there are finite number of elements in <span class="math">\(y\)</span> we could keep a table where <span class="math">\((1,2,1),(1,0,3),(0,0,2)\)</span> correspond to <span class="math">\(1,2,3\)</span> respectively and write <span class="math">\(y\)</span> as <span class="math">\(y=(y_{1},y_{2},y_{3})\)</span> a 3 dimensional vector. So by using Riesz linear functional we have expressed a polynomial in terms of a moment vector. This will help us in reformulating a polynomial optimization problem in terms of the moment vector.</p>
+<h4 id="moment-matrix." class="unnumbered">Moment matrix. </h4>
+<p>Consider a truncated zeta vector <span class="math">\([x]_{d}\)</span> with <span class="math">\(n\)</span> variables and degree <span class="math">\(d\)</span>. Construct the matrix <span class="math">\(X_{d}=[x]_{d}[x]_{d}^{T}\)</span>, which by construction is positive semidefinite. Now to each element of of <span class="math">\(X_{d}\)</span> we apply the Riesz linear functional. In the resultant matrix each element is expressed in terms of a moment vector <span class="math">\(y\)</span> now (see the example below); it is called a (truncated) moment matrix denoted by <span class="math">\(M_{d}\left(y\right)\)</span>. So, <span class="math">\[M_{d}(y)=L_{y}\left(X_{d}\right)=L_{y}\left([x]_{d}[x]_{d}^{T}\right).\]</span> For example, take <span class="math">\(n=2,d=2\)</span>. As discussed before the truncated zeta vector, <span class="math">\[[x]_{2}=\left(1,x_{1},x_{2},x_{1}^{2},x_{1}x_{2},x_{2}^{2}\right).\]</span> So,</p>
+<p><span class="math">\[\begin{aligned}
+X_{2} &amp; = &amp; [x]_{2}[x]_{2}^{T}\\
+ &amp; = &amp; \begin{bmatrix}1 &amp; x_{1} &amp; x_{2} &amp; x_{1}^{2} &amp; x_{1}x_{2} &amp; x_{2}^{2}\end{bmatrix}\begin{bmatrix}1\\
+x_{1}\\
+x_{2}\\
+x_{1}^{2}\\
+x_{1}x_{2}\\
+x_{2}^{2}
+\end{bmatrix}\\
+ &amp; = &amp; \left[\begin{array}{cccccc}
+1 &amp; x_{1} &amp; x_{2} &amp; x_{1}^{2} &amp; x_{1}x_{2} &amp; x_{2}^{2}\\
+x_{1} &amp; x_{1}^{2} &amp; x_{1}x_{2} &amp; x_{1}^{3} &amp; x_{1}^{2}x_{2} &amp; x_{1}x_{2}^{2}\\
+x_{2} &amp; x_{1}x_{2} &amp; x_{2}^{2} &amp; x_{1}^{2}x_{2} &amp; x_{1}x_{2}^{2} &amp; x_{2}^{3}\\
+x_{1}^{2} &amp; x_{1}^{3} &amp; x_{1}^{2}x_{2} &amp; x_{1}^{4} &amp; x_{1}^{3}x_{2} &amp; x_{1}^{2}x_{2}^{2}\\
+x_{1}x_{2} &amp; x_{1}^{2}x_{2} &amp; x_{1}x_{2}^{2} &amp; x_{1}^{3}x_{2} &amp; x_{1}^{2}x_{2}^{2} &amp; x_{1}x_{2}^{3}\\
+x_{2}^{2} &amp; x_{1}x_{2}^{2} &amp; x_{2}^{3} &amp; x_{1}^{2}x_{2}^{2} &amp; x_{1}x_{2}^{3} &amp; x_{2}^{4}
+\end{array}\right].\end{aligned}\]</span></p>
+<p>Now if we apply the Riesze linear functional element wise to <span class="math">\(X_{2}\)</span>, then we get <span class="math">\(M_{2}(y)\)</span> For example, consider the (6,5)th and (5,6)th element (both same, as <span class="math">\(X_{2}\)</span> is symmetric) of <span class="math">\(X_{2}\)</span>, <span class="math">\(x_{1}x_{2}^{3}=(x_{1},x_{2})^{(1,3)}\)</span>, for it <span class="math">\(L_{y}(x_{1}x_{2}^{3})=y_{(1,3)}=y_{13}\)</span> (to simplify the notation). Similarly, applying <span class="math">\(L_{y}\)</span> to the rest of the elements, we have <span class="math">\[M_{2}(y)=\left[\begin{array}{cccccc}
+y_{00} &amp; y_{10} &amp; y_{01} &amp; y_{20} &amp; y_{11} &amp; y_{02}\\
+y_{10} &amp; y_{20} &amp; y_{11} &amp; y_{30} &amp; y_{21} &amp; y_{12}\\
+y_{01} &amp; y_{11} &amp; y_{02} &amp; y_{21} &amp; y_{12} &amp; y_{03}\\
+y_{20} &amp; y_{30} &amp; y_{21} &amp; y_{40} &amp; y_{31} &amp; y_{22}\\
+y_{11} &amp; y_{21} &amp; y_{12} &amp; y_{31} &amp; y_{22} &amp; y_{13}\\
+y_{02} &amp; y_{12} &amp; y_{03} &amp; y_{22} &amp; y_{13} &amp; y_{04}
+\end{array}\right].\]</span></p>
+<h4 id="localizing-matrix." class="unnumbered">Localizing matrix. </h4>
+<p>Consider a polynomial of <span class="math">\(n\)</span> variables denoted by <span class="math">\(g\in\mathbf{R}[x]\)</span>, where <span class="math">\(g(x)=\sum_{\gamma\in S}g_{\gamma}x^{\gamma}\)</span>. Take a truncated zeta vector of <span class="math">\(n\)</span> variables (same as <span class="math">\(g\)</span>) and degree <span class="math">\(d\)</span>. Then the localizing matrix with respect to polynomial <span class="math">\(g\)</span> is defined as:</p>
+<p><span class="math">\[\begin{aligned}
+ &amp; M_{d}\left(gy\right)=L_{y}\left(g(x)X_{d}\right)=L_{y}\left(g(x)[x]_{d}[x]_{d}^{T}\right),\end{aligned}\]</span></p>
+<p>where the Riesz linear functional is applied element wise as we did in moment matrix.</p>
+<p>For example, take <span class="math">\(g(x)=1-x_{1}^{2}-x_{2}^{2}\in\mathbf{R}[(x_{1},x_{2})]\)</span>, so <span class="math">\(n=2\)</span>. Take the truncated zeta vector <span class="math">\([x]_{d}=(1,x_{1},x_{2})\)</span>. Now,</p>
+<p><span class="math">\[\begin{aligned}
+ &amp; g(x)X_{2}\\
+= &amp; (1-x_{1}^{2}-x_{2}^{2})\begin{bmatrix}1 &amp; x_{1} &amp; x_{2}\end{bmatrix}\begin{bmatrix}1\\
+x_{1}\\
+x_{2}
+\end{bmatrix}\\
+= &amp; \left[\begin{array}{ccc}
+-x_{1}^{2}-x_{2}^{2}+1 &amp; -x_{1}^{3}-x_{2}^{2}x_{1}+x_{1} &amp; -x_{2}^{3}-x_{1}^{2}x_{2}+x_{2}\\
+-x_{1}^{3}-x_{2}^{2}x_{1}+x_{1} &amp; -x_{1}^{4}-x_{2}^{2}x_{1}^{2}+x_{1}^{2} &amp; -x_{2}x_{1}^{3}-x_{2}^{3}x_{1}+x_{2}x_{1}\\
+-x_{2}^{3}-x_{1}^{2}x_{2}+x_{2} &amp; -x_{2}x_{1}^{3}-x_{2}^{3}x_{1}+x_{2}x_{1} &amp; -x_{2}^{4}-x_{1}^{2}x_{2}^{2}+x_{2}^{2}
+\end{array}\right].\end{aligned}\]</span></p>
+<p>Now we apply the Riesz linear functional <span class="math">\(L_{y}(\cdot)\)</span> to each of the elements of <span class="math">\(g(x)X_{d}\)</span>. For example, the (1,3)th and (3,1) th element (both same, as <span class="math">\(g(x)X_{2}\)</span> is symmetric) of <span class="math">\(g(x)X_{2}\)</span> is</p>
+<p><span class="math">\[\begin{aligned}
+ &amp; -x_{2}^{3}-x_{1}^{2}x_{2}+x_{2}\\
+= &amp; -(x_{1},x_{2})^{(0,3)}-(x_{1},x_{2})^{(2,1)}+(x_{1},x_{2})^{(0,1)}.\end{aligned}\]</span></p>
+<p>So, if we apply <span class="math">\(L_{y}(\cdot)\)</span> on it, we have</p>
+<p><span class="math">\[\begin{aligned}
+ &amp; L_{y}\left(-(x_{1},x_{2})^{(0,3)}-(x_{1},x_{2})^{(2,1)}+(x_{1},x_{2})^{(0,1)}\right)\\
+= &amp; -y_{(0,3)}-y_{(2,1)}+y_{(0,1)}\\
+= &amp; -y_{03}-y_{21}+y_{01}\textrm{ \quad(simplifying the notation)}\\
+= &amp; y_{01}-y_{21}-y_{03}.\end{aligned}\]</span></p>
+<p>So if we apply the Riesz linear functional <span class="math">\(L_{y}(\cdot)\)</span> to each of the elements of <span class="math">\(g(x)X_{d}\)</span>, we have</p>
+<p><span class="math">\[\begin{aligned}
+M_{2}(gy)= &amp; \left[\begin{array}{ccc}
+y_{00}-y_{20}-y_{02} &amp; y_{10}-y_{30}-y_{12} &amp; y_{01}-y_{21}-y_{03}\\
+y_{10}-y_{30}-y_{12} &amp; y_{20}-y_{40}-y_{22} &amp; y_{11}-y_{31}-y_{13}\\
+y_{01}-y_{21}-y_{03} &amp; y_{11}-y_{31}-y_{13} &amp; y_{02}-y_{22}-y_{04}
+\end{array}\right].\end{aligned}\]</span></p>
+<h4 id="rewriting-the-optimization-problem" class="unnumbered">Rewriting the optimization problem</h4>
+<p>For convenience, we write the original polynomial optimization problem (1) as:</p>
+<p><span class="math">\[\begin{aligned}
+f^{*}= &amp; \left(\begin{aligned} &amp; \text{minimize} &amp;  &amp; f(x)\\
+ &amp; \text{subject to} &amp;  &amp; g_{j}(x)\geq0\quad i=1,\ldots,m\\
+ &amp;  &amp;  &amp; x\in\mathbf{R}^{n},
+\end{aligned}
+\right),\qquad\qquad(2)\label{eq:opt_pblm_inequality_form}\end{aligned}\]</span></p>
+<p>where we have written the equality constraints <span class="math">\(h_{j}(x)=0\)</span> in problem (1) as two inequality constraints: <span class="math">\(h_{j}(x)\geq0\)</span> and <span class="math">\(h_{j}(x)\leq0\)</span>, and then renamed all the constraints as <span class="math">\(g_{j}(x)\)</span>. Assume the degree of polynomial <span class="math">\(g_{j}(x)\)</span> is either <span class="math">\(2v_{j}\)</span> (even) or <span class="math">\(2v_{j}-1\)</span> (odd).</p>
+<p>Let us simplify even more. Let <span class="math">\(K\)</span> be the constraint set, i.e.,</p>
+<p><span class="math">\[K=\left\{ x\in\mathbf{R}^{n}\mid g_{j}(x)\geq0,\quad i=1,\ldots,m\right\} .\qquad\qquad(3)\label{eq:constraint_set}\]</span></p>
+<p>We define an algebraic structure called <em>quadratic module</em> on <span class="math">\(K,\)</span> denoted by <span class="math">\(Q(g_{1},\ldots,g_{m})\)</span> as follows.</p>
+<p><span class="math">\[Q(g_{1},\ldots,g_{m})=\left\{ \sigma_{0}+\sum_{j=1}^{m}\sigma_{j}g_{j}\mid\sigma_{0},\sigma_{1},\ldots,\sigma_{m}\textrm{ are sum of squares polynomials}\right\}\]</span></p>
+<p>Then we can write problem (2) as</p>
+<p><span class="math">\[f^{*}=\left(\begin{aligned} &amp; \text{minimize} &amp;  &amp; f(x)\\
+ &amp; \text{subject to} &amp;  &amp; x\in K
+\end{aligned}
+\right).\qquad\qquad(4)\label{eq:shortened_opt_problem}\]</span></p>
+<p>How do we solve this optimization problem? Using <em>moment-SOS</em> method. It is due to Lasserre, so it is also called <em>Lasserre SDP hierarchy</em>.</p>
+<h4 id="when-can-we-apply-moment-sos-method" class="unnumbered">When can we apply moment-SOS method?</h4>
+<p>Moment-SOS method applies a famous result from algebraic geometry called <em>Putinar Positivstellensatz (P-satz)</em>.</p>
+<h3 id="theorem-1." class="unnumbered">Theorem 1. </h3>
+<p>(Putinar P-satz) Suppose there exists some polynomial in <span class="math">\(Q(g_{1},\ldots,g_{m})\)</span> such that the super-level set at <span class="math">\(0\)</span> is compact, i.e., <span class="math">\(\left\{ x\in\mathbf{R}^{n}\mid u(x)\geq0\right\} \)</span> is compact (when this is so then <span class="math">\(Q(g_{1},\ldots,g_{m})\)</span> is called an Archimedean quadratic module). If <span class="math">\(p(x)\)</span> is some strictly positive polynomial on <span class="math">\(K\)</span>, i.e., <span class="math">\[(\forall x\in K)\quad p(x)&gt;0,\]</span> then <span class="math">\(p\in Q(g_{1},\ldots,g_{m})\)</span>.</p>
+<p>To apply moment-SOS method we have to ensure that Putinar P-satz holds. In practice we can make this happen relatively easily. In many real life problems we have some known bound on <span class="math">\(x\)</span> for the optimization problem, i.e., we would know that there exists some positive number (possibly large) <span class="math">\(N\)</span> such that <span class="math">\(\|x\|^{2}\leq N\)</span>. If we add this constraint to <span class="math">\(K\)</span> (because this is a redundant but valid constraint, <span class="math">\(K\)</span> does not change), then it makes the quadratic module Archimedean, and Putinar P-satz holds.</p>
+<h1 id="the-moment-sos-method" class="unnumbered">The moment-SOS method</h1>
+<p>Now that we have ensured that Putinar P-satz holds, let us describe the moment-SOS method. In short, the moment-SOS method is a hierarchy of semidefinite optimization problems (hence convex), where the optimal values of the associated optimization problems form monotone nondecreasing sequence of lower bounds that converges to the global optimum of the nonconvex optimization problem. Roughly speaking, moment-SOS method asymptotically approaches the global optimal solution of the nonconvex optimization problem. The algorithm is given by Algorithm 1 given below.</p>
+<h4 id="section" class="unnumbered">——————————————————————————</h4>
+<h2 id="algorithm-1.-moment-sos-algorithm" class="unnumbered">Algorithm 1. Moment-SOS Algorithm</h2>
+<p><strong>Input.</strong></p>
+<p><span class="math">\(\bullet\)</span> The optimization problem</p>
+<p><span class="math">\[f^{*}=\left(\begin{aligned} &amp; \text{minimize} &amp;  &amp; f(x)\\
+ &amp; \text{subject to} &amp;  &amp; g_{j}(x)\geq0\quad j=1,\ldots,m\\
+ &amp;  &amp;  &amp; x\in\mathbf{R}^{n},
+\end{aligned}
+\right),\]</span> where <span class="math">\(f(x),g_{1}(x),\ldots,g_{m}(x)\)</span> are polynomials.</p>
+<p><span class="math">\(\bullet\)</span> Maximum number of iterations in the moment-SOS method, <span class="math">\(k\)</span>.</p>
+<p><strong>Output.</strong></p>
+<p><span class="math">\(\bullet\)</span> The optimal value <span class="math">\(f^{*}\)</span>, <em>or,</em></p>
+<p><span class="math">\(\bullet\)</span> A nontrivial lower bound <span class="math">\(\rho\leq f^{*}\)</span>.</p>
+<p><strong>Notation.</strong></p>
+<p><span class="math">\(\bullet\)</span><span class="math">\(v_{j}=\left\lceil \frac{\textrm{deg}(g_{j})}{2}\right\rceil ,\quad j=1,\ldots,m\)</span></p>
+<p><span class="math">\(\bullet\)</span><span class="math">\(v=\max_{j\in\{1,\ldots,m\}}v_{j}\)</span></p>
+<p><span class="math">\(\bullet\)</span><span class="math">\(d_{0}=\max\left\{ v,\left\lceil \frac{\textrm{deg}(f)}{2}\right\rceil \right\} \)</span></p>
+<p><strong>Algorithm.</strong></p>
+<p><strong>for</strong> <span class="math">\(d=d_{0},d_{0}+1,\ldots,k-1,k\)</span></p>
+<p>Solve the <span class="math">\(d\)</span>-th semidefinite relaxation problem</p>
+<p><span class="math">\[\begin{aligned}
+\rho^{(d)}=\left(\begin{aligned} &amp; \text{minimize}_{y} &amp;  &amp; L_{y}(f)\\
+ &amp; \text{subject to} &amp;  &amp; M_{d}(y)\succeq0\\
+ &amp;  &amp;  &amp; M_{d-v_{j}}(g_{j}y)\succeq0\\
+ &amp;  &amp;  &amp; y_{0}=1\\
+ &amp;  &amp;  &amp; y\in\mathbf{R}^{\binom{n+2d}{2d}}
+\end{aligned}
+,\quad j=1,\ldots,m\right).\end{aligned}\]</span></p>
+<p>Denote an optimal solution to the problem above by <span class="math">\(y^{*(d)}\)</span>.</p>
+<p><strong>if</strong> <span class="math">\(\mathop{\bf rank}M_{d-v}\left(y^{*(d)}\right)=\mathop{\bf rank}M_{d}\left(y^{*(d)}\right)\)</span></p>
+<p><span class="math">\(\quad\)</span><strong> then</strong> <span class="math">\(f^{*}:=\rho^{(d)}\)</span></p>
+<p><span class="math">\(\quad\)</span> <strong>break</strong></p>
+<p><strong>else </strong></p>
+<p><span class="math">\(\quad\)</span> <span class="math">\(\rho:=\rho^{(d)}\)</span></p>
+<p><strong>end if</strong></p>
+<p><strong>end for</strong></p>
+<h4 id="section-1" class="unnumbered">——————————————————————————<br /></h4>
+<p>For the algorithm we have the following convergence result.</p>
+<h3 id="theorem-2." class="unnumbered">Theorem 2. </h3>
+<p>(Convergence of Algorithm 1) Suppose Putinar P-satz holds. Then in Algorithm 1 <span class="math">\(\rho^{(k)}\to f^{*}\)</span> as <span class="math">\(k\to\infty\)</span>. Also, suppose, the input optimization problem in Algorithm 1 has a global unique minimizer <span class="math">\(x^{*}\)</span>. Then,</p>
+<p><span class="math">\[\begin{aligned}
+\left(\forall j\in\{1,\ldots,n\}\right)\quad &amp; L_{y^{*(k)}}\left(x_{j}\right)\to x_{j}^{*}\textrm{as}\;k\to\infty.\end{aligned}\]</span></p>
+<p>So, when the optimization problem in consideration has a unique minimizer, moment-SOS algorithm will find it eventually.</p>
+</body>
+</html>
