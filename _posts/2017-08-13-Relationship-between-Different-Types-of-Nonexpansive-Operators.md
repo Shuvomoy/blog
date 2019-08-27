@@ -10,7 +10,7 @@ Anyone interested in convex optimization theory knows the importance of nonexpan
 The block diagram can be shown as follows:
 
 
-![useful_image](https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/assets/img/nonexpansive_mapping.png)
+![useful_image](https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/assets/image1.png)
 
 
 
