@@ -1,0 +1,639 @@
+---
+layout: post 
+title: Solving sparse regression problem approximately using ``GLMNet+Convex`` in ``Julia``
+categories: [programming] 
+comments: true 
+---
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Problem in consideration.</strong></p>
+<p>We consider the sparse regression problem. The sparse regression problem is concerned with approximating a
+vector <!-- more --> $b\in\mathbf{R}^{m}$ with a linear combination of at most
+$k$ columns of a matrix $A\in\mathbf{R}^{m\times n}$ with bounded
+coefficients. The problem can be written as the following optimization
+problem 
+\begin{array}{ll}
+\textrm{minimize} &amp; \|Ax-b\|^{2}\\
+\textrm{subject to} &amp; \mathbf{card}(x)\leq k
+\end{array}
+where $x\in\mathbf{R}^{n}$ is the decision variable, and $A\in\mathbf{R}^{m\times n},b\in\mathbf{R}^{m},$
+and $M\in\mathbf{R}$ are problem data. Here, $\mathbf{card}(x)$ is the number of nonzero components in $x$.
+We discuss how to use lasso as a heuristic to approximately solve the sparse regression problem.</p>
+<p><strong>Lasso.</strong>
+Lasso solves the following probelm:</p>
+\begin{equation}
+\begin{array}{ll}
+\textrm{minimize} &amp; \|Ax-b\|_{2}^{2}+\lambda\|x\|_{1}\\
+\textrm{subject to} &amp; x\in\mathbf{R}^{n},
+\end{array}\tag{Lasso}\label{eq:lasso}
+\end{equation}<p>where $\lambda$ is a parameter that is related to the sparsity of
+the decision variable $x$. To compute the value of $\lambda$ corresponding
+to a desired $k$ such that $\mathbf{card}(x)\leq k$ we proceed as follows. Using the Julia package <code>GLMNet</code>, we solve
+the problem (\ref{eq:lasso}) for different values of $\lambda$,
+and find the smallest value of $\lambda=\lambda_{\textrm{lasso}}$
+for which we have $\mathbf{card}(x)=k$, and we consider the sparsity
+pattern of the corresponding solution $x^{\textrm{lasso}}.$ Let
+the index set of zero elements of $x^{\textrm{lasso}}$ be $\mathcal{Z}$,
+where $\mathcal{Z}$ has $n-k$ elements. Then we solve the following
+optimization problem:</p>
+\begin{align*}
+\begin{array}{ll}
+\textrm{minimize} &amp; \left\Vert Ax-b\right\Vert _{2}^{2}\\
+\textrm{subject to} &amp; \left(\forall j\in\mathcal{Z}\right)\quad x_{j}=0\\
+ &amp; x\in\mathbf{R}^{n},
+\end{array}
+\end{align*}<p>where $x$ is the decision variable. The solution to the last optimization problem approximately solves the sparse regression problem.</p>
+<p>The code to implement the heuristic above is given below.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="c">## The following function is used to compute cardinality of a vector.</span>
+<span class="k">function</span> <span class="n">l_0_norm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">delta_l0_norm</span><span class="p">)</span>
+    <span class="n">diffxy</span> <span class="o">=</span> <span class="n">x</span><span class="o">-</span><span class="n">y</span>
+    <span class="n">l_0_norm_xy</span> <span class="o">=</span> <span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="n">n</span>
+        <span class="k">if</span> <span class="n">abs</span><span class="p">(</span><span class="n">diffxy</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="n">delta_l0_norm</span>
+            <span class="n">l_0_norm_xy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="k">return</span> <span class="n">sum</span><span class="p">(</span><span class="n">l_0_norm_xy</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">function</span> <span class="n">card</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">delta_l0_norm</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">l_0_norm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">),</span><span class="n">n</span><span class="p">,</span><span class="n">delta_l0_norm</span><span class="p">)</span>
+<span class="k">end</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[24]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>card (generic function with 1 method)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let us create random data for our problem.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="c">## Data </span>
+
+<span class="n">b</span> <span class="o">=</span> <span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span>
+
+<span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">size</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="n">λ_glment_array</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">.^</span><span class="p">(</span><span class="n">range</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="n">stop</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">length</span><span class="o">=</span><span class="mi">500</span><span class="p">))</span>
+
+<span class="n">k</span> <span class="o">=</span> <span class="mi">20</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[25]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>20</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We solve lasso using <code>GLMNet</code>. We need to keep in mind that, <code>GLMNet</code> solves a scaled optimization
+problem:</p>
+\begin{array}{ll}
+\textrm{minimize} &amp; \frac{1}{2m}\|Ax-b\|_{2}^{2}+\lambda_{\textrm{glmnet}}\|x\|_{1}\\
+\textrm{subject to} &amp; x\in\mathbf{R}^{n},
+\end{array}<p>hence the relationship between $\lambda_\textrm{lasso}$ and $\lambda_{\textrm{glmnet}}$
+is, $\lambda_\textrm{lasso}=2m\lambda_{\textrm{glmnet}}$. We need to keep this mind
+while solving lasso using <code>glmnet</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="k">using</span> <span class="n">GLMNet</span><span class="p">,</span> <span class="n">LinearAlgebra</span>
+
+<span class="n">path</span> <span class="o">=</span> <span class="n">glmnet</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">lambda</span> <span class="o">=</span> <span class="n">λ_glment_array</span><span class="p">)</span>
+
+<span class="n">matrix_x</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="kt">Matrix</span><span class="p">,</span> <span class="n">path</span><span class="o">.</span><span class="n">betas</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[26]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>200×500 Array{Float64,2}:
+  0.0855313    0.0856175    0.0856576   …  0.0  0.0  0.0  0.0  0.0  0.0  0.0
+ -0.0917055   -0.0917409   -0.0917376      0.0  0.0  0.0  0.0  0.0  0.0  0.0
+ -0.0319542   -0.0319052   -0.03187        0.0  0.0  0.0  0.0  0.0  0.0  0.0
+  0.081857     0.0817642    0.0817094      0.0  0.0  0.0  0.0  0.0  0.0  0.0
+ -0.0400697   -0.040081    -0.0400693      0.0  0.0  0.0  0.0  0.0  0.0  0.0
+  0.0738247    0.0738023    0.0737613   …  0.0  0.0  0.0  0.0  0.0  0.0  0.0
+  0.0315285    0.0315502    0.0315496      0.0  0.0  0.0  0.0  0.0  0.0  0.0
+  0.0568881    0.0567569    0.0566668      0.0  0.0  0.0  0.0  0.0  0.0  0.0
+  0.0142899    0.014352     0.0143754      0.0  0.0  0.0  0.0  0.0  0.0  0.0
+ -0.148866    -0.148795    -0.148745       0.0  0.0  0.0  0.0  0.0  0.0  0.0
+ -0.146139    -0.146169    -0.146174    …  0.0  0.0  0.0  0.0  0.0  0.0  0.0
+  0.214413     0.214199     0.214077       0.0  0.0  0.0  0.0  0.0  0.0  0.0
+ -0.112098    -0.112198    -0.112253       0.0  0.0  0.0  0.0  0.0  0.0  0.0
+  ⋮                                     ⋱            ⋮                      
+ -0.0516457   -0.0517525   -0.0518079      0.0  0.0  0.0  0.0  0.0  0.0  0.0
+  0.0255597    0.025505     0.0254542      0.0  0.0  0.0  0.0  0.0  0.0  0.0
+  0.104107     0.103964     0.103865    …  0.0  0.0  0.0  0.0  0.0  0.0  0.0
+  0.0529997    0.052986     0.0529837      0.0  0.0  0.0  0.0  0.0  0.0  0.0
+ -0.124545    -0.124509    -0.124498       0.0  0.0  0.0  0.0  0.0  0.0  0.0
+ -0.02537     -0.0252965   -0.0252365      0.0  0.0  0.0  0.0  0.0  0.0  0.0
+  0.0393908    0.0394826    0.0395209      0.0  0.0  0.0  0.0  0.0  0.0  0.0
+ -0.0830412   -0.0830671   -0.0830705   …  0.0  0.0  0.0  0.0  0.0  0.0  0.0
+  0.0131137    0.0131882    0.013233       0.0  0.0  0.0  0.0  0.0  0.0  0.0
+ -0.0168449   -0.0168787   -0.0169096      0.0  0.0  0.0  0.0  0.0  0.0  0.0
+ -0.00736904  -0.00741346  -0.00742642     0.0  0.0  0.0  0.0  0.0  0.0  0.0
+ -0.0635473   -0.0634466   -0.0633929      0.0  0.0  0.0  0.0  0.0  0.0  0.0</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="n">λ_glmnet_smallest</span> <span class="o">=</span> <span class="n">missing</span>
+
+<span class="n">x_glmnet</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+<span class="n">m1</span><span class="p">,</span> <span class="n">n1</span> <span class="o">=</span> <span class="n">size</span><span class="p">(</span><span class="n">matrix_x</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="n">n1</span>
+    <span class="k">if</span> <span class="n">card</span><span class="p">(</span><span class="n">matrix_x</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="n">i</span><span class="p">],</span> <span class="n">m1</span><span class="p">,</span> <span class="mf">1e-5</span><span class="p">)</span> <span class="o">==</span> <span class="n">k</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">&quot;card(signal) =&quot;</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="s">&quot; found for λ = &quot;</span><span class="p">,</span>  <span class="n">λ_glment_array</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">λ_glmnet_smallest</span> <span class="o">=</span>  <span class="n">λ_glment_array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">&quot; corresponding solution x is = &quot;</span><span class="p">,</span> <span class="n">matrix_x</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">x_glmnet</span> <span class="o">=</span> <span class="n">matrix_x</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">break</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">λ_smallest</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">m</span><span class="o">*</span><span class="n">λ_glmnet_smallest</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>card(signal) =20 found for λ = 0.12251135766041187
+ corresponding solution x is = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.010654785037985847, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.03980206324958918, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.05554434414397388, -0.055590835074226325, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.12832195857774156, 0.0, 0.0, 0.05422120969214706, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.05954255312313665, 0.0, 0.0, 0.0, 0.011661735280637343, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.03267894684862561, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.10465121735302978, -0.01221061045936238, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.04746456515171435, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.003193050770020062, 0.0, 0.0, -0.11713632599164385, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.058270397018697684, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.02009194303873429, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.03974331054420238, 0.0, 0.04356584904475713, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.02968865378802068, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.045856267695745585, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[27]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>24.50227153208237</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's check what is the objective value of the sparse regression problem $\|Ax_\textrm{glmnet}-b\|^{2}$ corresponding to the solution $x_\textrm{glmnet}$.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="n">obj_glmnet</span> <span class="o">=</span> <span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">A</span><span class="o">*</span><span class="n">x_glmnet</span> <span class="o">-</span> <span class="n">b</span><span class="p">))</span><span class="o">^</span><span class="mi">2</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[28]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>61.421308665293125</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's find the sparsity pattern of $x_\textrm{glmnet}$.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="c"># finding the index of nonzero elements</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">findall</span><span class="p">(</span><span class="n">iszero</span><span class="p">,</span> <span class="n">x_glmnet</span><span class="p">)</span>
+<span class="n">k</span> <span class="o">==</span> <span class="n">n</span> <span class="o">-</span> <span class="n">length</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[29]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now solve the optimizaiton problem fixing the sparsity pattern.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="k">using</span> <span class="n">SCS</span>
+<span class="n">solver</span> <span class="o">=</span> <span class="n">SCSSolver</span><span class="p">()</span>
+<span class="k">using</span> <span class="n">Convex</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">objective</span> <span class="o">=</span> <span class="n">sumsquares</span><span class="p">(</span><span class="n">A</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span>
+<span class="n">problem</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span><span class="n">objective</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="n">length</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+    <span class="n">problem</span><span class="o">.</span><span class="n">constraints</span> <span class="o">+=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">Z</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">]</span>
+<span class="k">end</span>
+<span class="n">solve!</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span> <span class="n">solver</span><span class="p">)</span>
+<span class="n">x_convex</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">value</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>----------------------------------------------------------------------------
+	SCS v2.1.1 - Splitting Conic Solver
+	(c) Brendan O&#39;Donoghue, Stanford University, 2012
+----------------------------------------------------------------------------
+Lin-sys: sparse-indirect, nnz in A = 20186, CG tol ~ 1/iter^(2.00)
+eps = 1.00e-005, alpha = 1.50, max_iters = 5000, normalize = 1, scale = 1.00
+acceleration_lookback = 10, rho_x = 1.00e-003
+Variables n = 203, constraints m = 286
+Cones:	primal zero / dual free vars: 181
+	linear vars: 1
+	soc vars: 104, soc blks: 2
+Setup time: 3.90e-003s
+----------------------------------------------------------------------------
+ Iter | pri res | dua res | rel gap | pri obj | dua obj | kap/tau | time (s)
+----------------------------------------------------------------------------
+     0|2.72e+019 2.02e+019 1.00e+000 -1.62e+020 5.46e+018 1.27e+020 8.59e-003 
+   100|1.46e-003 5.57e-003 8.12e-005 3.75e+001 3.74e+001 3.59e-017 3.90e-001 
+   200|9.94e-005 1.53e-004 2.03e-006 3.74e+001 3.74e+001 2.70e-017 7.05e-001 
+   260|5.45e-006 6.19e-006 8.84e-008 3.74e+001 3.74e+001 8.57e-018 8.53e-001 
+----------------------------------------------------------------------------
+Status: Solved
+Timing: Solve time: 8.53e-001s
+	Lin-sys: avg # CG iterations: 45.35, avg solve time: 2.58e-003s
+	Cones: avg projection time: 4.86e-007s
+	Acceleration: avg step time: 6.71e-004s
+----------------------------------------------------------------------------
+Error metrics:
+dist(s, K) = 6.3156e-015, dist(y, K*) = 1.7764e-015, s&#39;y/|s||y| = -4.6488e-017
+primal res: |Ax + s - b|_2 / (1 + |b|_2) = 5.4514e-006
+dual res:   |A&#39;y + c|_2 / (1 + |c|_2) = 6.1894e-006
+rel gap:    |c&#39;x + b&#39;y| / (1 + |c&#39;x| + |b&#39;y|) = 8.8429e-008
+----------------------------------------------------------------------------
+c&#39;x = 37.3613, -b&#39;y = 37.3613
+============================================================================
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[31]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>200×1 Array{Float64,2}:
+  1.0608590048583632e-8
+ -9.181490311642793e-7 
+  1.8018009759462286e-6
+ -3.4655129710398487e-7
+  7.344792429992603e-7 
+  6.307287869120042e-7 
+ -1.0830591311065452e-6
+ -3.3030115518556507e-6
+  1.8445019866417895e-6
+ -1.843360254061027e-6 
+  2.5716534750968913e-7
+ -2.692704251295749e-6 
+ -0.15630289414985585  
+  ⋮                    
+  6.781385467027396e-7 
+  3.030850862494379e-6 
+ -1.2614161594638638e-6
+ -8.247488973257255e-7 
+ -0.12010987861606492  
+  9.110167615000481e-7 
+  2.0607562522487375e-6
+  2.410610032836188e-7 
+ -1.0747906080561943e-7
+ -2.6194867139936633e-7
+  3.51659198235632e-7  
+  1.6651221863569811e-6</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="k">function</span> <span class="n">polish</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">length</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">x_polished</span> <span class="o">=</span> <span class="n">x</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="n">n</span>
+        <span class="k">if</span> <span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="mf">1e-5</span>
+            <span class="n">x_polished</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="k">return</span> <span class="n">x_polished</span>
+<span class="k">end</span>
+
+<span class="n">x_convex_polished</span> <span class="o">=</span> <span class="n">polish</span><span class="p">(</span><span class="n">x_convex</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[32]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>200×1 Array{Float64,2}:
+  0.0                
+  0.0                
+  0.0                
+  0.0                
+  0.0                
+  0.0                
+  0.0                
+  0.0                
+  0.0                
+  0.0                
+  0.0                
+  0.0                
+ -0.15630289414985585
+  ⋮                  
+  0.0                
+  0.0                
+  0.0                
+  0.0                
+ -0.12010987861606492
+  0.0                
+  0.0                
+  0.0                
+  0.0                
+  0.0                
+  0.0                
+  0.0                </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's check what is the objective value of the sparse regression problem $\|Ax_\textrm{convex}-b\|^{2}$ corresponding to the solution $x_\textrm{convex}$.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="n">obj_convex</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">A</span><span class="o">*</span><span class="n">x_convex_polished</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[33]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>37.36114822578198</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>So, using the discussed heuristic, we have reduced the objective value quite a bit.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+ 
+
