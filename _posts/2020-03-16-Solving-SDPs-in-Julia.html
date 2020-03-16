@@ -1,0 +1,403 @@
+---
+layout: post 
+title: Solving semidefinite programming problems in Julia
+categories: [programming] 
+comments: true 
+---
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In this blog, we discuss how to solve semidefinite programs (SDPs) in <code>Julia</code> using <code>Convex.jl</code>. We consider optimization problem of the form: <!-- more --> 
+\begin{align*}
+\begin{array}{ll}
+\textrm{minimize} &amp; \mathbf{trace}(CX)\\
+\textrm{subject to} &amp; \mathbf{trace}(A_{i}X)=b_{i},\\
+ &amp; X\succeq0,
+\end{array} &amp; i=1,\ldots,m
+\end{align*}
+ where $X\in\mathbf{S}^{n}$ is the decision variable, and each of the $A_{i}$ matrices and $C$ are also in $\mathbf{S}^{n}$. By the notation $\mathbf{S}^{n}$, we denote the set of all symmetric $n\times n$ matrices.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="k">using</span> <span class="n">SCS</span><span class="p">,</span> <span class="n">Convex</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="c"># Create random data, change it to your problem</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="k">function</span> <span class="n">random_mat_create</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="c"># this function creates a symmetric n×n matrix</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">A</span><span class="o">&#39;*</span><span class="n">A</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="o">+</span><span class="n">A</span><span class="o">&#39;</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+    <span class="k">return</span> <span class="n">A</span>
+<span class="k">end</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[3]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>random_mat_create (generic function with 1 method)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">m</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="c"># set of all data matrices A_i</span>
+<span class="c"># the data matrix A = [A1 A2 A3 ....]</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="o">*</span><span class="n">n</span><span class="p">)</span> 
+<span class="n">b</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="c"># just ensuring our problem is feasible</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">&#39;*</span><span class="n">X_test</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="p">(</span><span class="n">X_test</span><span class="o">+</span><span class="n">X_test</span><span class="o">&#39;</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+<span class="k">for</span> <span class="n">i</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="n">m</span>
+    <span class="n">A</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="o">:</span><span class="n">i</span><span class="o">*</span><span class="n">n</span><span class="p">]</span> <span class="o">.=</span> <span class="n">random_mat_create</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">tr</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="o">:</span><span class="n">i</span><span class="o">*</span><span class="n">n</span><span class="p">]</span><span class="o">*</span><span class="n">X_test</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">abs</span><span class="o">.</span><span class="p">(</span><span class="n">random_mat_create</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[4]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>10×10 Array{Float64,2}:
+ 9.03674   1.17948    3.43891   3.57151   …  2.46661    0.417183   0.752343
+ 1.17948   8.9238     1.70795   0.542154     2.15305    2.71259    1.90757 
+ 3.43891   1.70795   10.2871    4.91184      5.84208    4.26352    1.78727 
+ 3.57151   0.542154   4.91184  10.179        3.04188    1.96433    4.00087 
+ 4.5512    0.742063   4.76705   0.195678     3.31279    1.52994    1.6952  
+ 3.06904   5.05922    1.37045   2.94231   …  0.103762   1.04352    2.19558 
+ 6.62511   4.674      2.52098   0.962733     1.28814    1.17117    0.193955
+ 2.46661   2.15305    5.84208   3.04188      7.82538    5.63904    1.20305 
+ 0.417183  2.71259    4.26352   1.96433      5.63904   10.4028     4.15761 
+ 0.752343  1.90757    1.78727   4.00087      1.20305    4.15761   12.0126  </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="n">A</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[5]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>10×200 Array{Float64,2}:
+  8.37293    0.667665    -1.22854    …   2.77486   -2.2901     -4.0583   
+  0.667665  12.616        4.91264        1.3714    -4.1415     -3.53089  
+ -1.22854    4.91264     14.9255        -2.19084    1.21653     4.24028  
+  4.51603    0.00375352  -0.0982328      1.13251    0.96652     1.70817  
+ -4.08281   -3.39449      1.87297       -1.73873    0.210931   -1.48436  
+  2.54058   -1.66677     -0.578994   …  -2.00063   -2.92275     0.872783 
+ -0.645559   1.96757     -1.15257       -2.10231   -1.29448    -2.16755  
+  0.270922  -1.2164      -1.89193        6.15181   -1.5798      0.545512 
+  5.41079   -2.23827     -3.80029       -1.5798     9.36313    -0.0422877
+ -2.67278   -3.40322     -5.03177        0.545512  -0.0422877  12.501    </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="n">X_test</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[6]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>10×10 Array{Float64,2}:
+ 2.37016  2.663    2.14938  2.19258  …  1.67943  2.10298  1.69472  2.63027
+ 2.663    4.00397  2.44426  2.90863     2.3462   2.72907  2.2963   3.2545 
+ 2.14938  2.44426  3.16049  2.60285     2.21071  2.93654  1.98592  2.82401
+ 2.19258  2.90863  2.60285  3.49116     2.30247  2.54996  2.65787  3.44004
+ 2.48768  3.08475  2.46383  2.42529     1.88276  2.13756  1.91832  2.61652
+ 1.74724  2.16432  1.79676  1.85251  …  1.10915  2.13903  1.65085  2.35332
+ 1.67943  2.3462   2.21071  2.30247     2.59563  1.93284  1.94294  2.72054
+ 2.10298  2.72907  2.93654  2.54996     1.93284  3.26249  2.06561  2.94912
+ 1.69472  2.2963   1.98592  2.65787     1.94294  2.06561  2.30704  2.9633 
+ 2.63027  3.2545   2.82401  3.44004     2.72054  2.94912  2.9633   4.17028</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="c"># define the solver</span>
+<span class="n">solver</span> <span class="o">=</span> <span class="n">SCSSolver</span><span class="p">()</span>
+
+<span class="c"># Create variable</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">Semidefinite</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+<span class="c"># Create objective</span>
+<span class="n">objective</span> <span class="o">=</span> <span class="n">tr</span><span class="p">(</span><span class="n">C</span><span class="o">*</span><span class="n">X</span><span class="p">)</span> <span class="c"># the objective to be minimized</span>
+<span class="n">problem</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span><span class="n">objective</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="n">m</span>
+    <span class="n">A_j</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="p">(</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="o">:</span><span class="n">j</span><span class="o">*</span><span class="n">n</span><span class="p">]</span>
+    <span class="n">problem</span><span class="o">.</span><span class="n">constraints</span> <span class="o">+=</span> <span class="p">[</span> <span class="n">tr</span><span class="p">(</span><span class="n">A_j</span><span class="o">*</span><span class="n">X</span><span class="p">)</span> <span class="o">==</span> <span class="n">b</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="p">]</span> <span class="c"># trace constraints</span>
+<span class="k">end</span>
+<span class="c"># you can add the semidefinite constraint in the following manner as well</span>
+<span class="c"># problem.constraints += [X in :SDP] # sdp constraint   </span>
+<span class="n">solve!</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span> <span class="n">solver</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>----------------------------------------------------------------------------
+	SCS v2.1.1 - Splitting Conic Solver
+	(c) Brendan O&#39;Donoghue, Stanford University, 2012
+----------------------------------------------------------------------------
+Lin-sys: sparse-indirect, nnz in A = 2246, CG tol ~ 1/iter^(2.00)
+eps = 1.00e-005, alpha = 1.50, max_iters = 5000, normalize = 1, scale = 1.00
+acceleration_lookback = 10, rho_x = 1.00e-003
+Variables n = 101, constraints m = 121
+Cones:	primal zero / dual free vars: 66
+	sd vars: 55, sd blks: 1
+Setup time: 3.14e-003s
+----------------------------------------------------------------------------
+ Iter | pri res | dua res | rel gap | pri obj | dua obj | kap/tau | time (s)
+----------------------------------------------------------------------------
+     0|3.97e+018 4.65e+019 1.00e+000 -7.58e+022 2.28e+021 5.70e+022 1.07e-002 
+   100|7.85e-003 2.48e-001 2.49e-004 4.64e+002 4.65e+002 2.33e-014 7.87e-002 
+   200|9.78e-004 1.36e-002 7.91e-005 5.16e+002 5.16e+002 1.40e-014 1.47e-001 
+   300|3.62e-004 4.87e-003 7.20e-005 5.16e+002 5.16e+002 3.25e-014 2.06e-001 
+   400|1.45e-004 2.76e-003 3.06e-006 5.16e+002 5.16e+002 2.63e-014 2.68e-001 
+   500|1.39e-005 2.53e-004 2.76e-006 5.16e+002 5.16e+002 2.17e-014 3.21e-001 
+   600|2.85e-006 2.19e-005 8.21e-007 5.16e+002 5.16e+002 2.56e-014 3.64e-001 
+   660|6.70e-007 7.62e-006 1.56e-007 5.16e+002 5.16e+002 9.56e-015 3.84e-001 
+----------------------------------------------------------------------------
+Status: Solved
+Timing: Solve time: 3.84e-001s
+	Lin-sys: avg # CG iterations: 35.85, avg solve time: 3.12e-004s
+	Cones: avg projection time: 2.32e-004s
+	Acceleration: avg step time: 2.99e-005s
+----------------------------------------------------------------------------
+Error metrics:
+dist(s, K) = 2.9853e-008, dist(y, K*) = 2.2117e-009, s&#39;y/|s||y| = -2.9142e-009
+primal res: |Ax + s - b|_2 / (1 + |b|_2) = 6.7026e-007
+dual res:   |A&#39;y + c|_2 / (1 + |c|_2) = 7.6165e-006
+rel gap:    |c&#39;x + b&#39;y| / (1 + |c&#39;x| + |b&#39;y|) = 1.5560e-007
+----------------------------------------------------------------------------
+c&#39;x = 516.3814, -b&#39;y = 516.3813
+============================================================================
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="n">X_sol</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">value</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[8]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>10×10 Array{Float64,2}:
+  5.84795   -1.75381   2.17455    3.04862   …  -0.820853  -0.728167  0.846206
+ -1.7538     3.38571   1.28508    0.60465       0.865215   1.76876   1.66318 
+  2.17455    1.2851    2.67546    1.76737       0.288973   1.09376   1.66977 
+  3.04861    0.604655  1.76737    4.3194        0.831004  -0.131279  2.16813 
+  4.39141   -0.177016  1.35618    5.39791       0.427239  -0.898725  2.09372 
+  1.16896    0.177529  0.210335   2.36355   …   0.446879  -0.415606  0.946979
+  0.889883   0.41473   1.47175    0.574722      0.386602   0.593839  0.761086
+ -0.820895   0.865198  0.288997   0.831033      0.982471   0.311282  0.795395
+ -0.728171   1.76876   1.09374   -0.13127       0.311293   1.18434   0.805614
+  0.846198   1.66316   1.66974    2.16813       0.795375   0.80563   1.75496 </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="n">optimal_val</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">optval</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[9]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>516.3814314848387</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+ 
+
