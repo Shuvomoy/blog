@@ -22,9 +22,9 @@ Now let us take a look at the steps in detail.
 In this step, we take a look at what our package is intended to do. We are given a quadratic function
 $f(x) = \frac{1}{2}x^{T}Ax+b^{T}x+c$, where $A \in \mathbf{R}^{n \times n}$ is a positive semidefinite matrix, $ b\in\mathbf{R}^{n} $ is a column vector, and $ c\in\mathbf{R} $ is a scalar. Our goal is to compute the proximal map of the function $f$ at a point $v\in\mathbf{R}^{n}$ for the parameter $\gamma\in\mathbf{R}_{++}$, which is given by the following formula:
 
-\]
+\begin{equation}
 \mathbf{prox}_{\gamma f}(v)=(I+\gamma A)^{-1}(v-\gamma b).
-\]
+\end{equation}
 
 #### Structure of the package
 
