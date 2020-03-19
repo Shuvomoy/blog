@@ -49,19 +49,16 @@ Our package is going to reside in `Github` for version control purpose, so we ne
 Two very nice packages that can facilitate our package development by a significant margin are `PkgTemplates` and `Revise`. We install both packages first from Julia REPL.
 
 ````julia
-
 using Pkg
 ````
 
 
 ````julia
-
 Pkg.add("PkgTemplates")
 ````
 
 
 ````julia
-
 Pkg.add("Revise")
 ````
 
@@ -73,7 +70,6 @@ A very convenient thing to do is to load `Revise` during startup. For this, plea
 ### Step 3. Create the blank package `TestPackage` using `PkgTemplates`
 
 ````julia
-
 using PkgTemplates
 ````
 
@@ -83,7 +79,6 @@ using PkgTemplates
 Now create a specific template for our project.
 
 ````julia
-
 template = Template(user = "shuvomoy") # change it to your specification
 ````
 
@@ -93,7 +88,6 @@ template = Template(user = "shuvomoy") # change it to your specification
 Now let us generate the package (empty for now).
 
 ````julia
-
 generate("TestPackage", template)
 ````
 
@@ -106,12 +100,11 @@ As seen in the output above, the package is located at the folder `C:\Users\shuv
 
 #### Files in `src` folder ##
 
-##### Description of `Utils.jl`
+**Description of `Utils.jl`**
 
 Create a file named `Utils.jl` in the `src` folder and copy the following code into it.
 
 ````julia
-
 # create a file named Utils.jl and copy the following code
 import LinearAlgebra # note that we are using another package LinearAlgebra in our file,
 # so we need to add this package to the list of dependencies for our package
@@ -127,13 +120,11 @@ end
 Note that in the code above, we have used the package `LinearAlgebra`. So, we need to add this package to the list of dependencies for our package. We can do that as follows.
 
 ````julia
-
 ] activate TestPackage
 ````
 
 
 ````julia
-
 ] add LinearAlgebra
 ````
 
@@ -143,20 +134,17 @@ Note that in the code above, we have used the package `LinearAlgebra`. So, we ne
 To quit the active environment and return to the base again we can run the following.
 
 ````julia
-
 ] activate
 ````
 
 
 
 
-##### Description of `Types.jl`
+**Description of `Types.jl`**
 
 Create a file named `Types.jl` in the `src` folder and copy the following code into it.
 
 ````julia
-
-
 # testPackageResult represents the result
 struct testPackageResult
     x::Array{Float64}
@@ -188,12 +176,11 @@ end
 
 
 
-#### Description of `TestPackage.jl`
+**Description of `TestPackage.jl`**
 
 Create `TestPackage.jl` file in the `src` folder, and copy the following code in the file. Note that we are including both `Types.jl` and `Utils.jl` and exporting the name of contents, so that when we invoke `using TestPackage`, we can use those functions.
 
 ````julia
-
 module TestPackage
 
 include("./Types.jl")
@@ -230,7 +217,6 @@ end # module
 Now that we have created the basic files for our package in the `src` folder, it is time now to test our code. To that goal, we create a file named `runtests.jl` in the `test` folder, where we have the following code.
 
 ````julia
-
 #### Files in `test` folder ##
 using TestPackage
 using Test
@@ -280,7 +266,6 @@ Now we are in a position to test our package. We can do that in one of the follo
 Another way is open the Julia REPL, and run the following code.
 
 ````julia
-
 ] test TestPackage
 ````
 
