@@ -51,13 +51,6 @@ I tell you one thing – if you want peace of mind, do not find fault with other
 
 ---
 
-I think Maharaji wanted me to gain nonattachment to success. A spiritual apprenticeship can be confusing, even counterintuitive. Those long exhausting trips, constant rejections, and the daily reminder of my unworthiness, the roller coaster of doubt and the balm of Maharaji's reassurance, were all part of the preparation. What developed in me during that time was faith - delicate, wavering, tenuous, but faith nonetheless. 
-
-Sometimes people say that faith is the opposite of doubt, but I don’t think that is true. To me, the opposite of faith is rigid certainty. Doubt is the constant companion of true faith; like God, it is more verb than noun. Faith is the ride, not the station, as Indians describe it. No one can avoid doubt, skepticism, fear, and uncertainty on the journey to faith if they are honest to themselves. Obstacles are the training ground.
-
--- **Larry Brilliant** 
-
----
 
 
 
