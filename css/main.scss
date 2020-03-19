@@ -21,8 +21,8 @@ $grey-color:       #828282;
 $grey-color-light: lighten($grey-color, 40%);
 $grey-color-dark:  darken($grey-color, 25%);
 
-$code-backgroud-color: #e3e0c5;
-$code-font-color:  #000000;  
+//$code-backgroud-color: #e3e0c5;
+//$code-font-color:  #000000;  
 
 
 // Width of the content area
@@ -55,7 +55,7 @@ $on-laptop:        800px;
 "base",
 "layout",
 "fonts",
-"syntax-highlighting" // "syntax-highlighting"
+"_syntax-highlighting-github" // "syntax-highlighting"
 ;
 
 @import url('http://fonts.googleapis.com/css?family=Open+Sans');
