@@ -51,9 +51,6 @@ I tell you one thing – if you want peace of mind, do not find fault with other
 
 ---
 
-
-
-
 Not only so, but we also glory in our sufferings, because we know that suffering produces perseverance; perseverance, character; and character, hope.
  
 -- **Romans 5:3-5, Bible (New International Version)**
@@ -284,11 +281,12 @@ You see, my son, it is not a fact that you will never face dangers. Difficulties
 
  It is in the very nature of man to see defects. You should learn to appreciate virtues. Man is no doubt liable to err, but you must not take notice. If you constantly find fault with others, you will see faults alone. … Do not look at the faults of others lest your eyes should become vitiated.
 
- -- **Sarada Devi** 
+-- **Sarada Devi** 
 ​	
 ---
 
 Man finds faults in others after bringing down his own mind to that level. Does anything ever happen to another if you enumerate his faults? It only injures you. This has been my attitude. Hence I cannot see anybody's faults. If a man does a trifle for me, I try to remember him even for that. To see the faults of others! One should never do it.
+
 ​	
 -- **Sarada Devi** 
 ​	
