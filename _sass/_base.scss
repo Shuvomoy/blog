@@ -193,11 +193,12 @@ blockquote{
 
 /**
  * Code formatting
- pre,code {
+ */
+pre,code {
   font-size: 15px;
   border-radius: 3px;
-  background-color: $code-backgroud-color;
-  color: $code-font-color; 
+  /* background-color: $code-backgroud-color; */
+  /* color: $code-font-color;  /*
 }
 
 code {
@@ -214,8 +215,6 @@ pre {
     padding-left: 0;
   }
 }
- */
-
 
 
 
