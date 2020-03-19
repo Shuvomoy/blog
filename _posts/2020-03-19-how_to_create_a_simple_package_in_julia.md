@@ -32,7 +32,7 @@ We can structure our package in two parts: source code in the `src` folder, and 
 
 **1. `src` folder**: The `src` folder has the following parts.
 
-* *`Types.jl`:* In this julia file, we store different data types to represent our problem data, parameter, and the output. The problem data essentially comprises of $A,b,c$. We will construct a data type `testPackageProblem` that will contain these matrices. Then, in the proximal map computation we have the parameter $\gamma$, which can be seen as a setting for our solver; we will create a data type called `testPackageSetting` that will contain this. Finally, our output vector will be stored in a data type named `testPackageResult`.
+* *`Types.jl`* In this julia file, we store different data types to represent our problem data, parameter, and the output. The problem data essentially comprises of $A,b,c$. We will construct a data type `testPackageProblem` that will contain these matrices. Then, in the proximal map computation we have the parameter $\gamma$, which can be seen as a setting for our solver; we will create a data type called `testPackageSetting` that will contain this. Finally, our output vector will be stored in a data type named `testPackageResult`.
 
 * *`Utils.jl`* This file contains a function for matrix inversion using the dependecy package `LinearAlgebra`.
 
