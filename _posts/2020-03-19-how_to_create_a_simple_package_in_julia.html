@@ -1,29 +1,13 @@
----
-layout: post 
-title: How to create a simple solver package in Julia
-categories: [programming] 
-comments: true 
----
 <!DOCTYPE html>
-<HTML lang = "en">
-<HEAD>
-  <meta charset="UTF-8"/>
+<html lang="en"><head>
+  
+  <meta charset="UTF-8">
+
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  
-  
-
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
-      TeX: { equationNumbers: { autoNumber: "AMS" } }
-    });
-  </script>
-
-  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-  </script>
 
   
-<style>
+  <style>
 pre.hljl {
     border: 1px solid #ccc;
     margin: 5px;
@@ -107,10 +91,8 @@ pre.hljl > span.hljl-gp { }
 pre.hljl > span.hljl-gs { }
 pre.hljl > span.hljl-gsB { }
 pre.hljl > span.hljl-gt { }
-</style>
-
-
-
+  </style>
+  
   <style type="text/css">
   @font-face {
   font-style: normal;
@@ -327,77 +309,79 @@ tr:nth-child(odd){
   padding: 0 20px;
   box-sizing: border-box; }
 
-*/
 .column,
 .columns {
-  width: 100%;
-  float: left;
-  box-sizing: border-box; }
+width: 100%;
+float: left;
+box-sizing: border-box; }
 @media (min-width: 400px) {
-  .container {
-    width: 85%;
-    padding: 0; }
+.container {
+width: 85%;
+padding: 0; }
 }
 @media (min-width: 550px) {
-  .container {
-    width: 80%; }
-  .column,
-  .columns {
-    margin-left: 4%; }
-  .column:first-child,
-  .columns:first-child {
-    margin-left: 0; }
+.container {
+width: 80%; }
+.column,
+.columns {
+margin-left: 4%; }
+.column:first-child,
+.columns:first-child {
+margin-left: 0; }
 
-  .one.column,
-  .one.columns                    { width: 4.66666666667%; }
-  .two.columns                    { width: 13.3333333333%; }
-  .three.columns                  { width: 22%;            }
-  .four.columns                   { width: 30.6666666667%; }
-  .five.columns                   { width: 39.3333333333%; }
-  .six.columns                    { width: 48%;            }
-  .seven.columns                  { width: 56.6666666667%; }
-  .eight.columns                  { width: 65.3333333333%; }
-  .nine.columns                   { width: 74.0%;          }
-  .ten.columns                    { width: 82.6666666667%; }
-  .eleven.columns                 { width: 91.3333333333%; }
-  .twelve.columns                 { width: 100%; margin-left: 0; }
+.one.column,
+.one.columns { width: 4.66666666667%; }
+.two.columns { width: 13.3333333333%; }
+.three.columns { width: 22%; }
+.four.columns { width: 30.6666666667%; }
+.five.columns { width: 39.3333333333%; }
+.six.columns { width: 48%; }
+.seven.columns { width: 56.6666666667%; }
+.eight.columns { width: 65.3333333333%; }
+.nine.columns { width: 74.0%; }
+.ten.columns { width: 82.6666666667%; }
+.eleven.columns { width: 91.3333333333%; }
+.twelve.columns { width: 100%; margin-left: 0; }
 
-  .one-third.column               { width: 30.6666666667%; }
-  .two-thirds.column              { width: 65.3333333333%; }
+.one-third.column { width: 30.6666666667%; }
+.two-thirds.column { width: 65.3333333333%; }
 
-  .one-half.column                { width: 48%; }
+.one-half.column { width: 48%; }
 
-  /* Offsets */
-  .offset-by-one.column,
-  .offset-by-one.columns          { margin-left: 8.66666666667%; }
-  .offset-by-two.column,
-  .offset-by-two.columns          { margin-left: 17.3333333333%; }
-  .offset-by-three.column,
-  .offset-by-three.columns        { margin-left: 26%;            }
-  .offset-by-four.column,
-  .offset-by-four.columns         { margin-left: 34.6666666667%; }
-  .offset-by-five.column,
-  .offset-by-five.columns         { margin-left: 43.3333333333%; }
-  .offset-by-six.column,
-  .offset-by-six.columns          { margin-left: 52%;            }
-  .offset-by-seven.column,
-  .offset-by-seven.columns        { margin-left: 60.6666666667%; }
-  .offset-by-eight.column,
-  .offset-by-eight.columns        { margin-left: 69.3333333333%; }
-  .offset-by-nine.column,
-  .offset-by-nine.columns         { margin-left: 78.0%;          }
-  .offset-by-ten.column,
-  .offset-by-ten.columns          { margin-left: 86.6666666667%; }
-  .offset-by-eleven.column,
-  .offset-by-eleven.columns       { margin-left: 95.3333333333%; }
+/* Offsets */
+.offset-by-one.column,
+.offset-by-one.columns { margin-left: 8.66666666667%; }
+.offset-by-two.column,
+.offset-by-two.columns { margin-left: 17.3333333333%; }
+.offset-by-three.column,
+.offset-by-three.columns { margin-left: 26%; }
+.offset-by-four.column,
+.offset-by-four.columns { margin-left: 34.6666666667%; }
+.offset-by-five.column,
+.offset-by-five.columns { margin-left: 43.3333333333%; }
+.offset-by-six.column,
+.offset-by-six.columns { margin-left: 52%; }
+.offset-by-seven.column,
+.offset-by-seven.columns { margin-left: 60.6666666667%; }
+.offset-by-eight.column,
+.offset-by-eight.columns { margin-left: 69.3333333333%; }
+.offset-by-nine.column,
+.offset-by-nine.columns { margin-left: 78.0%; }
+.offset-by-ten.column,
+.offset-by-ten.columns { margin-left: 86.6666666667%; }
+.offset-by-eleven.column,
+.offset-by-eleven.columns { margin-left: 95.3333333333%; }
 
-  .offset-by-one-third.column,
-  .offset-by-one-third.columns    { margin-left: 34.6666666667%; }
-  .offset-by-two-thirds.column,
-  .offset-by-two-thirds.columns   { margin-left: 69.3333333333%; }
+.offset-by-one-third.column,
+.offset-by-one-third.columns { margin-left: 34.6666666667%; }
+.offset-by-two-thirds.column,
+.offset-by-two-thirds.columns { margin-left: 69.3333333333%; }
 
-  .offset-by-one-half.column,
-  .offset-by-one-half.columns     { margin-left: 52%; }
+.offset-by-one-half.column,
+.offset-by-one-half.columns { margin-left: 52%; }
+
+*/
+
 
 }
 html {
@@ -653,294 +637,191 @@ img {max-width : 100%}
 div.title {text-align: center;}
 
   </style>
-
-
-
-</HEAD>
-  <BODY>
-    <div class ="container">
-      <div class = "row">
-        <div class = "col-md-12 twelve columns">
-
-          <div class="title">
-            
-            
-            
-          </div>
-
-          <p>In this blog, we discuss how to create a simple package in <code>Julia</code> that computes the proximal operator of a convex quadratic function. The goal is just to illustrate how to create a structured solver package, the code underlying the solver is very inefficient. Let us call our package <code>TestPackage</code>.</p> <!-- more -->
-<p>We will go through the following 6 steps in order to create a fully functioning package in Julia:</p>
+</head><body>
+---
+layout: post title: How to create a simple solver package in Julia
+categories: [programming] comments: true ---
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      TeX: { equationNumbers: { autoNumber: "AMS" } }
+    });
+  </script>
+<script type="text/javascript" async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+<div class="container">
+<div class="row">
+<div class="col-md-12 twelve columns">
+<div class="title"> </div>
+<p>In this blog, we discuss how to create a simple package in <code>Julia</code>
+that computes the proximal operator of a convex quadratic function. The
+goal is just to illustrate how to create a structured solver package,
+the code underlying the solver is very inefficient. Let us call our
+package <code>TestPackage</code>.</p>
+<!-- more -->
+<p>We will go through the following 6 steps in order to create a fully
+functioning package in Julia:</p>
 <ul>
-<li><p>Step 0. The inner mechanism of the package</p>
-</li>
-<li><p>Step 1. Ensure <code>Git</code> and <code>Github</code> is set up properly</p>
-</li>
-<li><p>Step 2. Install a few helpful packages for package development</p>
-</li>
-<li><p>Step 3. Create the blank package <code>TestPackage</code> using <code>PkgTemplates</code></p>
-</li>
-<li><p>Step 5. Test the package and upload the files to Github</p>
-</li>
+  <li>
+    <p>Step 0. The inner mechanism of the package</p>
+  </li>
+  <li>
+    <p>Step 1. Ensure <code>Git</code> and <code>Github</code> is set
+up properly</p>
+  </li>
+  <li>
+    <p>Step 2. Install a few helpful packages for package development</p>
+  </li>
+  <li>
+    <p>Step 3. Create the blank package <code>TestPackage</code> using
+    <code>PkgTemplates</code></p>
+  </li>
+  <li>
+    <p>Step 5. Test the package and upload the files to Github</p>
+  </li>
 </ul>
 <p>Now let us take a look at the steps in detail.</p>
 <h3>Step 0. The inner mechanism of the package</h3>
-<p>In this step, we take a look at what our package is intended to do. We are given a quadratic function <span class="math">$f(x) = \frac{1}{2}x^{T}Ax+b^{T}x+c$</span>, where <span class="math">$A \in \mathbf{R}^{n \times n}$</span> is a positive semidefinite matrix, &#36; b\in\mathbf&#123;R&#125;^&#123;n&#125; &#36; is a column vector, and &#36; c\in\mathbf&#123;R&#125; &#36; is a scalar. Our goal is to compute the proximal map of the function <span class="math">$f$</span> at a point <span class="math">$v\in\mathbf{R}^{n}$</span> for the parameter <span class="math">$\gamma\in\mathbf{R}_{++}$</span>, which is given by the following formula:</p>
+<p>In this step, we take a look at what our package is intended to do.
+We are given a quadratic function <span class="math">$f(x) =
+\frac{1}{2}x^{T}Ax+b^{T}x+c$</span>, where <span class="math">$A \in
+\mathbf{R}^{n \times n}$</span> is a positive semidefinite matrix, $
+b\in\mathbf{R}^{n} $ is a column vector, and $ c\in\mathbf{R} $ is a
+scalar. Our goal is to compute the proximal map of the function <span class="math">$f$</span> at a point <span class="math">$v\in\mathbf{R}^{n}$</span>
+for the parameter <span class="math">$\gamma\in\mathbf{R}_{++}$</span>,
+which is given by the following formula:</p>
 <p class="math">\[
 \mathbf{prox}_{\gamma f}(v)=(I+\gamma A)^{-1}(v-\gamma b).
 \]</p>
 <h4>Structure of the package</h4>
-<p>We can structure our package in two parts: source code in the <code>src</code> folder, and a bunch of test files in the <code>test</code> folder. We will use a julia package named <code>PkgTemplates</code> that will create the aforementioned structure automatically for us. For now, let us just briefly take a look at the main skeleton of our code.</p>
-<p><strong>1. <code>src</code> folder</strong>: The <code>src</code> folder has the following parts.</p>
+<p>We can structure our package in two parts: source code in the <code>src</code>
+folder, and a bunch of test files in the <code>test</code> folder. We
+will use a julia package named <code>PkgTemplates</code> that will
+create the aforementioned structure automatically for us. For now, let
+us just briefly take a look at the main skeleton of our code.</p>
+<p><strong>1. <code>src</code> folder</strong>: The <code>src</code>
+folder has the following parts.</p>
 <ul>
-<li><p><em><code>Types.jl</code>:</em> In this julia file, we store different data types to represent our problem data, parameter, and the output. The problem data essentially comprises of <span class="math">$A,b,c$</span>. We will construct a data type <code>testPackageProblem</code> that will contain these matrices. Then, in the proximal map computation we have the parameter <span class="math">$\gamma$</span>, which can be seen as a setting for our solver; we will create a data type called <code>testPackageSetting</code> that will contain this. Finally, our output vector will be stored in a data type named <code>testPackageResult</code>.</p>
-</li>
-<li><p><em><code>Utils.jl</code></em> This file contains a function for matrix inversion using the dependecy package <code>LinearAlgebra</code>.</p>
-</li>
-<li><p><em><code>TestPackage.jl</code></em> This is the main julia file corresponding to our package, indicated by its name. It will include both <code>Types.jl</code> and <code>Utils.jl</code>, and contain the main solver function called <code>solver_prox_quad</code>.</p>
-</li>
+  <li>
+    <p><em><code>Types.jl</code>:</em> In this julia file, we store
+different data types to represent our problem data, parameter, and the
+output. The problem data essentially comprises of <span class="math">$A,b,c$</span>.
+We will construct a data type <code>testPackageProblem</code> that
+will contain these matrices. Then, in the proximal map computation we
+have the parameter <span class="math">$\gamma$</span>, which can be
+seen as a setting for our solver; we will create a data type called <code>testPackageSetting</code>
+that will contain this. Finally, our output vector will be stored in a
+data type named <code>testPackageResult</code>.</p>
+  </li>
+  <li>
+    <p><em><code>Utils.jl</code></em> This file contains a function for
+matrix inversion using the dependecy package <code>LinearAlgebra</code>.</p>
+  </li>
+  <li>
+    <p><em><code>TestPackage.jl</code></em> This is the main julia file
+corresponding to our package, indicated by its name. It will include
+both <code>Types.jl</code> and <code>Utils.jl</code>, and contain the
+main solver function called <code>solver_prox_quad</code>.</p>
+  </li>
 </ul>
-<p><strong>2. <code>test</code> folder</strong>: The test folder has file called <code>runtests.jl</code>, where we run our solver to different test datasets and see if everything is working as expected.</p>
-<h3>Step 1. Ensure <code>Git</code> and <code>Github</code> is set up properly</h3>
-<p>Our package is going to reside in <code>Github</code> for version control purpose, so we need to create a free account first. Also, for version control, we need to have <code>git</code> installed on our computer as well. A very good instruction on how to perform these steps can be found <a href="https://julia.quantecon.org/more_julia/version_control.html">here</a>.</p>
+<p><strong>2. <code>test</code> folder</strong>: The test folder has
+file called <code>runtests.jl</code>, where we run our solver to
+different test datasets and see if everything is working as expected.</p>
+<h3>Step 1. Ensure <code>Git</code> and <code>Github</code> is set up
+properly</h3>
+<p>Our package is going to reside in <code>Github</code> for version
+control purpose, so we need to create a free account first. Also, for
+version control, we need to have <code>git</code> installed on our
+computer as well. A very good instruction on how to perform these steps
+can be found <a href="https://julia.quantecon.org/more_julia/version_control.html">here</a>.</p>
 <h3>Step 2. Install a few helpful packages for package development</h3>
-<p>Two very nice packages that can facilitate our package development by a significant margin are <code>PkgTemplates</code> and <code>Revise</code>. We install both packages first from Julia REPL.</p>
-
-
-
-<pre class='hljl'>
-<span class='hljl-k'>using</span><span class='hljl-t'> </span><span class='hljl-n'>Pkg</span>
+<p>Two very nice packages that can facilitate our package development
+by a significant margin are <code>PkgTemplates</code> and <code>Revise</code>.
+We install both packages first from Julia REPL.</p>
+<pre class="hljl"><span class="hljl-k">using</span><span class="hljl-t"> </span><span class="hljl-n">Pkg</span>
 </pre>
-
-
-
-
-<pre class='hljl'>
-<span class='hljl-n'>Pkg</span><span class='hljl-oB'>.</span><span class='hljl-nf'>add</span><span class='hljl-p'>(</span><span class='hljl-s'>&quot;PkgTemplates&quot;</span><span class='hljl-p'>)</span>
+<pre class="hljl"><span class="hljl-n">Pkg</span><span class="hljl-oB">.</span><span class="hljl-nf">add</span><span class="hljl-p">(</span><span class="hljl-s">"PkgTemplates"</span><span class="hljl-p">)</span>
 </pre>
-
-
-
-
-<pre class='hljl'>
-<span class='hljl-n'>Pkg</span><span class='hljl-oB'>.</span><span class='hljl-nf'>add</span><span class='hljl-p'>(</span><span class='hljl-s'>&quot;Revise&quot;</span><span class='hljl-p'>)</span>
+<pre class="hljl"><span class="hljl-n">Pkg</span><span class="hljl-oB">.</span><span class="hljl-nf">add</span><span class="hljl-p">(</span><span class="hljl-s">"Revise"</span><span class="hljl-p">)</span>
 </pre>
-
-
-<p>A very convenient thing to do is to load <code>Revise</code> during startup. For this, please follow the instructions at this <a href="https://timholy.github.io/Revise.jl/stable/config/#Using-Revise-by-default-1">link</a>.</p>
+<p>A very convenient thing to do is to load <code>Revise</code> during
+startup. For this, please follow the instructions at this <a href="https://timholy.github.io/Revise.jl/stable/config/#Using-Revise-by-default-1">link</a>.</p>
 <h3>Step 3. Create the blank package <code>TestPackage</code> using <code>PkgTemplates</code></h3>
-
-
-
-<pre class='hljl'>
-<span class='hljl-k'>using</span><span class='hljl-t'> </span><span class='hljl-n'>PkgTemplates</span>
+<pre class="hljl"><span class="hljl-k">using</span><span class="hljl-t"> </span><span class="hljl-n">PkgTemplates</span>
 </pre>
-
-
 <p>Now create a specific template for our project.</p>
-
-
-
-<pre class='hljl'>
-<span class='hljl-n'>template</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>Template</span><span class='hljl-p'>(</span><span class='hljl-n'>user</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-s'>&quot;shuvomoy&quot;</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-cs'># change it to your specification</span>
+<pre class="hljl"><span class="hljl-n">template</span><span class="hljl-t"> </span><span class="hljl-oB">=</span><span class="hljl-t"> </span><span class="hljl-nf">Template</span><span class="hljl-p">(</span><span class="hljl-n">user</span><span class="hljl-t"> </span><span class="hljl-oB">=</span><span class="hljl-t"> </span><span class="hljl-s">"shuvomoy"</span><span class="hljl-p">)</span><span class="hljl-t"> </span><span class="hljl-cs"># change it to your specification</span>
 </pre>
-
-
-<p>Now let us generate the package &#40;empty for now&#41;.</p>
-
-
-
-<pre class='hljl'>
-<span class='hljl-nf'>generate</span><span class='hljl-p'>(</span><span class='hljl-s'>&quot;TestPackage&quot;</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>template</span><span class='hljl-p'>)</span>
+<p>Now let us generate the package (empty for now).</p>
+<pre class="hljl"><span class="hljl-nf">generate</span><span class="hljl-p">(</span><span class="hljl-s">"TestPackage"</span><span class="hljl-p">,</span><span class="hljl-t"> </span><span class="hljl-n">template</span><span class="hljl-p">)</span>
 </pre>
-
-
 <p>As seen in the output above, the package is located at the folder <code>C:\Users\shuvo\.julia\dev\TestPackage</code>.</p>
 <h3>Step 4. Create the julia files</h3>
 <h4>Files in <code>src</code> folder</h4>
 <h5>Description of <code>Utils.jl</code></h5>
-<p>Create a file named <code>Utils.jl</code> in the <code>src</code> folder and copy the following code into it.</p>
-
-
-
-<pre class='hljl'>
-<span class='hljl-cs'># create a file named Utils.jl and copy the following code</span><span class='hljl-t'>
-</span><span class='hljl-k'>import</span><span class='hljl-t'> </span><span class='hljl-n'>LinearAlgebra</span><span class='hljl-t'> </span><span class='hljl-cs'># note that we are using another package LinearAlgebra in our file,</span><span class='hljl-t'>
-</span><span class='hljl-cs'># so we need to add this package to the list of dependencies for our package</span><span class='hljl-t'>
-
-</span><span class='hljl-k'>function</span><span class='hljl-t'> </span><span class='hljl-nf'>mat_inv</span><span class='hljl-p'>(</span><span class='hljl-n'>A</span><span class='hljl-p'>)</span><span class='hljl-t'>
-    </span><span class='hljl-k'>return</span><span class='hljl-t'> </span><span class='hljl-n'>LinearAlgebra</span><span class='hljl-oB'>.</span><span class='hljl-nf'>pinv</span><span class='hljl-p'>(</span><span class='hljl-n'>A</span><span class='hljl-p'>)</span><span class='hljl-t'>
-</span><span class='hljl-k'>end</span>
+<p>Create a file named <code>Utils.jl</code> in the <code>src</code>
+folder and copy the following code into it.</p>
+<pre class="hljl"><span class="hljl-cs"># create a file named Utils.jl and copy the following code</span><span class="hljl-t"><br></span><span class="hljl-k">import</span><span class="hljl-t"> </span><span class="hljl-n">LinearAlgebra</span><span class="hljl-t"> </span><span class="hljl-cs"># note that we are using another package LinearAlgebra in our file,</span><span class="hljl-t"><br></span><span class="hljl-cs"># so we need to add this package to the list of dependencies for our package</span><span class="hljl-t"><br><br></span><span class="hljl-k">function</span><span class="hljl-t"> </span><span class="hljl-nf">mat_inv</span><span class="hljl-p">(</span><span class="hljl-n">A</span><span class="hljl-p">)</span><span class="hljl-t"><br>    </span><span class="hljl-k">return</span><span class="hljl-t"> </span><span class="hljl-n">LinearAlgebra</span><span class="hljl-oB">.</span><span class="hljl-nf">pinv</span><span class="hljl-p">(</span><span class="hljl-n">A</span><span class="hljl-p">)</span><span class="hljl-t"><br></span><span class="hljl-k">end</span>
 </pre>
-
-
-<p>Note that in the code above, we have used the package <code>LinearAlgebra</code>. So, we need to add this package to the list of dependencies for our package. We can do that as follows.</p>
-
-
-
-<pre class='hljl'>
-<span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-n'>activate</span><span class='hljl-t'> </span><span class='hljl-n'>TestPackage</span>
+<p>Note that in the code above, we have used the package <code>LinearAlgebra</code>.
+So, we need to add this package to the list of dependencies for our
+package. We can do that as follows.</p>
+<pre class="hljl"><span class="hljl-p">]</span><span class="hljl-t"> </span><span class="hljl-n">activate</span><span class="hljl-t"> </span><span class="hljl-n">TestPackage</span>
 </pre>
-
-
-
-
-<pre class='hljl'>
-<span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-n'>add</span><span class='hljl-t'> </span><span class='hljl-n'>LinearAlgebra</span>
+<pre class="hljl"><span class="hljl-p">]</span><span class="hljl-t"> </span><span class="hljl-n">add</span><span class="hljl-t"> </span><span class="hljl-n">LinearAlgebra</span>
 </pre>
-
-
-<p>To quit the active environment and return to the base again we can run the following.</p>
-
-
-
-<pre class='hljl'>
-<span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-n'>activate</span>
+<p>To quit the active environment and return to the base again we can
+run the following.</p>
+<pre class="hljl"><span class="hljl-p">]</span><span class="hljl-t"> </span><span class="hljl-n">activate</span>
 </pre>
-
-
 <h5>Description of <code>Types.jl</code></h5>
-<p>Create a file named <code>Types.jl</code> in the <code>src</code> folder and copy the following code into it.</p>
-
-
-
-<pre class='hljl'>
-<span class='hljl-cs'># testPackageResult represents the result</span><span class='hljl-t'>
-</span><span class='hljl-k'>struct</span><span class='hljl-t'> </span><span class='hljl-n'>testPackageResult</span><span class='hljl-t'>
-    </span><span class='hljl-n'>x</span><span class='hljl-oB'>::</span><span class='hljl-nf'>Array</span><span class='hljl-p'>{</span><span class='hljl-n'>Float64</span><span class='hljl-p'>}</span><span class='hljl-t'>
-</span><span class='hljl-k'>end</span><span class='hljl-t'>
-
-</span><span class='hljl-cs'># testPackageProblem contains the problem data</span><span class='hljl-t'>
-
-</span><span class='hljl-k'>mutable struct</span><span class='hljl-t'> </span><span class='hljl-n'>testPackageProblem</span><span class='hljl-t'>
-    </span><span class='hljl-n'>A</span><span class='hljl-oB'>::</span><span class='hljl-nf'>Array</span><span class='hljl-p'>{</span><span class='hljl-n'>Float64</span><span class='hljl-p'>,</span><span class='hljl-ni'>2</span><span class='hljl-p'>}</span><span class='hljl-t'>
-    </span><span class='hljl-n'>b</span><span class='hljl-oB'>::</span><span class='hljl-nf'>Array</span><span class='hljl-p'>{</span><span class='hljl-n'>Float64</span><span class='hljl-p'>}</span><span class='hljl-t'>
-    </span><span class='hljl-n'>c</span><span class='hljl-oB'>::</span><span class='hljl-n'>Float64</span><span class='hljl-t'>
-    </span><span class='hljl-cs'># constructor</span><span class='hljl-t'>
-    </span><span class='hljl-k'>function</span><span class='hljl-t'> </span><span class='hljl-nf'>testPackageProblem</span><span class='hljl-p'>(</span><span class='hljl-n'>A</span><span class='hljl-p'>,</span><span class='hljl-n'>b</span><span class='hljl-p'>,</span><span class='hljl-n'>c</span><span class='hljl-p'>)</span><span class='hljl-t'>
-        </span><span class='hljl-nf'>new</span><span class='hljl-p'>(</span><span class='hljl-n'>A</span><span class='hljl-p'>,</span><span class='hljl-n'>b</span><span class='hljl-p'>,</span><span class='hljl-n'>c</span><span class='hljl-p'>)</span><span class='hljl-t'>
-    </span><span class='hljl-k'>end</span><span class='hljl-t'>
-</span><span class='hljl-k'>end</span><span class='hljl-t'>
-
-</span><span class='hljl-cs'># testPackageSetting contains the problem setting, i.e., the parameter γ as set by the user</span><span class='hljl-t'>
-
-</span><span class='hljl-k'>struct</span><span class='hljl-t'> </span><span class='hljl-n'>testPackageSetting</span><span class='hljl-t'>
-    </span><span class='hljl-n'>γ</span><span class='hljl-oB'>::</span><span class='hljl-n'>Float64</span><span class='hljl-t'>
-    </span><span class='hljl-cs'># constructor</span><span class='hljl-t'>
-    </span><span class='hljl-k'>function</span><span class='hljl-t'> </span><span class='hljl-nf'>testPackageSetting</span><span class='hljl-p'>(;</span><span class='hljl-n'>γ</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-p'>)</span><span class='hljl-t'>
-        </span><span class='hljl-nf'>new</span><span class='hljl-p'>(</span><span class='hljl-n'>γ</span><span class='hljl-p'>)</span><span class='hljl-t'>
-    </span><span class='hljl-k'>end</span><span class='hljl-t'>
-</span><span class='hljl-k'>end</span>
+<p>Create a file named <code>Types.jl</code> in the <code>src</code>
+folder and copy the following code into it.</p>
+<pre class="hljl"><span class="hljl-cs"># testPackageResult represents the result</span><span class="hljl-t"><br></span><span class="hljl-k">struct</span><span class="hljl-t"> </span><span class="hljl-n">testPackageResult</span><span class="hljl-t"><br>    </span><span class="hljl-n">x</span><span class="hljl-oB">::</span><span class="hljl-nf">Array</span><span class="hljl-p">{</span><span class="hljl-n">Float64</span><span class="hljl-p">}</span><span class="hljl-t"><br></span><span class="hljl-k">end</span><span class="hljl-t"><br><br></span><span class="hljl-cs"># testPackageProblem contains the problem data</span><span class="hljl-t"><br><br></span><span class="hljl-k">mutable struct</span><span class="hljl-t"> </span><span class="hljl-n">testPackageProblem</span><span class="hljl-t"><br>    </span><span class="hljl-n">A</span><span class="hljl-oB">::</span><span class="hljl-nf">Array</span><span class="hljl-p">{</span><span class="hljl-n">Float64</span><span class="hljl-p">,</span><span class="hljl-ni">2</span><span class="hljl-p">}</span><span class="hljl-t"><br>    </span><span class="hljl-n">b</span><span class="hljl-oB">::</span><span class="hljl-nf">Array</span><span class="hljl-p">{</span><span class="hljl-n">Float64</span><span class="hljl-p">}</span><span class="hljl-t"><br>    </span><span class="hljl-n">c</span><span class="hljl-oB">::</span><span class="hljl-n">Float64</span><span class="hljl-t"><br>    </span><span class="hljl-cs"># constructor</span><span class="hljl-t"><br>    </span><span class="hljl-k">function</span><span class="hljl-t"> </span><span class="hljl-nf">testPackageProblem</span><span class="hljl-p">(</span><span class="hljl-n">A</span><span class="hljl-p">,</span><span class="hljl-n">b</span><span class="hljl-p">,</span><span class="hljl-n">c</span><span class="hljl-p">)</span><span class="hljl-t"><br>        </span><span class="hljl-nf">new</span><span class="hljl-p">(</span><span class="hljl-n">A</span><span class="hljl-p">,</span><span class="hljl-n">b</span><span class="hljl-p">,</span><span class="hljl-n">c</span><span class="hljl-p">)</span><span class="hljl-t"><br>    </span><span class="hljl-k">end</span><span class="hljl-t"><br></span><span class="hljl-k">end</span><span class="hljl-t"><br><br></span><span class="hljl-cs"># testPackageSetting contains the problem setting, i.e., the parameter γ as set by the user</span><span class="hljl-t"><br><br></span><span class="hljl-k">struct</span><span class="hljl-t"> </span><span class="hljl-n">testPackageSetting</span><span class="hljl-t"><br>    </span><span class="hljl-n">γ</span><span class="hljl-oB">::</span><span class="hljl-n">Float64</span><span class="hljl-t"><br>    </span><span class="hljl-cs"># constructor</span><span class="hljl-t"><br>    </span><span class="hljl-k">function</span><span class="hljl-t"> </span><span class="hljl-nf">testPackageSetting</span><span class="hljl-p">(;</span><span class="hljl-n">γ</span><span class="hljl-t"> </span><span class="hljl-oB">=</span><span class="hljl-t"> </span><span class="hljl-ni">1</span><span class="hljl-p">)</span><span class="hljl-t"><br>        </span><span class="hljl-nf">new</span><span class="hljl-p">(</span><span class="hljl-n">γ</span><span class="hljl-p">)</span><span class="hljl-t"><br>    </span><span class="hljl-k">end</span><span class="hljl-t"><br></span><span class="hljl-k">end</span>
 </pre>
-
-
 <h4>Description of <code>TestPackage.jl</code></h4>
-<p>Create <code>TestPackage.jl</code> file in the <code>src</code> folder, and copy the following code in the file. Note that we are including both <code>Types.jl</code> and <code>Utils.jl</code> and exporting the name of contents, so that when we invoke <code>using TestPackage</code>, we can use those functions.</p>
-
-
-
-<pre class='hljl'>
-<span class='hljl-k'>module</span><span class='hljl-t'> </span><span class='hljl-n'>TestPackage</span><span class='hljl-t'>
-
-</span><span class='hljl-nf'>include</span><span class='hljl-p'>(</span><span class='hljl-s'>&quot;./Types.jl&quot;</span><span class='hljl-p'>)</span><span class='hljl-t'>
-
-</span><span class='hljl-k'>export</span><span class='hljl-t'> </span><span class='hljl-n'>testPackageResult</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>testPackageProblem</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>testPackageSetting</span><span class='hljl-t'> </span><span class='hljl-cs'># so that the user can uses the types from the main module, see how to use this types in runtest.jl</span><span class='hljl-t'>
-
-</span><span class='hljl-nf'>include</span><span class='hljl-p'>(</span><span class='hljl-s'>&quot;./Utils.jl&quot;</span><span class='hljl-p'>)</span><span class='hljl-t'>
-
-</span><span class='hljl-k'>export</span><span class='hljl-t'> </span><span class='hljl-n'>mat_inv</span><span class='hljl-t'> </span><span class='hljl-cs'># so that the we can use the functions from the main module</span><span class='hljl-t'>
-
-</span><span class='hljl-k'>function</span><span class='hljl-t'> </span><span class='hljl-nf'>solver_prox_quad</span><span class='hljl-p'>(</span><span class='hljl-n'>v</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>problem</span><span class='hljl-oB'>::</span><span class='hljl-n'>testPackageProblem</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>setting</span><span class='hljl-oB'>::</span><span class='hljl-n'>testPackageSetting</span><span class='hljl-p'>)</span><span class='hljl-t'>
-    </span><span class='hljl-cs'># extract the problem data</span><span class='hljl-t'>
-    </span><span class='hljl-n'>A</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>problem</span><span class='hljl-oB'>.</span><span class='hljl-n'>A</span><span class='hljl-t'>
-    </span><span class='hljl-n'>b</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>problem</span><span class='hljl-oB'>.</span><span class='hljl-n'>b</span><span class='hljl-t'>
-    </span><span class='hljl-n'>c</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>problem</span><span class='hljl-oB'>.</span><span class='hljl-n'>c</span><span class='hljl-t'>
-    </span><span class='hljl-cs'># extract the problem settings</span><span class='hljl-t'>
-    </span><span class='hljl-n'>γ</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>setting</span><span class='hljl-oB'>.</span><span class='hljl-n'>γ</span><span class='hljl-t'>
-    </span><span class='hljl-cs'># compute the proximal parameter</span><span class='hljl-t'>
-    </span><span class='hljl-n'>mat_prox_quad</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>LinearAlgebra</span><span class='hljl-oB'>.</span><span class='hljl-nf'>pinv</span><span class='hljl-p'>(</span><span class='hljl-n'>LinearAlgebra</span><span class='hljl-oB'>.</span><span class='hljl-n'>I</span><span class='hljl-t'> </span><span class='hljl-oB'>+</span><span class='hljl-t'> </span><span class='hljl-n'>γ</span><span class='hljl-oB'>*</span><span class='hljl-n'>A</span><span class='hljl-p'>)</span><span class='hljl-t'>
-    </span><span class='hljl-n'>prox_quad_v</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>mat_prox_quad</span><span class='hljl-oB'>*</span><span class='hljl-p'>(</span><span class='hljl-n'>v</span><span class='hljl-oB'>-</span><span class='hljl-n'>γ</span><span class='hljl-oB'>*</span><span class='hljl-n'>b</span><span class='hljl-p'>)</span><span class='hljl-t'>
-    </span><span class='hljl-k'>return</span><span class='hljl-t'> </span><span class='hljl-n'>prox_quad_v</span><span class='hljl-t'>
-</span><span class='hljl-k'>end</span><span class='hljl-t'>
-
-</span><span class='hljl-k'>export</span><span class='hljl-t'> </span><span class='hljl-n'>solver_prox_quad</span><span class='hljl-t'>
-
-</span><span class='hljl-k'>end</span><span class='hljl-t'> </span><span class='hljl-cs'># module</span>
+<p>Create <code>TestPackage.jl</code> file in the <code>src</code>
+folder, and copy the following code in the file. Note that we are
+including both <code>Types.jl</code> and <code>Utils.jl</code> and
+exporting the name of contents, so that when we invoke <code>using
+TestPackage</code>, we can use those functions.</p>
+<pre class="hljl"><span class="hljl-k">module</span><span class="hljl-t"> </span><span class="hljl-n">TestPackage</span><span class="hljl-t"><br><br></span><span class="hljl-nf">include</span><span class="hljl-p">(</span><span class="hljl-s">"./Types.jl"</span><span class="hljl-p">)</span><span class="hljl-t"><br><br></span><span class="hljl-k">export</span><span class="hljl-t"> </span><span class="hljl-n">testPackageResult</span><span class="hljl-p">,</span><span class="hljl-t"> </span><span class="hljl-n">testPackageProblem</span><span class="hljl-p">,</span><span class="hljl-t"> </span><span class="hljl-n">testPackageSetting</span><span class="hljl-t"> </span><span class="hljl-cs"># so that the user can uses the types from the main module, see how to use this types in runtest.jl</span><span class="hljl-t"><br><br></span><span class="hljl-nf">include</span><span class="hljl-p">(</span><span class="hljl-s">"./Utils.jl"</span><span class="hljl-p">)</span><span class="hljl-t"><br><br></span><span class="hljl-k">export</span><span class="hljl-t"> </span><span class="hljl-n">mat_inv</span><span class="hljl-t"> </span><span class="hljl-cs"># so that the we can use the functions from the main module</span><span class="hljl-t"><br><br></span><span class="hljl-k">function</span><span class="hljl-t"> </span><span class="hljl-nf">solver_prox_quad</span><span class="hljl-p">(</span><span class="hljl-n">v</span><span class="hljl-p">,</span><span class="hljl-t"> </span><span class="hljl-n">problem</span><span class="hljl-oB">::</span><span class="hljl-n">testPackageProblem</span><span class="hljl-p">,</span><span class="hljl-t"> </span><span class="hljl-n">setting</span><span class="hljl-oB">::</span><span class="hljl-n">testPackageSetting</span><span class="hljl-p">)</span><span class="hljl-t"><br>    </span><span class="hljl-cs"># extract the problem data</span><span class="hljl-t"><br>    </span><span class="hljl-n">A</span><span class="hljl-t"> </span><span class="hljl-oB">=</span><span class="hljl-t"> </span><span class="hljl-n">problem</span><span class="hljl-oB">.</span><span class="hljl-n">A</span><span class="hljl-t"><br>    </span><span class="hljl-n">b</span><span class="hljl-t"> </span><span class="hljl-oB">=</span><span class="hljl-t"> </span><span class="hljl-n">problem</span><span class="hljl-oB">.</span><span class="hljl-n">b</span><span class="hljl-t"><br>    </span><span class="hljl-n">c</span><span class="hljl-t"> </span><span class="hljl-oB">=</span><span class="hljl-t"> </span><span class="hljl-n">problem</span><span class="hljl-oB">.</span><span class="hljl-n">c</span><span class="hljl-t"><br>    </span><span class="hljl-cs"># extract the problem settings</span><span class="hljl-t"><br>    </span><span class="hljl-n">γ</span><span class="hljl-t"> </span><span class="hljl-oB">=</span><span class="hljl-t"> </span><span class="hljl-n">setting</span><span class="hljl-oB">.</span><span class="hljl-n">γ</span><span class="hljl-t"><br>    </span><span class="hljl-cs"># compute the proximal parameter</span><span class="hljl-t"><br>    </span><span class="hljl-n">mat_prox_quad</span><span class="hljl-t"> </span><span class="hljl-oB">=</span><span class="hljl-t"> </span><span class="hljl-n">LinearAlgebra</span><span class="hljl-oB">.</span><span class="hljl-nf">pinv</span><span class="hljl-p">(</span><span class="hljl-n">LinearAlgebra</span><span class="hljl-oB">.</span><span class="hljl-n">I</span><span class="hljl-t"> </span><span class="hljl-oB">+</span><span class="hljl-t"> </span><span class="hljl-n">γ</span><span class="hljl-oB">*</span><span class="hljl-n">A</span><span class="hljl-p">)</span><span class="hljl-t"><br>    </span><span class="hljl-n">prox_quad_v</span><span class="hljl-t"> </span><span class="hljl-oB">=</span><span class="hljl-t"> </span><span class="hljl-n">mat_prox_quad</span><span class="hljl-oB">*</span><span class="hljl-p">(</span><span class="hljl-n">v</span><span class="hljl-oB">-</span><span class="hljl-n">γ</span><span class="hljl-oB">*</span><span class="hljl-n">b</span><span class="hljl-p">)</span><span class="hljl-t"><br>    </span><span class="hljl-k">return</span><span class="hljl-t"> </span><span class="hljl-n">prox_quad_v</span><span class="hljl-t"><br></span><span class="hljl-k">end</span><span class="hljl-t"><br><br></span><span class="hljl-k">export</span><span class="hljl-t"> </span><span class="hljl-n">solver_prox_quad</span><span class="hljl-t"><br><br></span><span class="hljl-k">end</span><span class="hljl-t"> </span><span class="hljl-cs"># module</span>
 </pre>
-
-
 <h4>Files in <code>test</code> folder</h4>
-<p>Now that we have created the basic files for our package in the <code>src</code> folder, it is time now to test our code. To that goal, we create a file named <code>runtests.jl</code> in the <code>test</code> folder, where we have the following code.</p>
-
-
-
-<pre class='hljl'>
-<span class='hljl-cs'>#### Files in `test` folder ##</span><span class='hljl-t'>
-</span><span class='hljl-k'>using</span><span class='hljl-t'> </span><span class='hljl-n'>TestPackage</span><span class='hljl-t'>
-</span><span class='hljl-k'>using</span><span class='hljl-t'> </span><span class='hljl-n'>Test</span><span class='hljl-t'>
-
-</span><span class='hljl-nd'>@testset</span><span class='hljl-t'> </span><span class='hljl-s'>&quot;testing for a certain set of data&quot;</span><span class='hljl-t'> </span><span class='hljl-k'>begin</span><span class='hljl-t'>
-    </span><span class='hljl-cs'># Write your own tests here.</span><span class='hljl-t'>
-    </span><span class='hljl-n'>A</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-nfB'>2.67485</span><span class='hljl-t'>     </span><span class='hljl-nfB'>0.186124</span><span class='hljl-t'>   </span><span class='hljl-nfB'>0.583946</span><span class='hljl-t'>  </span><span class='hljl-oB'>-</span><span class='hljl-nfB'>0.145416</span><span class='hljl-t'>   </span><span class='hljl-nfB'>0.401269</span><span class='hljl-p'>;</span><span class='hljl-t'>
-    </span><span class='hljl-oB'>-</span><span class='hljl-nfB'>0.17813</span><span class='hljl-t'>     </span><span class='hljl-nfB'>0.526082</span><span class='hljl-t'>  </span><span class='hljl-oB'>-</span><span class='hljl-nfB'>0.325439</span><span class='hljl-t'>  </span><span class='hljl-oB'>-</span><span class='hljl-nfB'>1.46627</span><span class='hljl-t'>   </span><span class='hljl-oB'>-</span><span class='hljl-nfB'>3.09161</span><span class='hljl-t'> </span><span class='hljl-p'>;</span><span class='hljl-t'>
-    </span><span class='hljl-oB'>-</span><span class='hljl-nfB'>1.52653</span><span class='hljl-t'>    </span><span class='hljl-oB'>-</span><span class='hljl-nfB'>0.631375</span><span class='hljl-t'>  </span><span class='hljl-oB'>-</span><span class='hljl-nfB'>0.618636</span><span class='hljl-t'>  </span><span class='hljl-oB'>-</span><span class='hljl-nfB'>2.36654</span><span class='hljl-t'>    </span><span class='hljl-nfB'>0.291429</span><span class='hljl-p'>;</span><span class='hljl-t'>
-    </span><span class='hljl-oB'>-</span><span class='hljl-nfB'>0.609349</span><span class='hljl-t'>   </span><span class='hljl-oB'>-</span><span class='hljl-nfB'>1.0533</span><span class='hljl-t'>    </span><span class='hljl-oB'>-</span><span class='hljl-nfB'>0.323403</span><span class='hljl-t'>   </span><span class='hljl-nfB'>1.34789</span><span class='hljl-t'>   </span><span class='hljl-oB'>-</span><span class='hljl-nfB'>0.409167</span><span class='hljl-p'>;</span><span class='hljl-t'>
-    </span><span class='hljl-nfB'>0.0687345</span><span class='hljl-t'>  </span><span class='hljl-oB'>-</span><span class='hljl-nfB'>0.946264</span><span class='hljl-t'>  </span><span class='hljl-oB'>-</span><span class='hljl-nfB'>0.118661</span><span class='hljl-t'>  </span><span class='hljl-oB'>-</span><span class='hljl-nfB'>1.49908</span><span class='hljl-t'>   </span><span class='hljl-oB'>-</span><span class='hljl-nfB'>1.30312</span><span class='hljl-p'>]</span><span class='hljl-t'>
-
-    </span><span class='hljl-n'>A</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>A</span><span class='hljl-oB'>*</span><span class='hljl-n'>A</span><span class='hljl-oB'>&#39;</span><span class='hljl-t'>
-
-    </span><span class='hljl-n'>A</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>(</span><span class='hljl-n'>A</span><span class='hljl-oB'>+</span><span class='hljl-n'>A</span><span class='hljl-oB'>&#39;</span><span class='hljl-p'>)</span><span class='hljl-oB'>/</span><span class='hljl-ni'>2</span><span class='hljl-t'>
-
-    </span><span class='hljl-n'>b</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-nfB'>0.38052039048801956</span><span class='hljl-t'> </span><span class='hljl-p'>;</span><span class='hljl-t'>
-    </span><span class='hljl-nfB'>0.5554436732038299</span><span class='hljl-t'> </span><span class='hljl-p'>;</span><span class='hljl-t'>
-    </span><span class='hljl-nfB'>1.7334160203093987</span><span class='hljl-t'> </span><span class='hljl-p'>;</span><span class='hljl-t'>
-    </span><span class='hljl-nfB'>0.4470254916964832</span><span class='hljl-t'> </span><span class='hljl-p'>;</span><span class='hljl-t'>
-    </span><span class='hljl-nfB'>1.7676230141050555</span><span class='hljl-p'>]</span><span class='hljl-t'>
-
-    </span><span class='hljl-n'>c</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nfB'>1.0</span><span class='hljl-t'>
-
-    </span><span class='hljl-n'>v</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>ones</span><span class='hljl-p'>(</span><span class='hljl-ni'>5</span><span class='hljl-p'>)</span><span class='hljl-t'>
-
-    </span><span class='hljl-n'>problem_data</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>testPackageProblem</span><span class='hljl-p'>(</span><span class='hljl-n'>A</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>b</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>c</span><span class='hljl-p'>)</span><span class='hljl-t'>
-
-    </span><span class='hljl-n'>problem_setting</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>testPackageSetting</span><span class='hljl-p'>(</span><span class='hljl-n'>γ</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nfB'>2.0</span><span class='hljl-p'>)</span><span class='hljl-t'>
-
-    </span><span class='hljl-n'>result_approx</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-nfB'>0.10055689253917299</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-nfB'>0.24322623669390434</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-nfB'>0.0693976149433379</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-nfB'>0.09597235131516035</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-oB'>-</span><span class='hljl-nfB'>0.530323239453701</span><span class='hljl-p'>]</span><span class='hljl-t'>
-
-    </span><span class='hljl-nd'>@test</span><span class='hljl-t'> </span><span class='hljl-nf'>solver_prox_quad</span><span class='hljl-p'>(</span><span class='hljl-n'>v</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>problem_data</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>problem_setting</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-oB'>≈</span><span class='hljl-t'> </span><span class='hljl-n'>result_approx</span><span class='hljl-t'>
-
-</span><span class='hljl-k'>end</span><span class='hljl-t'>
-
-</span><span class='hljl-cs'># we can potentially create more matrices like that</span>
+<p>Now that we have created the basic files for our package in the <code>src</code>
+folder, it is time now to test our code. To that goal, we create a file
+named <code>runtests.jl</code> in the <code>test</code> folder, where
+we have the following code.</p>
+<pre class="hljl"><span class="hljl-cs">#### Files in `test` folder ##</span><span class="hljl-t"><br></span><span class="hljl-k">using</span><span class="hljl-t"> </span><span class="hljl-n">TestPackage</span><span class="hljl-t"><br></span><span class="hljl-k">using</span><span class="hljl-t"> </span><span class="hljl-n">Test</span><span class="hljl-t"><br><br></span><span class="hljl-nd">@testset</span><span class="hljl-t"> </span><span class="hljl-s">"testing for a certain set of data"</span><span class="hljl-t"> </span><span class="hljl-k">begin</span><span class="hljl-t"><br>    </span><span class="hljl-cs"># Write your own tests here.</span><span class="hljl-t"><br>    </span><span class="hljl-n">A</span><span class="hljl-t"> </span><span class="hljl-oB">=</span><span class="hljl-t"> </span><span class="hljl-p">[</span><span class="hljl-t"> </span><span class="hljl-nfB">2.67485</span><span class="hljl-t">     </span><span class="hljl-nfB">0.186124</span><span class="hljl-t">   </span><span class="hljl-nfB">0.583946</span><span class="hljl-t">  </span><span class="hljl-oB">-</span><span class="hljl-nfB">0.145416</span><span class="hljl-t">   </span><span class="hljl-nfB">0.401269</span><span class="hljl-p">;</span><span class="hljl-t"><br>    </span><span class="hljl-oB">-</span><span class="hljl-nfB">0.17813</span><span class="hljl-t">     </span><span class="hljl-nfB">0.526082</span><span class="hljl-t">  </span><span class="hljl-oB">-</span><span class="hljl-nfB">0.325439</span><span class="hljl-t">  </span><span class="hljl-oB">-</span><span class="hljl-nfB">1.46627</span><span class="hljl-t">   </span><span class="hljl-oB">-</span><span class="hljl-nfB">3.09161</span><span class="hljl-t"> </span><span class="hljl-p">;</span><span class="hljl-t"><br>    </span><span class="hljl-oB">-</span><span class="hljl-nfB">1.52653</span><span class="hljl-t">    </span><span class="hljl-oB">-</span><span class="hljl-nfB">0.631375</span><span class="hljl-t">  </span><span class="hljl-oB">-</span><span class="hljl-nfB">0.618636</span><span class="hljl-t">  </span><span class="hljl-oB">-</span><span class="hljl-nfB">2.36654</span><span class="hljl-t">    </span><span class="hljl-nfB">0.291429</span><span class="hljl-p">;</span><span class="hljl-t"><br>    </span><span class="hljl-oB">-</span><span class="hljl-nfB">0.609349</span><span class="hljl-t">   </span><span class="hljl-oB">-</span><span class="hljl-nfB">1.0533</span><span class="hljl-t">    </span><span class="hljl-oB">-</span><span class="hljl-nfB">0.323403</span><span class="hljl-t">   </span><span class="hljl-nfB">1.34789</span><span class="hljl-t">   </span><span class="hljl-oB">-</span><span class="hljl-nfB">0.409167</span><span class="hljl-p">;</span><span class="hljl-t"><br>    </span><span class="hljl-nfB">0.0687345</span><span class="hljl-t">  </span><span class="hljl-oB">-</span><span class="hljl-nfB">0.946264</span><span class="hljl-t">  </span><span class="hljl-oB">-</span><span class="hljl-nfB">0.118661</span><span class="hljl-t">  </span><span class="hljl-oB">-</span><span class="hljl-nfB">1.49908</span><span class="hljl-t">   </span><span class="hljl-oB">-</span><span class="hljl-nfB">1.30312</span><span class="hljl-p">]</span><span class="hljl-t"><br><br>    </span><span class="hljl-n">A</span><span class="hljl-t"> </span><span class="hljl-oB">=</span><span class="hljl-t"> </span><span class="hljl-n">A</span><span class="hljl-oB">*</span><span class="hljl-n">A</span><span class="hljl-oB">'</span><span class="hljl-t"><br><br>    </span><span class="hljl-n">A</span><span class="hljl-t"> </span><span class="hljl-oB">=</span><span class="hljl-t"> </span><span class="hljl-p">(</span><span class="hljl-n">A</span><span class="hljl-oB">+</span><span class="hljl-n">A</span><span class="hljl-oB">'</span><span class="hljl-p">)</span><span class="hljl-oB">/</span><span class="hljl-ni">2</span><span class="hljl-t"><br><br>    </span><span class="hljl-n">b</span><span class="hljl-t"> </span><span class="hljl-oB">=</span><span class="hljl-t"> </span><span class="hljl-p">[</span><span class="hljl-t"> </span><span class="hljl-nfB">0.38052039048801956</span><span class="hljl-t"> </span><span class="hljl-p">;</span><span class="hljl-t"><br>    </span><span class="hljl-nfB">0.5554436732038299</span><span class="hljl-t"> </span><span class="hljl-p">;</span><span class="hljl-t"><br>    </span><span class="hljl-nfB">1.7334160203093987</span><span class="hljl-t"> </span><span class="hljl-p">;</span><span class="hljl-t"><br>    </span><span class="hljl-nfB">0.4470254916964832</span><span class="hljl-t"> </span><span class="hljl-p">;</span><span class="hljl-t"><br>    </span><span class="hljl-nfB">1.7676230141050555</span><span class="hljl-p">]</span><span class="hljl-t"><br><br>    </span><span class="hljl-n">c</span><span class="hljl-t"> </span><span class="hljl-oB">=</span><span class="hljl-t"> </span><span class="hljl-nfB">1.0</span><span class="hljl-t"><br><br>    </span><span class="hljl-n">v</span><span class="hljl-t"> </span><span class="hljl-oB">=</span><span class="hljl-t"> </span><span class="hljl-nf">ones</span><span class="hljl-p">(</span><span class="hljl-ni">5</span><span class="hljl-p">)</span><span class="hljl-t"><br><br>    </span><span class="hljl-n">problem_data</span><span class="hljl-t"> </span><span class="hljl-oB">=</span><span class="hljl-t"> </span><span class="hljl-nf">testPackageProblem</span><span class="hljl-p">(</span><span class="hljl-n">A</span><span class="hljl-p">,</span><span class="hljl-t"> </span><span class="hljl-n">b</span><span class="hljl-p">,</span><span class="hljl-t"> </span><span class="hljl-n">c</span><span class="hljl-p">)</span><span class="hljl-t"><br><br>    </span><span class="hljl-n">problem_setting</span><span class="hljl-t"> </span><span class="hljl-oB">=</span><span class="hljl-t"> </span><span class="hljl-nf">testPackageSetting</span><span class="hljl-p">(</span><span class="hljl-n">γ</span><span class="hljl-t"> </span><span class="hljl-oB">=</span><span class="hljl-t"> </span><span class="hljl-nfB">2.0</span><span class="hljl-p">)</span><span class="hljl-t"><br><br>    </span><span class="hljl-n">result_approx</span><span class="hljl-t"> </span><span class="hljl-oB">=</span><span class="hljl-t"> </span><span class="hljl-p">[</span><span class="hljl-nfB">0.10055689253917299</span><span class="hljl-p">,</span><span class="hljl-t"> </span><span class="hljl-nfB">0.24322623669390434</span><span class="hljl-p">,</span><span class="hljl-t"> </span><span class="hljl-nfB">0.0693976149433379</span><span class="hljl-p">,</span><span class="hljl-t"> </span><span class="hljl-nfB">0.09597235131516035</span><span class="hljl-p">,</span><span class="hljl-t"> </span><span class="hljl-oB">-</span><span class="hljl-nfB">0.530323239453701</span><span class="hljl-p">]</span><span class="hljl-t"><br><br>    </span><span class="hljl-nd">@test</span><span class="hljl-t"> </span><span class="hljl-nf">solver_prox_quad</span><span class="hljl-p">(</span><span class="hljl-n">v</span><span class="hljl-p">,</span><span class="hljl-t"> </span><span class="hljl-n">problem_data</span><span class="hljl-p">,</span><span class="hljl-t"> </span><span class="hljl-n">problem_setting</span><span class="hljl-p">)</span><span class="hljl-t"> </span><span class="hljl-oB">≈</span><span class="hljl-t"> </span><span class="hljl-n">result_approx</span><span class="hljl-t"><br><br></span><span class="hljl-k">end</span><span class="hljl-t"><br><br></span><span class="hljl-cs"># we can potentially create more matrices like that</span>
 </pre>
-
-
 <h3>Step 5. Test the package and upload the files to Github</h3>
-<p>Now we are in a position to test our package. We can do that in one of the following ways. We can just run the <code>runtests.jl</code> file from an editor such as Atom, and run it by pressing <code>shift-enter</code>.</p>
+<p>Now we are in a position to test our package. We can do that in one
+of the following ways. We can just run the <code>runtests.jl</code>
+file from an editor such as Atom, and run it by pressing <code>shift-enter</code>.</p>
 <p>Another way is open the Julia REPL, and run the following code.</p>
-
-
-
-<pre class='hljl'>
-<span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-n'>test</span><span class='hljl-t'> </span><span class='hljl-n'>TestPackage</span>
+<pre class="hljl"><span class="hljl-p">]</span><span class="hljl-t"> </span><span class="hljl-n">test</span><span class="hljl-t"> </span><span class="hljl-n">TestPackage</span>
 </pre>
+<p>So, everything is working fine!</p>
+<p><strong>Add the package to Github.</strong> Now, we just add our
+package to Git version control system. Go to your Github account,
+create a new repository with name <code>TestPackage.jl</code>. In the
+package creation page, please keep the boxes unchecked for the <code>README.md</code>,
+<code>LICENSE</code>, and <code>.gitignore</code>, because these are
+already taken care of when we created our package using <code>PkgTemplates</code>.
+Next, drag and drop the folder from our <code>~/.julia/dev</code>
+directory (to be specific, the contents of the folder <code>C:\Users\shuvo\.julia\dev\TestPackage</code>)
+to Github desktop. The final step is to click the <code>publish branch</code>
+button to upload our files to Github.</p>
+<p>We are done creating a simple working Julia package!</p>
+<hr>
+<div class="footer">
+<p> Published from <a href="how_to_create_a_simple_package_in_julia.jmd">how_to_create_a_simple_package_in_julia.jmd</a>
+using <a href="http://github.com/mpastell/Weave.jl">Weave.jl</a> on
+2020-03-19. </p>
 
+</div>
+</div>
+</div>
+</div>
 
-<p>So, everything is working fine&#33;</p>
-<p><strong>Add the package to Github.</strong> Now, we just add our package to Git version control system. Go to your Github account, create a new repository with name <code>TestPackage.jl</code>. In the package creation page, please keep the boxes unchecked for the <code>README.md</code>, <code>LICENSE</code>, and <code>.gitignore</code>, because these are already taken care of when we created our package using <code>PkgTemplates</code>. Next, drag and drop the folder from our <code>~/.julia/dev</code> directory &#40;to be specific, the contents of the folder <code>C:\Users\shuvo\.julia\dev\TestPackage</code>&#41; to Github desktop. The final step is to click the <code>publish branch</code> button to upload our files to Github.</p>
-<p>We are done creating a simple working Julia package&#33;</p>
-
-
-
-          <HR/>
-          <div class="footer"><p>
-          Published from <a href="how_to_create_a_simple_package_in_julia.jmd">how_to_create_a_simple_package_in_julia.jmd</a> using
-          <a href="http://github.com/mpastell/Weave.jl">Weave.jl</a>
-           on 2020-03-19.
-          <p></div>
-
-
-        </div>
-      </div>
-    </div>
-  </BODY>
-</HTML>
+</body></html>
