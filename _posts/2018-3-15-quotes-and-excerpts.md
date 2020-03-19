@@ -7,7 +7,16 @@ comments: true
 
 I had a notebook of quotes and excerpts. Over the years I collected a lot of quotes and excerpts in it. I often sought refuge in some of the quotes, and they provided me great solace. Unfortunately, I have lost the notebook recently. In this blog I am just re-accumulating some of those quotes and excerpts (for which the sources are available) and adding a few new ones. I will update this blog as time progresses.
 
+*Last update: March 18, 2020*
+
 <!-- more -->
+
+I think Maharaji wanted me to gain nonattachment to success. A spiritual apprenticeship can be confusing, even counterintuitive. Those long exhausting trips, constant rejections, and the daily reminder of my unworthiness, the roller coaster of doubt and the balm of Maharaji's reassurance, were all part of the preparation. What developed in me during that time was faith - delicate, wavering, tenuous, but faith nonetheless. 
+
+Sometimes people say that faith is the opposite of doubt, but I don’t think that is true. To me, the opposite of faith is rigid certainty. Doubt is the constant companion of true faith; like God, it is more verb than noun. Faith is the ride, not the station, as Indians describe it. No one can avoid doubt, skepticism, fear, and uncertainty on the journey to faith if they are honest to themselves. Obstacles are the training ground.
+
+-- **Larry Brilliant** 
+
 ---
 
 You can plan for a hundred years, but you don't know what will happen the next moment.
@@ -34,13 +43,6 @@ When heaven is about to confer a great responsibility on any man, it will exerci
 --**MENG TZU,1 CHINA, 3RD CENT. BCE**
 
 ---
-
-A dream doesn't become reality through magic; it takes sweat, determination and hard work. 
-
--- **Colin Powell**
-
----
-
 
 I tell you one thing – if you want peace of mind, do not find fault with others. Rather learn to see your own faults. Learn to make the whole world your own. No one is a stranger, my child; this whole world is your own.
 
