@@ -9,6 +9,7 @@ I had a notebook of quotes and excerpts. Over the years I collected a lot of quo
 
 *Last update: March 18, 2020*
 
+---
 <!-- more -->
 
 I think Maharaji wanted me to gain nonattachment to success. A spiritual apprenticeship can be confusing, even counterintuitive. Those long exhausting trips, constant rejections, and the daily reminder of my unworthiness, the roller coaster of doubt and the balm of Maharaji's reassurance, were all part of the preparation. What developed in me during that time was faith - delicate, wavering, tenuous, but faith nonetheless. 
