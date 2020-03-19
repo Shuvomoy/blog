@@ -4,6 +4,7 @@ title: How to create a simple package in Julia
 categories: [programming] 
 comments: true 
 ---
+
 In this blog, we discuss how to create a simple package in `Julia` that computes the proximal operator of a convex quadratic function. The goal is just to illustrate how to create a structured solver package, the code underlying the solver is very inefficient. Let us call our package `TestPackage`. <!-- more -->
 
 We will go through the following 6 steps in order to create a fully functioning package in Julia:
@@ -47,37 +48,57 @@ Our package is going to reside in `Github` for version control purpose, so we ne
 
 Two very nice packages that can facilitate our package development by a significant margin are `PkgTemplates` and `Revise`. We install both packages first from Julia REPL.
 
-```julia; eval = false
+````julia
+
 using Pkg
-```
+````
 
-```julia; eval = false
+
+````julia
+
 Pkg.add("PkgTemplates")
-```
+````
 
-```julia; eval = false
+
+````julia
+
 Pkg.add("Revise")
-```
+````
+
+
+
 
 A very convenient thing to do is to load `Revise` during startup. For this, please follow the instructions at this [link](https://timholy.github.io/Revise.jl/stable/config/#Using-Revise-by-default-1).
 
 ### Step 3. Create the blank package `TestPackage` using `PkgTemplates`
 
-```julia; eval = false
+````julia
+
 using PkgTemplates
-```
+````
+
+
+
 
 Now create a specific template for our project.
 
-```julia; eval = false
+````julia
+
 template = Template(user = "shuvomoy") # change it to your specification
-```
+````
+
+
+
 
 Now let us generate the package (empty for now).
 
-```julia; eval = false
+````julia
+
 generate("TestPackage", template)
-```
+````
+
+
+
 
 As seen in the output above, the package is located at the folder `C:\Users\shuvo\.julia\dev\TestPackage`.
 
@@ -89,7 +110,8 @@ As seen in the output above, the package is located at the folder `C:\Users\shuv
 
 Create a file named `Utils.jl` in the `src` folder and copy the following code into it.
 
-```julia; eval = false
+````julia
+
 # create a file named Utils.jl and copy the following code
 import LinearAlgebra # note that we are using another package LinearAlgebra in our file,
 # so we need to add this package to the list of dependencies for our package
@@ -97,29 +119,43 @@ import LinearAlgebra # note that we are using another package LinearAlgebra in o
 function mat_inv(A)
     return LinearAlgebra.pinv(A)
 end
-```
+````
+
+
+
 
 Note that in the code above, we have used the package `LinearAlgebra`. So, we need to add this package to the list of dependencies for our package. We can do that as follows.
 
-```julia; eval = false
-] activate TestPackage
-```
+````julia
 
-```julia; eval = false
+] activate TestPackage
+````
+
+
+````julia
+
 ] add LinearAlgebra
-```
+````
+
+
+
 
 To quit the active environment and return to the base again we can run the following.
 
-```julia; eval = false
+````julia
+
 ] activate
-```
+````
+
+
+
 
 ##### Description of `Types.jl`
 
 Create a file named `Types.jl` in the `src` folder and copy the following code into it.
 
-```julia; eval = false
+````julia
+
 
 # testPackageResult represents the result
 struct testPackageResult
@@ -147,13 +183,17 @@ struct testPackageSetting
         new(γ)
     end
 end
-```
+````
+
+
+
 
 #### Description of `TestPackage.jl`
 
 Create `TestPackage.jl` file in the `src` folder, and copy the following code in the file. Note that we are including both `Types.jl` and `Utils.jl` and exporting the name of contents, so that when we invoke `using TestPackage`, we can use those functions.
 
-```julia; eval = false
+````julia
+
 module TestPackage
 
 include("./Types.jl")
@@ -180,13 +220,17 @@ end
 export solver_prox_quad
 
 end # module
-```
+````
+
+
+
 
 #### Files in `test` folder
 
 Now that we have created the basic files for our package in the `src` folder, it is time now to test our code. To that goal, we create a file named `runtests.jl` in the `test` folder, where we have the following code.
 
-```julia; eval = false
+````julia
+
 #### Files in `test` folder ##
 using TestPackage
 using Test
@@ -224,7 +268,10 @@ using Test
 end
 
 # we can potentially create more matrices like that
-```
+````
+
+
+
 
 ### Step 5. Test the package and upload the files to Github
 
@@ -232,9 +279,13 @@ Now we are in a position to test our package. We can do that in one of the follo
 
 Another way is open the Julia REPL, and run the following code.
 
-```julia; eval = false
+````julia
+
 ] test TestPackage
-```
+````
+
+
+
 
 So, everything is working fine!
 
