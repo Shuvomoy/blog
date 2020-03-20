@@ -27,7 +27,7 @@ With that guy, are you going somewhere?
 
 What are  you talking about? With *that* guy!  
 In the heavens beyond the sky  
-You are perhaps the earth;  
+You are the primordial dust;  
 His love turns into the meadow.$^\star$     
 
 My goddess,  
