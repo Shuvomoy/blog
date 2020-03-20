@@ -6,9 +6,9 @@ comments: true
 ---
 আকাশলীনা (Literal translation: the woman who merges into the heavens) is one of the most famous poems of [Jibanananda Das](https://en.wikipedia.org/wiki/Jibanananda_Das). I am deeply influenced by Das's style, and I have often tried to mimic the quietness of his poetry in my writing, fruitlessly.  <!-- more -->
 
-Recently, I reread his collection সাতটি তারার তিমির  (Darkness of the seven stars), where the poem first appeared and found it quite relevant in the context of my life. Though this is considered a simple poem compared to his other works, to my mind, it works on so many levels!
+Recently, I reread his collection [সাতটি তারার তিমির ](https://www.goodreads.com/book/show/18177720) (Darkness of the seven stars), where the poem first appeared. Though this is considered a simple poem compared to his other works, to my mind, it works on so many levels!
 
-In the poem, the poet addresses his beloved as সুরঞ্জনা (Suranjana); a mysterious word with its roots in Sanskrit. I do not know Sanskrit well enough. However, I read somewhere that Suranjana means an imprisoned goddess or princess, which works flawlessly in the curvature of space and time where I reside. 
+In the poem, the poet addresses his beloved as সুরঞ্জনা (Suranjana); a mysterious word with its roots in Sanskrit. I do not know Sanskrit well enough. However, I read somewhere that Suranjana means an imprisoned goddess or princess. 
 
 So, here is my unsuccessful attempt to translate this beautiful poem. I apologize in advance for my poor English and perhaps for butchering a beautiful poem; I wish I were capable of expressing my feelings in English properly.
 
