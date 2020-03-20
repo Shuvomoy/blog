@@ -10,7 +10,7 @@ Recently, I reread his collection সাতটি তারার তিমি�
 
 In the poem, the poet addresses his beloved as সুরঞ্জনা (Suranjana); a mysterious word with its roots in Sanskrit. I do not know Sanskrit well enough. However, I read somewhere that Suranjana means an imprisoned goddess or princess, which works flawlessly in the curvature of space and time where I reside. 
 
-So, here is my unsuccessful attempt to translate this beautiful poem. I apologize in advance for my poor English and perhaps for butchering a beautiful poem; I wish I were capable of expressing my feelings in English as well.
+So, here is my unsuccessful attempt to translate this beautiful poem. I apologize in advance for my poor English and perhaps for butchering a beautiful poem; I wish I were capable of expressing my feelings in English properly.
 
 ---
 ### The imprisoned goddess
