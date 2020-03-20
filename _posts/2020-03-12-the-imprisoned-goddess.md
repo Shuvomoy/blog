@@ -1,6 +1,6 @@
 ---
 layout: post
-title: The imprisoned goddess by Jibanananda Das 
+title: The Imprisoned Goddess by Jibanananda Das 
 categories: [non-technical]
 comments: true
 ---
