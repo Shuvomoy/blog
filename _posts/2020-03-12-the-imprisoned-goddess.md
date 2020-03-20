@@ -15,25 +15,25 @@ So, here is my unsuccessful attempt to translate this beautiful poem. I apologiz
 ---
 ### The imprisoned goddess
 
-My imprisoned goddess, please do not go to that corner!
-Do not talk to that guy: this is what I prefer!
-Please come back, princess;
-In this starry night filled with silvery fire.
+My imprisoned goddess, please do not go to that corner!  
+Do not talk to that guy: this is what I prefer!  
+Please come back, princess;  
+In this starry night filled with silvery fire.  
 
-Please come back to this wavefield;
-With all my heart, I await you here;
-But it seems that our distance is only growing -
-With that guy, are you going somewhere?
+Please come back to this wavefield;  
+With all my heart, I await you here;  
+But it seems that our distance is only growing---  
+With that guy, are you going somewhere?  
 
-What are  you talking about? With *that* guy!
-In the heavens beyond the sky
-You are perhaps the earth;
-His love turns into the meadow. 
+What are  you talking about? With *that* guy!  
+In the heavens beyond the sky  
+You are perhaps the earth;  
+His love turns into the meadow.   
 
-My goddess,
-Today your heart is that meadow:
-The heavens beyond the sky---
-The breeze beyond the wind.
+My goddess,  
+Today your heart is that meadow:  
+The heavens beyond the sky---  
+The breeze beyond the wind.  
 
 ---
 
@@ -45,25 +45,25 @@ Here is the original poem:
 
 ### আকাশলীনা
 
-সুরঞ্জনা, ওইখানে যেওনাকো তুমি,
-বোলোনাকো কথা ওই যুবকের সাথে;
-ফিরে এসো সুরঞ্জনা:
-নক্ষত্রের রুপালি আগুন ভরা রাতে;
+সুরঞ্জনা, ওইখানে যেওনাকো তুমি,  
+বোলোনাকো কথা ওই যুবকের সাথে;  
+ফিরে এসো সুরঞ্জনা:  
+নক্ষত্রের রুপালি আগুন ভরা রাতে;  
 
-ফিরে এসো এই মাঠে, ঢেউয়ে;
-ফিরে এসো হৃদয়ে আমার;
-দূর থেকে দূরে— আরো দূরে
-যুবকের সাথে তুমি যেওনাকো আর।
-
-কি কথা তাহার সাথে? তার সাথে!
-আকাশের আড়ালে আকাশে
-মৃত্তিকার মতো তুমি আজ:
-তার প্রেম ঘাস হয়ে আসে।
-
-সুরঞ্জনা,
-তোমার হৃদয় আজ ঘাস:
-বাতাসের ওপারে বাতাস—
-আকাশের ওপারে আকাশ।
+ফিরে এসো এই মাঠে, ঢেউয়ে;  
+ফিরে এসো হৃদয়ে আমার;  
+দূর থেকে দূরে— আরো দূরে  
+যুবকের সাথে তুমি যেওনাকো আর।  
+ 
+কি কথা তাহার সাথে? তার সাথে!   
+আকাশের আড়ালে আকাশে  
+মৃত্তিকার মতো তুমি আজ:  
+তার প্রেম ঘাস হয়ে আসে।  
+ 
+সুরঞ্জনা,  
+তোমার হৃদয় আজ ঘাস:  
+বাতাসের ওপারে বাতাস—  
+আকাশের ওপারে আকাশ।  
 
 ---
 
