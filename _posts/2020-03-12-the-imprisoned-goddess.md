@@ -1,10 +1,10 @@
 ---
 layout: post
-title: The imprisoned goddess 
+title: The imprisoned goddess by Jibanananda Das 
 categories: [non-technical]
 comments: true
 ---
-আকাশলীনা (Literal translation: the woman who merges into the heavens) is one of the most famous poems of Jibananda Das. I am deeply influenced by Das's style, and I have often tried to mimic the quietness of his poetry in my writing, fruitlessly.  <!-- more -->
+আকাশলীনা (Literal translation: the woman who merges into the heavens) is one of the most famous poems of [Jibanananda Das](https://en.wikipedia.org/wiki/Jibanananda_Das). I am deeply influenced by Das's style, and I have often tried to mimic the quietness of his poetry in my writing, fruitlessly.  <!-- more -->
 
 Recently, I reread his collection সাতটি তারার তিমির  (Darkness of the seven stars), where the poem first appeared and found it quite relevant in the context of my life. Though this is considered a simple poem compared to his other works, to my mind, it works on so many levels!
 
