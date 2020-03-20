@@ -31,9 +31,10 @@ You are perhaps the earth;
 His love turns into the meadow.$^\star$     
 
 My goddess,  
-Today your heart is that meadow:  
-The heavens beyond the sky---  
-The breeze beyond the wind.  
+Today your heart is that meadow: 
+The breeze beyond the wind---   
+The heavens beyond the sky. 
+
 
 ---
 
