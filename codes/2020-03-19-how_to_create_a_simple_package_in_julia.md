@@ -10,7 +10,7 @@ In this blog, we discuss how to create a simple package in `Julia` that computes
 We will go through the following 6 steps in order to create a fully functioning package in Julia:
 
 * Step 0. The inner mechanism of the package
-* Step 1. Ensure `Git` and `Github` is set up properly
+* Step 1. Ensure `Git` and `Github` are set up properly
 * Step 2. Install a few helpful packages for package development
 * Step 3. Create the blank package `TestPackage` using `PkgTemplates`
 * Step 5. Test the package and upload the files to Github
@@ -28,7 +28,7 @@ $f(x) = \frac{1}{2}x^{T}Ax+b^{T}x+c$, where $A \in \mathbf{R}^{n \times n}$ is a
 
 #### Structure of the package
 
-We can structure our package in two parts: source code in the `src` folder, and a bunch of test files in the `test` folder. We will use a julia package named `PkgTemplates` that will create the aforementioned structure automatically for us. For now, let us just briefly take a look at the main skeleton of our code.
+We can structure our package in two parts: source code in the `src` folder, and a bunch of test files in the `test` folder. We will use a julia package named `PkgTemplates` that will create the aforementioned structure automatically for us. For now, let us just briefly take a look at the skeleton of our code.
 
 **1. `src` folder**: The `src` folder has the following parts.
 
@@ -40,7 +40,7 @@ We can structure our package in two parts: source code in the `src` folder, and 
 
 **2. `test` folder**: The test folder has file called `runtests.jl`, where we run our solver to different test datasets and see if everything is working as expected.
 
-### Step 1. Ensure `Git` and `Github` is set up properly
+### Step 1. Ensure `Git` and `Github` are set up properly
 
 Our package is going to reside in `Github` for version control purpose, so we need to create a free account first. Also, for version control, we need to have `git` installed on our computer as well. A very good instruction on how to perform these steps can be found [here](https://julia.quantecon.org/more_julia/version_control.html).
 
