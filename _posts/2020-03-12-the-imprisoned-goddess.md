@@ -13,7 +13,7 @@ In the poem, the poet addresses his beloved as সুরঞ্জনা (Suranja
 So, here is my unsuccessful attempt to translate this beautiful poem. I apologize in advance for my poor English and perhaps for butchering a beautiful poem; I wish I were capable of expressing my feelings in English as well.
 
 ---
-## ###  The imprisoned goddess
+### The imprisoned goddess
 
 My imprisoned goddess, please do not go to that corner!
 Do not talk to that guy: this is what I prefer!
@@ -31,16 +31,17 @@ You are perhaps the earth;
 His love turns into the meadow. 
 
 My goddess,
-Today your heart is that meadow;
+Today your heart is that meadow:
 The heavens beyond the sky---
 The breeze beyond the wind.
 
 ---
 
-> I must admit that the fourth line of the third stanza eludes my understanding. I read this poem when I was around ten perhaps and understood nothing, of course. Today, I have started to realize the purport of this poem. But, the meaning of this one line still eludes me.
-> 
+I must admit that the fourth line of the third stanza eludes my understanding. I read this poem when I was around ten perhaps and understood nothing, of course. Today, I have started to realize the purport of this poem. But, the meaning of this one line still eludes me. 
 
 Here is the original poem:
+
+---
 
 ### আকাশলীনা
 
@@ -57,12 +58,13 @@ Here is the original poem:
 কি কথা তাহার সাথে? তার সাথে!
 আকাশের আড়ালে আকাশে
 মৃত্তিকার মতো তুমি আজ:
-তার প্রেম ঘাস হ’য়ে অাসে।
+তার প্রেম ঘাস হয়ে আসে।
 
 সুরঞ্জনা,
 তোমার হৃদয় আজ ঘাস:
 বাতাসের ওপারে বাতাস—
 আকাশের ওপারে আকাশ।
 
+---
 
 
