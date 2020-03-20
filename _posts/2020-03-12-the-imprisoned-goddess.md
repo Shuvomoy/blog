@@ -28,7 +28,7 @@ With that guy, are you going somewhere?
 What are  you talking about? With *that* guy!  
 In the heavens beyond the sky  
 You are perhaps the earth;  
-His love turns into the meadow.   
+His love turns into the meadow.$^\star$     
 
 My goddess,  
 Today your heart is that meadow:  
@@ -37,7 +37,7 @@ The breeze beyond the wind.
 
 ---
 
-I must admit that the fourth line of the third stanza eludes my understanding. I read this poem when I was around ten perhaps and understood nothing, of course. Today, I have started to realize the purport of this poem. But, the meaning of this one line still eludes me. 
+**$^\star$** I must admit that the fourth line of the third stanza eludes my understanding. I read this poem when I was around ten perhaps and understood nothing, of course. Today, I have started to realize the purport of this poem. But, the meaning of this one line still eludes me. 
 
 Here is the original poem:
 
