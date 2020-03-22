@@ -5,6 +5,8 @@ categories: [programming]
 comments: true 
 ---
 
+> Thomson's Rule for First-Time Telescope Makers: *"It is faster to make a four-inch mirror then a six-inch mirror than to make a six-inch mirror."*
+
 In this blog, we discuss how to create a simple package in `Julia` that computes the proximal operator of a convex quadratic function. The goal is just to illustrate how to create a structured solver package, the code underlying the solver is very inefficient. Let us call our package `TestPackage`. <!-- more -->
 
 We will go through the following 6 steps in order to create a fully functioning package in Julia:
