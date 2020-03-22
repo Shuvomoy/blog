@@ -8,7 +8,7 @@ comments: true
 
 Recently, I reread his collection [সাতটি তারার তিমির ](https://www.goodreads.com/book/show/18177720) (Darkness of the seven stars), where the poem first appeared. Though this is considered a simple poem compared to his other works, to my mind, it works on so many levels!
 
-In the poem, the poet addresses his beloved as সুরঞ্জনা (Suranjana); a mysterious word with its roots in Sanskrit. I do not know Sanskrit well enough. However, I read somewhere that Suranjana means an imprisoned goddess or princess. 
+In the poem, the poet addresses his beloved as সুরঞ্জনা (Suranjana); a mysterious word with its roots in Sanskrit. I do not know Sanskrit well enough. However, I read somewhere that Suranjana means an imprisoned goddess or princess.
 
 So, here is my unsuccessful attempt to translate this beautiful poem. I apologize in advance for my poor English and perhaps for butchering a beautiful poem; I wish I were capable of expressing my feelings in English properly.
 
@@ -31,9 +31,9 @@ You are the primordial dust;
 His love turns into the meadow.$^\star$     
 
 My goddess,  
-Today your heart is that meadow: 
+Today your heart is that meadow:  
 The breeze beyond the wind---   
-The heavens beyond the sky. 
+The heavens beyond the sky.   
 
 
 ---
