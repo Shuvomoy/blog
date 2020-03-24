@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "If you did not give me love" by Rabindranath Tagore
-categories: [non-technical, Tagore]
-comments: true
+title: If you did not give me love by Rabindranath Tagore  
+categories: [non-technical, Tagore]  
+comments: true  
 ---
 
 *If you did not give me love* (যদি প্রেম দিলে না প্রাণে) is a song written and composed by [Rabindranath Tagore](https://en.wikipedia.org/wiki/Rabindranath_Tagore). He wrote and composed the song in 1938, just three years before he passed away. The song uses the [Sahana raag](https://en.wikipedia.org/wiki/Sahana_(raga))---a popular musical scale in Carnatic music, while the taal is Ektal---a very common musical meter in Tagore's songs. <!-- more -->
