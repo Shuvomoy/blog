@@ -36,10 +36,9 @@ Today your heart is that meadow:
 The breeze beyond the wind---   
 The heavens beyond the sky.   
 
-
 ---
 
-**$^\star$** I must admit that the fourth line of the third stanza eludes my understanding. I read this poem when I was around ten perhaps and understood nothing, of course. Today, I have started to realize the purport of this poem. But, the meaning of this one line still eludes me. 
+**$^\star$** I must admit that the fourth line of the third stanza eludes my understanding. I was very young when I read the poem for the first time, and I understood nothing then, of course. Today, I have started to realize the purport of this poem. But, the meaning of this one line still eludes me. 
 
 Here is the original poem:
 
@@ -56,12 +55,12 @@ Here is the original poem:
 ফিরে এসো হৃদয়ে আমার;  
 দূর থেকে দূরে— আরো দূরে  
 যুবকের সাথে তুমি যেওনাকো আর।  
- 
+
 কি কথা তাহার সাথে? তার সাথে!   
 আকাশের আড়ালে আকাশে  
 মৃত্তিকার মতো তুমি আজ:  
 তার প্রেম ঘাস হয়ে আসে।  
- 
+
 সুরঞ্জনা,  
 তোমার হৃদয় আজ ঘাস:  
 বাতাসের ওপারে বাতাস—  
