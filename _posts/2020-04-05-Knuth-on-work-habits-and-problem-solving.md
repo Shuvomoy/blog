@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Donald Knuth on Work Habits and Problem Solving
+title: Donald Knuth on his work habits and problem solving
 categories: [non-technical]
 comments: true
 ---
