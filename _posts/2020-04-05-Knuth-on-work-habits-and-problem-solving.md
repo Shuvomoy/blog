@@ -8,9 +8,6 @@ comments: true
 Recently, I came across an old interview of [Donald Knuth](https://en.wikipedia.org/wiki/Donald_Knuth) conducted in 1996, where he sheds light on his work habits and how he approaches problems. I really enjoyed reading the interview. In this blog, I am recording his thoughts on approaching a problem, organizing daily activities, and other research related things. <!-- more -->
 
 
-##### Donald Knuth on Work Habits and Problem Solving
-
-
 
 **Seeing both the forest and the trees in research.** "I've seen many graduate students working on their theses, over the years, and their research often follows a pattern that supports what I'm trying to explain. Suppose you want to solve a complicated problem whose solution is unknown; in essence you're an explorer entering into a new world. At first your brain is learning the territory, and you're making tiny steps, baby steps in the world of the problem. But after you've immersed yourself in that problem for awhile then you can start to make giant steps, bigger steps, and you can see many things at once, so your brain is getting ready for a new kind of work. You begin to see both the forest and the trees."
 
