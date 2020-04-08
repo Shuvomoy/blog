@@ -60,3 +60,15 @@ When I finally do get into batch mode, I go very carefully through the first two
 
 
 **On scheduling daily activities.** "I schedule my activities in a somewhat peculiar way. Every day I look at the things that I'm ready to do, and choose the one that I like the least, the one that's least fun — the task that I would most like to procrastinate from doing, but for which I have no good reason for procrastination. This scheduling rule is paradoxical because you might think that I'm never enjoying my work at all; but precisely the opposite is the case, because I like to finish a project. It feels good to know that I've gotten through the hurdles."
+
+
+
+**On pursuing PhD.** "A PhD is awarded for research, meaning that the student has contributed to the state of the world's knowledge. That's quite different from a bachelor's degree or a master's degree; those degrees are awarded for a mastery of existing knowledge. (In some non-science fields, like Art, a master's degree is more akin to a PhD; but I'm speaking now about the situation in mathematics and in the sciences.) My point is that it's a mistake to think of a PhD as a sort of next step after a BS or MS degree, like advancing further in some academic
+straight line. A PhD diploma is another animal entirely; it stands for a quite different kind of talent, which is orthogonal to one's ability to ace an examination. A lot of people who are extremely bright, with straight A+ grades as undergraduates, never get a PhD. They're smart in a way that's different from "research smart." I think of my parents, for
+example: I don't believe either one of them would have been a good PhD candidate, although both were extremely intelligent.
+
+It's extremely misleading to rank people on an IQ scale with the idea that the smarter they are, the more suitable they are for a PhD degree; that's not it at all. People have talents in different dimensions, and a talent for research might even have a negative correlation with the ability to tie your own shoes."
+
+
+
+**Whether volunteering helps Knuth with his principal vocation.** "Well, you're absolutely right. I can't do technical stuff all the time. I've found that I can write only a certain number of pages a day before running out of steam. When I reach this maximum number, I have no more ideas that day. So certainly within a 24-hour period, not all of it is going to be equally creative. Working in the garden, pulling weeds and so on, is a good respite. I recently got together with some friends at Second Harvest, repackaging food from one place to another. This kind of activity, using my hands, provides variety and doesn't really take away from the things I can do for the world."

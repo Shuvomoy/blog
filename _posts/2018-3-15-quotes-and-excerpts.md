@@ -5,12 +5,19 @@ categories: [non-technical]
 comments: true
 ---
 
-I had a notebook of quotes and excerpts. Over the years I collected a lot of quotes and excerpts in it. I often sought refuge in some of the quotes, and they provided me great solace. Unfortunately, I have lost the notebook recently. In this blog I am just re-accumulating some of those quotes and excerpts (for which the sources are available) and adding a few new ones. I will update this blog as time progresses.
+I had a notebook of quotes and excerpts. Over the years I collected a lot of quotes and excerpts in it. I often sought refuge in some of the quotes, and they provided me great solace. Unfortunately, I have lost the notebook recently. In this blog I am just re-accumulating some of those quotes and excerpts (for which the sources are available) and adding a few new ones. I will update this blog as time progresses. <!-- more -->
 
-*Last update: March 18, 2020*
+*Last update: April 7, 2020*
 
 ---
-<!-- more -->
+
+Life is hard and then you die. You can, however, enjoy the process of living; don't worry about the fact that you're going to die. Some bad people have a good life, and some good people have a bad life, and that doesn't seem fair; but don't worry about that either. Just think about ways of enjoying the journey.
+
+You don't race to get to the goal; the process of racing itself, of keeping the pace, is the real goal. 
+
+-- **Donald Knuth**
+
+---
 
 I think Maharaji wanted me to gain nonattachment to success. A spiritual apprenticeship can be confusing, even counterintuitive. Those long exhausting trips, constant rejections, and the daily reminder of my unworthiness, the roller coaster of doubt and the balm of Maharaji's reassurance, were all part of the preparation. What developed in me during that time was faith - delicate, wavering, tenuous, but faith nonetheless. 
 
@@ -41,7 +48,7 @@ The greatest test of courage on earth is to bear defeat without losing heart.
 
 When heaven is about to confer a great responsibility on any man, it will exercise his mind with suffering, subject his sinews and bones to hard work, expose his body to hunger, put him to poverty, place obstacles in the paths of his deeds, so as to stimulate his mind, harden his nature, and improve wherever he is incompetent.
 
---**MENG TZU,1 CHINA, 3RD CENT. BCE**
+-- **MENG TZU,1 CHINA, 3RD CENT. BCE**
 
 ---
 
@@ -123,12 +130,6 @@ A flash of lightning in a summer cloud,
 A flickering lamp, a phantom, and a dream.  
 
 -- **Gautama Buddha**
-
--------------------------
-
-All the suffering in the world comes from seeking pleasure for oneself.  All the happiness in the world comes from seeking pleasure for others.
-
---**[Shantideva]**
 
 ---
 
