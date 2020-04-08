@@ -13,7 +13,7 @@ I had a notebook of quotes and excerpts. Over the years I collected a lot of quo
 
 Life is hard and then you die. You can, however, enjoy the process of living; don't worry about the fact that you're going to die. Some bad people have a good life, and some good people have a bad life, and that doesn't seem fair; but don't worry about that either. Just think about ways of enjoying the journey.
 
--- **Donald Knuth paraphrasing book of Ecclesiastes, in the Bible**
+-- **Donald Knuth paraphrasing book of Ecclesiastes, Bible**
 
 ---
 
