@@ -13,14 +13,12 @@ Before we implement gradient descent method, we first record some necessary back
 
 Given a differentiable convex function $f$, our goal is to solve the following optimization problem: 
 
-
-\begin{eqnarray*}
+$$
 \begin{array}{ll}
-\textup{minimize} & f(x)\\
-\textup{subject to} & x\in\mathbf{R}^{n},
+\textrm{minimize} & f(x) \\
+\textrm{subject to} & x\in\mathbf{R}^{n},
 \end{array}
-\end{eqnarray*}
-
+$$
 where $x$ is the decision variable. To solve the problem above, we consider gradient descent algorithm. The gradient descent implements the following iteration scheme:
 
 $
