@@ -27,7 +27,7 @@ x_{n+1} & = & x_{n}-\gamma_{n}{\nabla f(x_{n})},\qquad (1)
 \end{eqnarray}
 
 where ${\nabla f(x_{n})}$ denotes a gradient of $f$ evaluated at the iterate $x_{n}$, and $n$ is our iteration counter. As our step size rule, we pick a sequence that is square-summable but not summable, e.g., $\gamma_{n}=1/n$, will do the job. 
- 
+
 We will go through the following steps:
 1. Load the packages
 2. Create the types
@@ -172,7 +172,7 @@ mutable struct GD_state # contains information regarding one iterattion sequence
 end
 ```
 
-Also, once the user has given the problem information by creating a problem instance ``GD_problem``, we need a method to construct the intial value of the type `GD_state`,  as we did earlier for the least-squares problem. We create the intial state from the problem instance by writing a constructor function.
+Also, once the user has given the problem information by creating a problem instance ``GD_problem``, we need a method to construct the initial value of the type `GD_state`,  as we did earlier for the least-squares problem. We create the initial state from the problem instance by writing a constructor function.
 
 
 ```julia
@@ -333,7 +333,7 @@ final_state_GD = GD_solver(problem, setting)
     │     final obj val = 0.10471495099365061 | 
     │     final gradient norm = 0.009995364642054971
     └ @ Main In[9]:25
-    
+
 
 
 
@@ -351,6 +351,6 @@ println("real objective value $(f(pinv(A)*b)) ")
 
     objective value found by our gradient descent 0.10471495099365061
     real objective value 0.10452813292628083 
-    
+
 
 So, we do decent in terms of finding a good solution!
