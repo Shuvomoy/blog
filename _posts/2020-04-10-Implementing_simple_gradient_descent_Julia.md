@@ -11,16 +11,7 @@ Before we implement gradient descent method, we first record some necessary back
 
 ### 0. Background.
 
-Given a differentiable convex function $f$, our goal is to solve the following optimization problem: 
-
-$$ 
-\begin{aligned} 
-\textrm{minimize} & f(x) \\ 
-\textrm{subject to} & x \in \mathbf{R}^n 
-\end{aligned} 
-$$
-
-where $x$ is the decision variable. To solve the problem above, we consider gradient descent algorithm. The gradient descent implements the following iteration scheme:
+Given a differentiable convex function $f$, our goal is to solve the following optimization problem $\textrm{minimize}\;f(x)$, where $x$ is the decision variable. To solve the problem above, we consider gradient descent algorithm. The gradient descent implements the following iteration scheme:
 
 $
 x_{n+1}  =  x_{n}-\gamma_{n}{\nabla f(x_{n})},\qquad (1)
