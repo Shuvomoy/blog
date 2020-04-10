@@ -13,18 +13,17 @@ Before we implement gradient descent method, we first record some necessary back
 
 Given a differentiable convex function $f$, our goal is to solve the following optimization problem: 
 
-\begin{eqnarray*}
+$$
 \begin{array}{ll}
 \textrm{minimize} & f(x)\\
 \textrm{subject to} & x\in\mathbf{R}^{n},
 \end{array}
-\end{eqnarray*}
-
+$$
 where $x$ is the decision variable. To solve the problem above, we consider gradient descent algorithm. The gradient descent implements the following iteration scheme:
 
-\begin{eqnarray} \label{SGD}
-x_{n+1} & = & x_{n}-\gamma_{n}{\nabla f(x_{n})},\qquad (1)
-\end{eqnarray}
+$$
+x_{n+1}  =  x_{n}-\gamma_{n}{\nabla f(x_{n})},\qquad (1)
+$$
 
 where ${\nabla f(x_{n})}$ denotes a gradient of $f$ evaluated at the iterate $x_{n}$, and $n$ is our iteration counter. As our step size rule, we pick a sequence that is square-summable but not summable, e.g., $\gamma_{n}=1/n$, will do the job. 
 
@@ -176,7 +175,8 @@ Also, once the user has given the problem information by creating a problem inst
 
 
 ```julia
-function GD_state(problem::GD_problem) 
+function GD_state(problem::GD_problem)
+    
     # a constructor for the struct GD_state, it will take the problem data and create one state containing all 
     # the iterate information, current state of the gradient etc so that we can start our gradient descent scheme
     
