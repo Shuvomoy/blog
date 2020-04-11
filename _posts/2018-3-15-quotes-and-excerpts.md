@@ -1,4 +1,4 @@
-﻿---
+---
 layout: post
 title: Favorite Quotes and Excerpts
 categories: [non-technical]
@@ -7,13 +7,19 @@ comments: true
 
 I had a notebook of quotes and excerpts. Over the years I collected a lot of quotes and excerpts in it. I often sought refuge in some of the quotes, and they provided me great solace. Unfortunately, I have lost the notebook recently. In this blog I am just re-accumulating some of those quotes and excerpts (for which the sources are available) and adding a few new ones. I will update this blog as time progresses. <!-- more -->
 
-*Last update: April 7, 2020*
+*Last update: April 11, 2020*
+
+---
+
+My life as a researcher was and is characterized by frequent periods of tension: whenever a new discovery is on the horizon, a tremendous amount of effort and concentration is needed in order to snatch the secret from nature by digging deeper and deeper. One day the new result seems at hand; you just have to write it down. Next day it all seems to have been an illusion; nothing seems to work when you want to put it together. When you finally manage to crystallize your findings into a theorem that you think you have proved, upon going the third or fourth time through the logical steps of your proof you suddenly discover a minor, insignificant­ looking crack. But when you set out to repair it, the crack widens into a gaping hole. It turns out that what you thought was true is only true under certain circumstances. Maybe there is something of the same flavor that is true under more general conditions; but it is not what you had originally thought it was. So now you nail down your result for the more limited situation for which it is true, and you go on groping for a more general result that holds beyond those specific circumstances. And so on. . . . This is the flavor of mathematical discovery. It is an uneven process that often becomes hectic, with periods of sleepless or half sleepless nights. It requires the kind of passionate concentration in the grip of which you forget about everything else for a while. To be successful at it, you must have ''fire in your belly." And it certainly helps if your basic inclination is to persist and not give up in the face of difficulties, not to become dejected in case of setbacks, but to try again and again until you manage to find the right way.
+
+--**Egon Balas**
 
 ---
 
 The satisfactions of manifesting oneself concretely in the world through manual competence have been known to make a man quiet and easy. They seem to relieve him of the felt need to offer chattering interpretations of himself to vindicate his worth. He can simply point: the building stands, the car now runs, the lights are on. Boasting is what a boy does, because he has no real effect in the world. But the tradesman must reckon with the infallible judgment of reality, where one’s failures or shortcomings cannot be interpreted away. His well-founded pride is far from the gratuitous “self-esteem” that educators would impart to students, as though by magic.
 
-―- **Matthew B. Crawford**
+--**Matthew B. Crawford**
 
 ---
 
@@ -53,7 +59,6 @@ The greatest test of courage on earth is to bear defeat without losing heart.
 
 -- **Robert Green Ingersoll**
 
-
 ---
 
 When heaven is about to confer a great responsibility on any man, it will exercise his mind with suffering, subject his sinews and bones to hard work, expose his body to hunger, put him to poverty, place obstacles in the paths of his deeds, so as to stimulate his mind, harden his nature, and improve wherever he is incompetent.
@@ -69,7 +74,7 @@ I tell you one thing – if you want peace of mind, do not find fault with other
 ---
 
 Not only so, but we also glory in our sufferings, because we know that suffering produces perseverance; perseverance, character; and character, hope.
- 
+
 -- **Romans 5:3-5, Bible (New International Version)**
 
 ---
@@ -282,13 +287,13 @@ You see, my son, it is not a fact that you will never face dangers. Difficulties
 
  -- **Sarada Devi** 
 
- ---
+---
 
  The mind is everything. It is in the mind alone that one feels pure and impure. A man, first of all, must make his own mind guilty and then alone can he see another man's guilt.
 
   -- **Sarada Devi** 
 
-  ---
+---
 
  It is in the very nature of man to see defects. You should learn to appreciate virtues. Man is no doubt liable to err, but you must not take notice. If you constantly find fault with others, you will see faults alone. … Do not look at the faults of others lest your eyes should become vitiated.
 
