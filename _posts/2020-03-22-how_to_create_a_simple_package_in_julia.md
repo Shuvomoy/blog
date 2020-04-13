@@ -95,7 +95,7 @@ generate("TestPackage", template)
 
 
 
-As seen in the output above, the package is located at the folder `C:\Users\shuvo\.julia\dev\TestPackage`.
+As seen in the output above, the package is located at the folder `C:\Users\shuvo\.julia\dev\TestPackage`, copy this location; we are going to use it soon.
 
 
 
@@ -107,7 +107,9 @@ First, in the Julia REPL type the following:
 
 ```julia
 
-cd(joinpath(DEPOT_PATH[1], "dev", "TestPackage"))
+cd("C:\\Users\\shuvo\\.julia\\dev\\TestPackage")
+# alternatively The following will also work
+# cd(joinpath(DEPOT_PATH[1], "dev", "TestPackage"))
 ```
 
 ```julia
@@ -115,7 +117,7 @@ cd(joinpath(DEPOT_PATH[1], "dev", "TestPackage"))
 ```
 
 ```julia
-] dev. # this adds our package TestPackage
+] dev . # this adds our package TestPackage
 ```
 
 ```julia
