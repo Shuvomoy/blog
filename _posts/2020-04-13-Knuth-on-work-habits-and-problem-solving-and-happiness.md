@@ -1,11 +1,11 @@
 ---
 layout: post
-title: Donald Knuth on his work habits and problem solving
+title: Donald Knuth on work habits, problem solving, and happiness
 categories: [non-technical]
 comments: true
 ---
 
-Recently, I came across an old interview of [Donald Knuth](https://en.wikipedia.org/wiki/Donald_Knuth) conducted in 1996, where he sheds light on his work habits and how he approaches problems. I really enjoyed reading the interview. In this blog, I am recording his thoughts on approaching a problem, organizing daily activities, and other research related things. <!-- more -->
+Recently, I came across a couple of old interviews of [Donald Knuth](https://en.wikipedia.org/wiki/Donald_Knuth) conducted in 1996, where he sheds light on his work habits, how he approaches problems, and his philosophy towards happiness. I really enjoyed reading the interviews. In this blog, I am recording his thoughts on approaching a problem, organizing daily activities, and the pursuit of happiness. <!-- more -->
 
 
 
@@ -63,8 +63,7 @@ When I finally do get into batch mode, I go very carefully through the first two
 
 
 
-**On pursuing PhD.** "A PhD is awarded for research, meaning that the student has contributed to the state of the world's knowledge. That's quite different from a bachelor's degree or a master's degree; those degrees are awarded for a mastery of existing knowledge. (In some non-science fields, like Art, a master's degree is more akin to a PhD; but I'm speaking now about the situation in mathematics and in the sciences.) My point is that it's a mistake to think of a PhD as a sort of next step after a BS or MS degree, like advancing further in some academic
-straight line. A PhD diploma is another animal entirely; it stands for a quite different kind of talent, which is orthogonal to one's ability to ace an examination. A lot of people who are extremely bright, with straight A+ grades as undergraduates, never get a PhD. They're smart in a way that's different from "research smart." I think of my parents, for
+**On pursuing a PhD.** "A PhD is awarded for research, meaning that the student has contributed to the state of the world's knowledge. That's quite different from a bachelor's degree or a master's degree; those degrees are awarded for a mastery of existing knowledge. (In some non-science fields, like Art, a master's degree is more akin to a PhD; but I'm speaking now about the situation in mathematics and in the sciences.) My point is that it's a mistake to think of a PhD as a sort of next step after a BS or MS degree, like advancing further in some academic straight line. A PhD diploma is another animal entirely; it stands for a quite different kind of talent, which is orthogonal to one's ability to ace an examination. A lot of people who are extremely bright, with straight A+ grades as undergraduates, never get a PhD. They're smart in a way that's different from "research smart." I think of my parents, for
 example: I don't believe either one of them would have been a good PhD candidate, although both were extremely intelligent.
 
 It's extremely misleading to rank people on an IQ scale with the idea that the smarter they are, the more suitable they are for a PhD degree; that's not it at all. People have talents in different dimensions, and a talent for research might even have a negative correlation with the ability to tie your own shoes."
@@ -72,3 +71,30 @@ It's extremely misleading to rank people on an IQ scale with the idea that the s
 
 
 **Whether volunteering helps Knuth with his principal vocation.** "Well, you're absolutely right. I can't do technical stuff all the time. I've found that I can write only a certain number of pages a day before running out of steam. When I reach this maximum number, I have no more ideas that day. So certainly within a 24-hour period, not all of it is going to be equally creative. Working in the garden, pulling weeds and so on, is a good respite. I recently got together with some friends at Second Harvest, repackaging food from one place to another. This kind of activity, using my hands, provides variety and doesn't really take away from the things I can do for the world."
+
+
+
+**On unhappiness.** "I mean, if you didn't worry, and if you didn't go through some spells and crises, then you'd be missing a part of life. Even though such things aren't pleasant when you're doing them, they are the defining experiences — things to be glad about in retrospect because they happened. Otherwise you might be guilty of not feeling guilty!
+
+On the other hand I've noticed in myself that there were times when my body was telling me to be unhappy, yet I sometimes couldn't readily figure out a reason for any unhappiness. I knew that I was feeling "down," but sometimes I had to go back several months to recall  anything that anybody had said to me that might still be making me feel bad. One day, when I realized how hard it was to find any reason for my current unhappiness, I thought, "*Wait a minute. I bet this unhappiness is really something chemical, not actually caused by circumstances.*" I began to speculate that my body was programmed to be unhappy a certain percentage of the time, and that hormones or something were the real reason behind moments of mild depression."
+
+
+
+**Why power corrupts.** "When people have more power and they get richer, and they find  themselves rich but still unhappy, they think, "*Hmmm, I'll be happy if I only get rid of all the sources of my unhappiness.*" But the action of removing annoyances sometimes involves abusing their power. I could go on and on in this vein, I guess, because you find that in the countries
+where there is a great difference between rich and poor, the rich people have their problems, too. They haven't any motivation to change the way they're living, exploiting others, because as far as they can see, their own life isn't that happy. But if they would only realize that their unhappy spells are part of the way that they're made, and basically normal, they wouldn't make the mistake of blaming somebody else and trying to get even for imagined misdeeds."
+
+
+
+**Point eight is enough.** "In fact I've concluded that it's really a good thing for people not to be 100% happy. I've started to live in accordance with a philosophy that can be summed up in the phrase "*Point eight is enough,*" meaning "*0.8 is enough.*"
+
+You might remember the TV show from the 70s called "*Eight is Enough,*" about a family with eight children. That's the source of my new motto. I don't know that 0.8 is the right number, but I do believe that when I'm not feeling 100% happy, I shouldn't feel guilty or angry, or think that anything unusual is occurring. I shouldn't set 100% as the norm, without which there must be something wrong. Instead, I might just as well wait a little while, and I'll feel better. I won't make any important decisions about my life at a time when I'm feeling less than normally good.
+
+In a sense I tend now to suspect that it was necessary to leave the Garden of Eden. Imagine a world where people are in a state of euphoria all the time — being high on heroin, say. They'd have no incentive to do anything. What would get done? What would happen? The whole world
+would soon collapse. It seems like intelligent design when everybody's set point is somewhere less than 100%."
+
+
+
+
+
+
+
