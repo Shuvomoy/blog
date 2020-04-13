@@ -95,8 +95,34 @@ generate("TestPackage", template)
 
 
 
-
 As seen in the output above, the package is located at the folder `C:\Users\shuvo\.julia\dev\TestPackage`.
+
+
+
+**Adding the project to the Julia Package Manager.** We need to go through the following steps, so that Julia's package manager knows about our project.
+
+
+
+First, in the Julia REPL type the following: 
+
+```julia
+
+cd(joinpath(DEPOT_PATH[1], "dev", "TestPackage"))
+```
+
+```julia
+] activate # this will get us into the main Julia environment
+```
+
+```julia
+] dev. # this adds our package TestPackage
+```
+
+```julia
+] st # this is to see the change in our default package list
+```
+
+
 
 ### Step 4. Create the julia files
 
