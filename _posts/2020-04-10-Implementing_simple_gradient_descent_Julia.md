@@ -7,7 +7,7 @@ comments: true
 
 In this blog, we discuss how to implement a simple gradient descent scheme in ``Julia``. To do this, we will use the Julia package ``ProximalOperators``, which is an excellent package to compute proximal operators and gradient of common convex functions. I highly recommend the package for anyone interested in operator splitting algorithms.<!-- more --> You can find more information about the package at: [https://github.com/kul-forbes/ProximalOperators.jl](https://github.com/kul-forbes/ProximalOperators.jl).
 
-**Jupyter notebook for this blog.** The jupyter notebook for this blog can be found [here](/codes/implementing_simple_gradient_descent_Julia.ipynb).  
+**Jupyter notebook for this blog.** The jupyter notebook for this blog can be downloaded from [this link](https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/codes/implementing_simple_gradient_descent_Julia.ipynb).  
 
 Before we implement gradient descent method, we first record some necessary background.
 
