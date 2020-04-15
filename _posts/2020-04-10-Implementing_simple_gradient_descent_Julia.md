@@ -51,13 +51,13 @@ This type contains information about the problem instance, this bascially tells 
 
 
 ```julia
-struct GD_problem 
+struct GD_problem{F <: ProximableFunction,A <: AbstractVecOrMat{<:Real}, R <: Real}
     
     # problem structure, contains information regarding the problem
     
-    f # the objective function
-    x0 # the intial condition
-    γ # the stepsize
+    f::F # the objective function
+    x0::A # the intial condition
+    γ::R # the stepsize
     
 end
 ```
@@ -116,11 +116,11 @@ struct GD_setting
     
     # user settings to solve the problem using Gradient Descent
     
-    γ # the step size
-    maxit # maximum number of iteration
-    tol # tolerance, i.e., if ||∇f(x)|| ≤ tol, we take x to be an optimal solution
-    verbose # whether to print information about the iterates
-    freq # how often print information about the iterates
+    γ::Float64 # the step size
+    maxit::Int64 # maximum number of iteration
+    tol::Float64 # tolerance, i.e., if ||∇f(x)|| ≤ tol, we take x to be an optimal solution
+    verbose::Boolean # whether to print information about the iterates
+    freq::Int64 # how often print information about the iterates
 
     # constructor for the structure, so if user does not specify any particular values, 
     # then we create a GD_setting object with default values
@@ -155,12 +155,12 @@ Now we define the type named ``GD_state`` that describes the state our algorithm
 
 
 ```julia
-mutable struct GD_state # contains information regarding one iterattion sequence
+mutable struct GD_state{T <: AbstractVecOrMat{<: Real}, I <: Integer, R <: Real} # contains information regarding one iterattion sequence
     
-    x::Any # iterate x_n
-    ∇f_x::Any # one gradient ∇f(x_n)
-    γ::Any # stepsize
-    n::Any # iteration counter
+    x::T # iterate x_n
+    ∇f_x::T # one gradient ∇f(x_n)
+    γ::R # stepsize
+    n::I # iteration counter
     
 end
 ```
@@ -175,7 +175,7 @@ function GD_state(problem::GD_problem)
     # the iterate information, current state of the gradient etc so that we can start our gradient descent scheme
     
     # unpack information from iter which is GD_iterable type
-    x0 = problem.x0
+    x0 = copy(problem.x0) # to be safe
     f = problem.f
     γ = problem.γ
     ∇f_x, f_x = gradient(f, x0)
@@ -262,18 +262,14 @@ function GD_solver(problem::GD_problem, setting::GD_setting)
         # print information if verbose = true
         if setting.verbose == true
             if mod(state.n, setting.freq) == 0
-                @info "iteration = $(state.n) |  
-                obj val = $(problem.f(state.x)) | 
-                gradient norm = $(norm(state.∇f_x, Inf))"
+                @info "iteration = $(state.n) | obj val = $(problem.f(state.x)) | gradient norm = $(norm(state.∇f_x, Inf))"
             end
         end
     end
     
     # print information regarding the final state
     
-    @info "final iteration = $(state.n) | 
-    final obj val = $(problem.f(state.x)) | 
-    final gradient norm = $(norm(state.∇f_x, Inf))"
+    @info "final iteration = $(state.n) | final obj val = $(problem.f(state.x)) | final gradient norm = $(norm(state.∇f_x, Inf))"
     return state
     
 end
