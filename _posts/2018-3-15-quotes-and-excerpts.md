@@ -25,7 +25,7 @@ The satisfactions of manifesting oneself concretely in the world through manual 
 
 In other words, therefore, life flows. The individual ego tries to swim against the current, and becomes unhappy. In going with the flow, the pain may be there, which is participation in life. 
 
-... When my Guru, Nisargadatta Maharaj, towards the end of his life was in great pain with cancer, he would perhaps moan; a moan would come out of the body. So somebody asked, out of great sympathy: "Are you in great pain, Maharaj, are you in great pain?" And the answer, which promptly, spontaneously came out, was: "Yes, there is great pain."
+... When my Guru, Nisargadatta Maharaj, towards the end of his life was in great pain with cancer, he would perhaps moan; a moan that would come out of the body. So somebody asked, out of great sympathy: "Are you in great pain, Maharaj, are you in great pain?" And the answer, which promptly, spontaneously came out, was: "Yes, there is great pain."
 
 --**Ramesh S. Balsekar**
 
