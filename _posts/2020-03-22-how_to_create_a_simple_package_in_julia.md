@@ -2,6 +2,7 @@
 layout: post 
 title: How to create a simple package in Julia
 categories: [programming] 
+tags: [Julia]
 comments: true 
 ---
 

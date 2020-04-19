@@ -2,6 +2,7 @@
 layout: post 
 title: Implementing a simple gradient descent algorithm in Julia
 categories: [programming] 
+tags: [Julia]
 comments: true 
 ---
 
