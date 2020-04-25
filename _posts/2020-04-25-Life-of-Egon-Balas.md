@@ -65,7 +65,7 @@ Egon Balas passed away on March 18, 2019. He was 96. He is survived by his wife,
 
 
 
-Let me end this a blog with an excerpt from the final chapter of his book, which I find very meaningful and inspiring in the context of my own life:
+Let me end this blog with an excerpt from the final chapter of Will to Freedom, which I find very meaningful and inspiring in the context of my own life:
 
 
 
