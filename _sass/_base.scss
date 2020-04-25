@@ -170,15 +170,15 @@ a {
 /**
  * Blockquotes
  */
-
+/*
 blockquote{
   padding: 0 1em;
   margin: 14px 0;
-  border: 2px dashed #d0dfda;
+  border: 2px solid #d0dfda;
   border-radius: 5px;
   color: #243822;
   font-size: $base-font-size;
-  background: #f9f9f9;
+  background: #9e0e3c;
 
   &:hover {
     color: #9e0e3c;
@@ -188,7 +188,18 @@ blockquote{
     margin-bottom: 0;
   }
 }
+*/
 
+blockquote {
+	margin: 2rem .2rem;
+	padding: .3rem .5rem;
+	color: #6f6f6f;
+	border-left: .4rem solid gray;
+}
+
+blockquote p {
+	padding: .2rem 1.5rem;
+}
 
 
 /**
