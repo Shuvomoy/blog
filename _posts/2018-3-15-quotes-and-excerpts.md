@@ -12,6 +12,7 @@ I had a notebook of quotes and excerpts. Over the years I collected a lot of quo
 ---
 
 Satyam Vada Dharmam Cara (*Speak the truth; cultivate virtue.*)
+
 --**Taittiriya Upanishad 1.2.1**
 
 ---
@@ -317,14 +318,14 @@ The mind is everything. It is in the mind alone that one feels pure and impure. 
  It is in the very nature of man to see defects. You should learn to appreciate virtues. Man is no doubt liable to err, but you must not take notice. If you constantly find fault with others, you will see faults alone. … Do not look at the faults of others lest your eyes should become vitiated.
 
 -- **Sarada Devi** 
-​	
+	
 ---
+
 
 Man finds faults in others after bringing down his own mind to that level. Does anything ever happen to another if you enumerate his faults? It only injures you. This has been my attitude. Hence I cannot see anybody's faults. If a man does a trifle for me, I try to remember him even for that. To see the faults of others! One should never do it.
 
-​	
 -- **Sarada Devi** 
-​	
+
 ---
 
   
