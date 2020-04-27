@@ -5,7 +5,7 @@ categories: [non-technical]
 comments: true
 ---
 
-Recently, I finished reading a fantastic autobiography: [Will to Freedom by Egon Balas](https://www.goodreads.com/book/show/2771574-will-to-freedom). It is quite long, and I read it in small chunks as I am a very slow reader. I am so glad that I finished the book.
+Recently, I finished reading a fantastic autobiography: [Will to Freedom by Egon Balas](https://www.goodreads.com/book/show/2771574-will-to-freedom). It is quite long, and I read it in small chunks as I am a very slow reader. I am so glad that I finished the book. <!-- more -->
 
 
 
