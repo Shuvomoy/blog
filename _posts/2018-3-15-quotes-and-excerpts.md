@@ -49,6 +49,20 @@ You don't race to get to the goal; the process of racing itself, of keeping the 
 
 ---
 
+"If you want to be a public health doctor", Bill told me on the way home, "you have to change the way you get satisfaction. It's different than clinical medicine. You won't see immediate results. You won't have parents thanking you for bringing down the fever of their child. No one will name their child after you or say, 'Larry, you saved my family.' Here, satisfaction comes quietly, alone, late at night, when you are analyzing numbers. You won't be able to watch the curve of a child's fever on a hospital chart go down and feel good about yourself. You have to look at the chart and graphs of hundreds of anonymous cases, watching the epidemic curve instead.  Even when you succeed in stopping an epidemic, you may be the only one who knows what you did. The public doesn't often reward prevention---you won't be a hero. But if you are willing to dedicate yourself to getting outcomes that you alone may see, take quiet satisfaction in the scale of what public health accomplishes, and not worry about personal recognition, then public health and epidemiology will be a great source of happiness"
+
+
+
+This was the medical equivalent of *nish kam karma* yoga, Maharji's custom tailored path for me.
+
+
+
+-- **Larry Brilliant**
+
+
+
+---
+
 I think Maharaji wanted me to gain nonattachment to success. A spiritual apprenticeship can be confusing, even counterintuitive. Those long exhausting trips, constant rejections, and the daily reminder of my unworthiness, the roller coaster of doubt and the balm of Maharaji's reassurance, were all part of the preparation. What developed in me during that time was faith - delicate, wavering, tenuous, but faith nonetheless. 
 
 Sometimes people say that faith is the opposite of doubt, but I don’t think that is true. To me, the opposite of faith is rigid certainty. Doubt is the constant companion of true faith; like God, it is more verb than noun. Faith is the ride, not the station, as Indians describe it. No one can avoid doubt, skepticism, fear, and uncertainty on the journey to faith if they are honest to themselves. Obstacles are the training ground.
