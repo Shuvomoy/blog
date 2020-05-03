@@ -71,7 +71,9 @@ Let me end this blog with an excerpt from the final chapter of Will to Freedom, 
 
 > How did the events of my earlier life affect my subsequent career? I have, of course, no way of knowing what kind of a man I would have been without those experiences. They certainly toughened me: made me stronger and more resilient, less likely to be deterred by difficulties or discouraged by setbacks. After all, I could always make the comparison between a current unpleasantness, mishap, or defeat, and the terrible events of my past, to make me feel that what was happening now was nothing in comparison with what I had been through before. 
 >
-> My past experiences also made me a better judge of people—having had the opportunity to observe human nature under extreme circumstances is an asset hard to match in this respect. They definitely influenced my system of values. ...When it comes to evaluating people, I try to put their accomplishments in perspective: What obstacles did they have to overcome? In choosing my friends, I put a high price on character, independence of mind, and courage. As the popular saying has it, "A friend in need is a friend indeed," and I sometimes try to imagine how this or that person might behave if I came under attack for some reason.
+> My past experiences also made me a better judge of people—having had the opportunity to observe human nature under extreme circumstances is an asset hard to match in this respect. They definitely influenced my system of values. 
+>
+> ...When it comes to evaluating people, I try to put their accomplishments in perspective: What obstacles did they have to overcome? In choosing my friends, I put a high price on character, independence of mind, and courage. As the popular saying has it, "A friend in need is a friend indeed," and I sometimes try to imagine how this or that person might behave if I came under attack for some reason.
 
 
 
