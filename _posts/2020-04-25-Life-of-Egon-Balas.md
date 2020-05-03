@@ -73,7 +73,7 @@ Let me end this blog with an excerpt from the final chapter of Will to Freedom, 
 >
 > My past experiences also made me a better judge of people—having had the opportunity to observe human nature under extreme circumstances is an asset hard to match in this respect. They definitely influenced my system of values. 
 >
-> ...When it comes to evaluating people, I try to put their accomplishments in perspective: What obstacles did they have to overcome? In choosing my friends, I put a high price on character, independence of mind, and courage. As the popular saying has it, "A friend in need is a friend indeed," and I sometimes try to imagine how this or that person might behave if I came under attack for some reason.
+> ...When it comes to evaluating people, I try to put their accomplishments in perspective: *What obstacles did they have to overcome?* In choosing my friends, I put a high price on *character, independence of mind, and courage*. As the popular saying has it, "A friend in need is a friend indeed," and I sometimes try to imagine *how this or that person might behave if I came under attack for some reason*.
 
 
 
