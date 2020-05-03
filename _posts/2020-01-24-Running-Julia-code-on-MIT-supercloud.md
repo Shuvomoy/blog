@@ -8,7 +8,7 @@ comments: true
 
 In this blog, we are going to discuss how to MIT supercloud to run simple Julia code. 
 
-As an illustrative example, I will use Julia code that uses lasso to approximately solve a sparse regression problem. To understand what is going in the code you can read my previous blog [here](https://shuvomoy.github.io/blog/programming/2020/01/23/Solving-sparse-regression-using-lasso.html). 
+As an illustrative example, I will use Julia code that uses lasso to approximately solve a sparse regression problem. To understand what is going in the code you can read my previous blog [here](https://shuvomoy.github.io/blog/programming/2020/01/23/Solving-sparse-regression-using-lasso.html). <!-- more -->
 
 ## Transferring files from local computer to supercloud
 
