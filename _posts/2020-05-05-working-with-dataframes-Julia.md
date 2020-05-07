@@ -8,7 +8,7 @@ comments: true
 
 In this blog, we will discuss how to work with dataframes using the `DataFrames` package in `Julia`. As an illustrative example, we will work with the MovieLens dataset.<!-- more --> This is an introductory blog, and for learning how to use the `DataFrames` package in greater details, a great set of tutorials is available with jupyter notebooks at [this link](https://github.com/bkamins/Julia-DataFrames-Tutorial/).
 
-**Jupyter notebook for this blog.** The jupyter notebook for this blog can be downloaded from [this link](https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/codes/working_with_dataframes_intro_Julia.ipynb.ipynb) and the data files in zip format are available [here](https://github.com/Shuvomoy/blog/blob/gh-pages/data/movielens_datasets.zip). Please unzip them in the folder, where your ipynb or julia file is.
+**Jupyter notebook for this blog.** The jupyter notebook for this blog can be downloaded from [this link](https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/codes/working_with_dataframes_intro_Julia.ipynb) and the data files in zip format are available [here](https://github.com/Shuvomoy/blog/blob/gh-pages/data/movielens_datasets.zip). Please unzip them in the folder, where your ipynb or julia file is.
 
 **What is the MovieLens dataset?** The `MovieLens` dataset is one of the most common datasets people use for testing recommendation system algorithm. The version I will work with contains 1,000,209 ratings for approximately 3,900 movies; these recommendations were made by 6,040 MovieLens users. 
 
