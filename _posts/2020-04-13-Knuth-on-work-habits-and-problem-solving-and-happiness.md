@@ -94,6 +94,20 @@ would soon collapse. It seems like intelligent design when everybody's set point
 
 
 
+**High minimum more important than high maximum.** "I try to do a good job at whatever I'm doing, because it's more fun to do a good job than not. And when there's a choice between different things to spend time on, I try to look for things that will maximize the benefit without making me burn out.
+
+For example, when I was working on the TeX project during the early 80s, hardly anybody saw me when I was sweeping the floor,  mopping up the messes and carrying buckets of waste from the darkroom, cleaning the machines, and doing other such stuff. I did those things because I wouldn't have dared to ask graduate students to do menial tasks that were beneath them.
+
+I know that every large project has some things that are much less fun than others; so I can get through the tedium, the sweeping or whatever else needs to be done. I just do it and get it over with, instead of wasting time figuring out how not to do it. I learned that from my parents. My mother is amazing to watch because she doesn't do anything efficiently, really: She puts about three times as much energy as necessary into everything she does. But she never spends any time wondering what to do next or how to optimize anything; she just keeps working. Her strategy, slightly simplified, is, "See something that needs to be done and do it." All day long. And at the end of the day, she's accomplished a huge amount.
+
+Putting this another way, I think that the limiting thing — the thing that determines a person's success in life — is not so much what they do best, but what they do worst. I mean, if you rate every aspect of what someone does, considering everything that goes into a task, a high minimum is much more important than a high maximum. The TeX project was successful in large part because I quietly did things like mop the floor. The secret of any success that I've had, similarly, is that in all the projects I've worked on, the weakest link in my chain of abilities was still reasonably strong."
+
+
+
+
+
+
+
 
 
 
