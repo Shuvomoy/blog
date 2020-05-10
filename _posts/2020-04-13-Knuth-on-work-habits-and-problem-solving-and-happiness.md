@@ -5,7 +5,7 @@ categories: [non-technical]
 comments: true
 ---
 
-Recently, I came across a couple of old interviews of [Donald Knuth](https://en.wikipedia.org/wiki/Donald_Knuth) conducted in 1996, where he sheds light on his work habits, how he approaches problems, and his philosophy towards happiness. I really enjoyed reading the interviews. In this blog, I am recording his thoughts on approaching a problem, organizing daily activities, and the pursuit of happiness. <!-- more -->
+Recently, I came across a few old and new interviews of [Donald Knuth](https://en.wikipedia.org/wiki/Donald_Knuth), where he sheds light on his work habits, how he approaches problems, and his philosophy towards happiness. I really enjoyed reading the interviews. In this blog, I am recording his thoughts on approaching a problem, organizing daily activities, and the pursuit of happiness. <!-- more -->
 
 
 
@@ -61,6 +61,8 @@ When I finally do get into batch mode, I go very carefully through the first two
 
 **On scheduling daily activities.** "I schedule my activities in a somewhat peculiar way. Every day I look at the things that I'm ready to do, and choose the one that I like the least, the one that's least fun — the task that I would most like to procrastinate from doing, but for which I have no good reason for procrastination. This scheduling rule is paradoxical because you might think that I'm never enjoying my work at all; but precisely the opposite is the case, because I like to finish a project. It feels good to know that I've gotten through the hurdles."
 
+> My scheduling principle is to do the thing I hate most on my to-do list.
+
 
 
 **On pursuing a PhD.** "A PhD is awarded for research, meaning that the student has contributed to the state of the world's knowledge. That's quite different from a bachelor's degree or a master's degree; those degrees are awarded for a mastery of existing knowledge. (In some non-science fields, like Art, a master's degree is more akin to a PhD; but I'm speaking now about the situation in mathematics and in the sciences.) My point is that it's a mistake to think of a PhD as a sort of next step after a BS or MS degree, like advancing further in some academic straight line. A PhD diploma is another animal entirely; it stands for a quite different kind of talent, which is orthogonal to one's ability to ace an examination. A lot of people who are extremely bright, with straight A+ grades as undergraduates, never get a PhD. They're smart in a way that's different from "research smart." I think of my parents, for
@@ -76,7 +78,7 @@ It's extremely misleading to rank people on an IQ scale with the idea that the s
 
 **On unhappiness.** "I mean, if you didn't worry, and if you didn't go through some spells and crises, then you'd be missing a part of life. Even though such things aren't pleasant when you're doing them, they are the defining experiences — things to be glad about in retrospect because they happened. Otherwise you might be guilty of not feeling guilty!
 
-On the other hand I've noticed in myself that there were times when my body was telling me to be unhappy, yet I sometimes couldn't readily figure out a reason for any unhappiness. I knew that I was feeling "down," but sometimes I had to go back several months to recall  anything that anybody had said to me that might still be making me feel bad. One day, when I realized how hard it was to find any reason for my current unhappiness, I thought, "*Wait a minute. I bet this unhappiness is really something chemical, not actually caused by circumstances.*" I began to speculate that my body was programmed to be unhappy a certain percentage of the time, and that hormones or something were the real reason behind moments of mild depression."
+On the other hand I've noticed in myself that there were times when my body was telling me to be unhappy, yet I sometimes couldn't readily figure out a reason for any unhappiness. I knew that I was feeling "down," but sometimes I had to go back several months to recall  anything that anybody had said to me that might still be making me feel bad. One day, when I realized how hard it was to find any reason for my current unhappiness, I thought, "Wait a minute. I bet this unhappiness is really something chemical, not actually caused by circumstances.*" I began to speculate that my body was programmed to be unhappy a certain percentage of the time, and that hormones or something were the real reason behind moments of mild depression."
 
 
 
@@ -101,6 +103,18 @@ For example, when I was working on the TeX project during the early 80s, hardly 
 I know that every large project has some things that are much less fun than others; so I can get through the tedium, the sweeping or whatever else needs to be done. I just do it and get it over with, instead of wasting time figuring out how not to do it. I learned that from my parents. My mother is amazing to watch because she doesn't do anything efficiently, really: She puts about three times as much energy as necessary into everything she does. But she never spends any time wondering what to do next or how to optimize anything; she just keeps working. Her strategy, slightly simplified, is, "See something that needs to be done and do it." All day long. And at the end of the day, she's accomplished a huge amount.
 
 Putting this another way, I think that the limiting thing — the thing that determines a person's success in life — is not so much what they do best, but what they do worst. I mean, if you rate every aspect of what someone does, considering everything that goes into a task, a high minimum is much more important than a high maximum. The TeX project was successful in large part because I quietly did things like mop the floor. The secret of any success that I've had, similarly, is that in all the projects I've worked on, the weakest link in my chain of abilities was still reasonably strong."
+
+> A person’s success in life is determined by having a high minimum, not a high maximum. If you can do something really well but there are other things at which you’re failing, the latter will hold you back. But if almost everything you do is up there, then you’ve got a good life. And so I try to learn how to get through things that others find unpleasant.
+
+
+
+**A guiding heuristic.** "Don’t just do trendy stuff. If something is really popular, I tend to think: back off. I tell myself and my students to go with your own aesthetics, what you think is important. Don’t do what you think other people think you want to do, but what you really want to do yourself. That’s been a guiding heuristic for me all the way through."
+
+
+
+**Source of humility.** "I wrote a couple of books, including [*Things a Computer Scientist Rarely Talks About*](https://www-cs-faculty.stanford.edu/~knuth/things.html), that are about theology — things you can’t prove — rather than mathematics or computer science. My life would not be complete if it was all about cut and dried things. The mystical things I don’t understand give me humility. There are things beyond my understanding.
+
+In mathematics, I know when a theorem is correct. I like that. But I wouldn’t have much of a life if everything were doable. This knowledge doesn’t tear me apart. Rather, it ensures I don’t get stuck in a rut."
 
 
 
