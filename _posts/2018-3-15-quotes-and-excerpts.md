@@ -7,7 +7,28 @@ comments: true
 
 I had a notebook of quotes and excerpts. Over the years I collected a lot of quotes and excerpts in it. I often sought refuge in some of the quotes, and they provided me great solace. Unfortunately, I have lost the notebook recently. In this blog I am just re-accumulating some of those quotes and excerpts (for which the sources are available) and adding a few new ones. I will update this blog as time progresses. <!-- more -->
 
-*Last update: April 20, 2020*
+*Last update: July 06, 2020*
+
+---
+
+We did not ask for this room,
+       or this music;
+       we were invited in.
+Therefore,
+because the dark surrounds us,
+       let us turn our faces toward the light.
+Let us endure hardship
+       to be grateful for plenty.
+We have been given pain
+       to be astounded by joy.
+We have been given life
+       to deny death.
+We did not ask for this room,
+       or this music.
+But because we are here,
+       let us dance.
+
+-- **Stephen King**
 
 ---
 
