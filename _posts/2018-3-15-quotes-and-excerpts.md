@@ -15,7 +15,7 @@ Zindagī kyā hai anāsir meñ zuhūr-e-tartīb
 Maut kyā hai inhīñ ajzā kā pareshāñ honā  
 
 *What is life but a delicate arrangement of the five elements.*  
-*What is death, but chaos within these same elements.*  
+*What is death but a chaos within these same elements.*  
 
 -- **[Brij Narayan Chakbast](https://en.wikipedia.org/wiki/Brij_Narayan_Chakbast)**
 
