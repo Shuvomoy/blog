@@ -7,7 +7,17 @@ comments: true
 
 I had a notebook of quotes and excerpts. Over the years I collected a lot of quotes and excerpts in it. I often sought refuge in some of the quotes, and they provided me great solace. Unfortunately, I have lost the notebook recently. In this blog I am just re-accumulating some of those quotes and excerpts (for which the sources are available) and adding a few new ones. I will update this blog as time progresses. <!-- more -->
 
-*Last update: July 06, 2020*
+*Last update: July 11, 2020*
+
+---
+
+Zindagī kyā hai anāsir meñ zuhūr-e-tartīb   
+Maut kyā hai inhīñ ajzā kā pareshāñ honā  
+
+*What is life but a delicate arrangement of the five elements.*  
+*What is death, but chaos within these same elements.*  
+
+-- **[Brij Narayan Chakbast](https://en.wikipedia.org/wiki/Brij_Narayan_Chakbast)**
 
 ---
 
