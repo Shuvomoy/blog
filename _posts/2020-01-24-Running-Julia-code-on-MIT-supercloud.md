@@ -10,6 +10,16 @@ In this blog, we are going to discuss how to MIT supercloud to run simple Julia 
 
 As an illustrative example, I will use Julia code that uses lasso to approximately solve a sparse regression problem. To understand what is going in the code you can read my previous blog [here](https://shuvomoy.github.io/blog/programming/2020/01/23/Solving-sparse-regression-using-lasso.html). <!-- more -->
 
+First, we start with some common code that comes handy while working with the supercloud.
+
+## Entering the supercloud
+
+Assuming that we have setup our supercloud account already by following the instruction [here](https://supercloud.mit.edu/requesting-account), enter the supercloud from `bash` using the code:
+
+`ssh tim@txe1-login.mit.edu
+`
+where replace `tim` with your username. 
+
 ## Transferring files from local computer to supercloud
 
 If we want to transfer all the files in a folder called `PC_tests` to a folder named `supercloud_tests` located in the supercloud, we can achieve that by running the following command in `bash`.
