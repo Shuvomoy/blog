@@ -10,29 +10,35 @@ In this blog, we will show how to compute proximal operator of a constrained fun
 
 As an example we consider the function: 
 
-$\begin{eqnarray*}
+$$
+\begin{eqnarray*}
 f(X,D) & : & =\left\Vert \Sigma-X-D\right\Vert _{F}^{2}+I_{\mathcal{P}}(X,D),
-\end{eqnarray*}$
+\end{eqnarray*}
+$$
 
 where $I_{\mathcal{P}}$ denotes the indicator function of the convex
 set 
 
-$\mathcal{P}=\{(X,D)\in\mathbf{S}^{n}\times\mathbf{S}^{n}\mid X\succeq0,D=\mathbf{diag}(d),d\geq0,d\in \mathbf{R}^{n}\}.$
+$$
+\mathcal{P}=\{(X,D)\in\mathbf{S}^{n}\times\mathbf{S}^{n}\mid X\succeq0,D=\mathbf{diag}(d),d\geq0,d\in \mathbf{R}^{n}\}.
+$$
 
 #### Computing the proximal operator of $f$
 
 Proximal operator $\mathbf{prox}_{\gamma f}$ for this function $f$ at $(X,D)$ is *the* optimal solution to the following convex optimization problem:
 
-$\begin{equation}
+$$
+\begin{equation}
 \begin{array}{ll}
 \textrm{minimize} & \left\Vert \Sigma-\widetilde{X}-\widetilde{D}\right\Vert _{F}^{2}+\frac{1}{2\gamma}\|\widetilde{X}-X\|_{F}^{2}+\frac{1}{2\gamma}\|\widetilde{D}-D\|_{F}^{2}\\
 \textrm{subject to} & \widetilde{X}\succeq0\\
  & \widetilde{D}=\mathbf{diag}(\widetilde{d})\\
  & \widetilde{d}\geq0,
 \end{array}
-\end{equation}$
+\end{equation}
+$$
 
-where $\widetilde{X}\in\mathbf{S}_{+}^{n},$ and $\widetilde{d}\in \mathbf{R}_{+}^{n}$
+where $$\widetilde{X}\in\mathbf{S}_{+}^{n},$$ and $$\widetilde{d}\in \mathbf{R}_{+}^{n}$$
 (*i.e.*, $\widetilde{D}=\mathbf{diag}(\widetilde{d}$)) are the
 optimization variables. 
 
