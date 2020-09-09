@@ -82,9 +82,9 @@ function prox_over_matrix(Σ, γ, X, d)
 	
   # Create terms of the objective function, which we write down in three parts
   #  --------------------------------------------------------------------------
-  t1 = square(norm(Σ - X_tl - D_tl,2))
-  t2 = square(norm(X-X_tl,2))
-  t3 = square(norm(D-D_tl,2))
+  t1 = square(norm2(Σ - X_tl - D_tl)) # norm2 function computes the Frobenius 
+  t2 = square(norm2(X-X_tl))          # norm for a matrix in Convex.jl
+  t3 = square(norm2(D-D_tl))
 	
   # Create objective
   # ----------------
