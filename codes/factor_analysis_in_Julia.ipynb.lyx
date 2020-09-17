@@ -195,5 +195,156 @@ i.e.
 .
 \end_layout
 
+\begin_layout Paragraph
+Optimization problem in consideration.
+\end_layout
+
+\begin_layout Standard
+The optimization problem to determine the matrices 
+\begin_inset Formula $X,D$
+\end_inset
+
+ can be written as: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{ll}
+\textup{minimize} & \left\Vert \Sigma-X-D\right\Vert _{F}^{2}\\
+\textup{subject to} & D=\mathbf{diag}(d)\\
+ & d\geq0\\
+ & X\succeq0\\
+ & \mathbf{rank}(X)\leq r\\
+ & \Sigma-D\succeq0\\
+ & \|X\|_{2}\leq M,
+\end{array}\tag{FACTOR-ANALYSIS}\label{eq:factor_analysis}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $X\in\mathbf{S}^{n}$
+\end_inset
+
+ and the diagonal matrix 
+\begin_inset Formula $D\in\mathbf{S}^{n}$
+\end_inset
+
+ with nonnegative diagonal entries are the decision variables, and 
+\begin_inset Formula $\Sigma\in\mathbf{S}_{+}^{n}$
+\end_inset
+
+ (a positive semidefinite matrix), 
+\begin_inset Formula $r\in\mathbf{Z}_{+},$
+\end_inset
+
+ and 
+\begin_inset Formula $M\in\mathbf{R}_{++}$
+\end_inset
+
+ are the problem data.
+ 
+\end_layout
+
+\begin_layout Standard
+A proper solution for the optimization problem above requires that both
+ 
+\begin_inset Formula $X$
+\end_inset
+
+ and 
+\begin_inset Formula $D$
+\end_inset
+
+ are positive semidefinite.
+ Furthermore, when 
+\begin_inset Formula $\Sigma-D$
+\end_inset
+
+, which is the covariance matrix for the common parts of the variables,
+ is not positive semidefinite, that would as embarrassing as having a negative
+ unique variance in 
+\begin_inset Formula $D$
+\end_inset
+
+, as noted by ten Berge here (page 326).
+\end_layout
+
+\begin_layout Paragraph
+Nuclear norm heuristic.
+ 
+\end_layout
+
+\begin_layout Standard
+The optimization problem above is nonconvex.
+ To approximately solve it, we use the nuclear norm heuristic.
+ In this heuristic, we solve the following relaxed convex optimization problem:
+ 
+\begin_inset Formula 
+\[
+\begin{array}{ll}
+\textup{minimize} & \left\Vert \Sigma-X-D\right\Vert _{F}^{2}+\lambda\left\Vert X\right\Vert _{*}\\
+\textup{subject to} & D=\mathbf{diag}(d)\\
+ & d\geq0\\
+ & X\succeq0\\
+ & \Sigma-D\succeq0\\
+ & \|X\|_{2}\leq M,
+\end{array}
+\]
+
+\end_inset
+
+ where 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ is a positive parameter that is related to the rank of the decision variable
+ 
+\begin_inset Formula $X$
+\end_inset
+
+.
+ Note that, as 
+\begin_inset Formula $X$
+\end_inset
+
+ is positive semidefinite, we have 
+\begin_inset Formula $\|X\|_{*}=\mathbf{tr}(X),$
+\end_inset
+
+for this reason this heuristic is also called minimum trace factor analysis
+ as well.
+\end_layout
+
+\begin_layout Standard
+To compute the value of 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ corresponding to a desired 
+\begin_inset Formula $r$
+\end_inset
+
+ such that 
+\begin_inset Formula $\mathbf{rank}(X)\leq r$
+\end_inset
+
+ we solve the relaxed problem for different values of 
+\begin_inset Formula $\lambda$
+\end_inset
+
+, and find the smallest value of 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ for which we have 
+\begin_inset Formula $\mathbf{rank}(X)\leq r$
+\end_inset
+
+.
+ 
+\end_layout
+
 \end_body
 \end_document
