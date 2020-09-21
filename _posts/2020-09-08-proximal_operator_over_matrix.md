@@ -38,9 +38,7 @@ $$
 \end{equation}
 $$
 
-where $$\widetilde{X}\in\mathbf{S}_{+}^{n},$$ and $$\widetilde{d}\in \mathbf{R}_{+}^{n}$$
-(*i.e.*, $\widetilde{D}=\mathbf{diag}(\widetilde{d}$)) are the
-optimization variables.
+where $$\widetilde{X}\in\mathbf{S}_{+}^{n},$$ and $$\widetilde{d}\in \mathbf{R}_{+}^{n}$$ (*i.e.*, $\widetilde{D}=\mathbf{diag}(\widetilde{d}$)) are the optimization variables.
 
 Now we solve this optimization problem using `Julia`. We will use the package `Convex` and `COSMO`, both open source `Julia` packages.
 
