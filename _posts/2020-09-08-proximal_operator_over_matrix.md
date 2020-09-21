@@ -38,7 +38,9 @@ $$
 \end{equation}
 $$
 
-where $$\widetilde{X}\in\mathbf{S}_{+}^{n},$$ and $$\widetilde{d}\in \mathbf{R}_{+}^{n}$$ (*i.e.*, $\widetilde{D}=\mathbf{diag}(\widetilde{d}$)) are the optimization variables.
+where $$\widetilde{X}\in\mathbf{S}_{+}^{n},$$ and $$\widetilde{d}\in \mathbf{R}_{+}^{n}$$
+(*i.e.*, $\widetilde{D}=\mathbf{diag}(\widetilde{d}$)) are the
+optimization variables.
 
 Now we solve this optimization problem using `Julia`. We will use the package `Convex` and `COSMO`, both open source `Julia` packages.
 
@@ -219,7 +221,7 @@ d_tl_sv = d2
 @time X2, d2 = prox_PRS_fam_JuMP(Σ, M, γ, X, d; X_tl_sv = X2, d_tl_sv = d2, warm_start = true)
 ```
 
-`Output:` 
+`Output:`
 
 ```julia
   2.263578 seconds (11.69 k allocations: 1.033 MiB)
@@ -229,13 +231,13 @@ d_tl_sv = d2
   1.643022 seconds (19.30 k allocations: 2.764 MiB)
 ```
 
-###### Creating `.jl` script file from the `.jmd` file
+###### Converting `.jmd` file to `.jl` file
 
-To convert this `.jmd` file into a `.jl` file containing the code only, we can run the following code: 
+To convert the `.jmd` file to a `.jl` file we run the following code: 
 
-```julia
-cd("C:\\directory_that_contains_the_jmd_file")
-tangle("name_of_the_jmd_file.jmd", informat = "markdown")
+```julia 
+using Weave
+cd("C:\\Users\\shuvo\\Google Drive\\GitHub\\blog\\codes") # directory that contains the .jmd file
+tangle("2020-09-08-proximal_operator_over_matrix.jmd", informat = "markdown") # convert the .jmd file into a .jl file that will contain the code
 ```
 
-which will create a file called `name_of_the_jmd_file.jl` in the same folder with the codes in the `.jmd` file.
