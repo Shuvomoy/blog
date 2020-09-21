@@ -1,73 +1,17 @@
----
-layout: post
-title: Computing proximal operator of a constrained function in Julia
-categories: [programming]
-tags: [Julia]
-comments: true
----
 
-In this blog, we will show how to compute proximal operator of a constrained function. The entire code is written in markdown using the package [Weave.jl](https://github.com/JunoLab/Weave.jl). The corresponding `.jmd` notebook (can be opened both as a markdown file in any text editor or code in `Juno`), can be downloaded [here](https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/codes/2020-09-08-proximal_operator_over_matrix.jmd).<!-- more -->
-
-As an example we consider the function:
-
-$$
-\begin{eqnarray*}
-f(X,D) & : & =\left\Vert \Sigma-X-D\right\Vert _{F}^{2}+I_{\mathcal{P}}(X,D),
-\end{eqnarray*}
-$$
-
-where $I_{\mathcal{P}}$ denotes the indicator function of the convex
-set
-$$
-\mathcal{P}=\{(X,D)\in\mathbf{S}^{n}\times\mathbf{S}^{n}\mid X\succeq0,D=\mathbf{diag}(d),d\geq0,d\in \mathbf{R}^{n}, \Sigma-D \succeq 0\}.
-$$
-
-#### Computing the proximal operator of $f$
-
-Proximal operator $\mathbf{prox}_{\gamma f}$ for this function $f$ at $(X,D)$ is *the* optimal solution to the following convex optimization problem:
-
-$$
-\begin{equation}
-\begin{array}{ll}
-\textrm{minimize} & \left\Vert \Sigma-\widetilde{X}-\widetilde{D}\right\Vert _{F}^{2}+\frac{1}{2\gamma}\|\widetilde{X}-X\|_{F}^{2}+\frac{1}{2\gamma}\|\widetilde{D}-D\|_{F}^{2}\\
-\textrm{subject to} & \widetilde{X}\succeq0\\
- & \widetilde{D}=\mathbf{diag}(\widetilde{d})\\
- & \widetilde{d}\geq0, \\
- & \Sigma - \widetilde{D} \succeq 0
-\end{array}
-\end{equation}
-$$
-
-where $$\widetilde{X}\in\mathbf{S}_{+}^{n},$$ and $$\widetilde{d}\in \mathbf{R}_{+}^{n}$$ (*i.e.*, $\widetilde{D}=\mathbf{diag}(\widetilde{d}$)) are the optimization variables.
-
-Now we solve this optimization problem using `Julia`. We will use the package `Convex` and `COSMO`, both open source `Julia` packages.
-
-#### Load the packages
-First, we load the packages. If the packages are not installed we can install them by running the following commands in `Julia` REPL.
-
-```julia
 using Pkg
 Pkg.add("Convex")
 Pkg.add("COSMO")
-```
 
 
-```julia
 ## Load the packages
 using Convex
 using LinearAlgebra
 using COSMO
 using JuMP
 using SCS
-```
-
-#### Solver function
-Let us write the solver function that is going to solve the optimization problem that we described above. The first implementation is using `Convex.jl` and the second one is via `JuMP`.
-
-###### First implementation using `Convex.jl`
 
 
-```julia
 # put everything in a function: first implementatino is using Convex.jl
 function prox_PRS_fam_cvxjl(Σ, M, γ, X, d) #(Σ::A, M::R, γ::R, X::A, d::V) where {R <: Real, A <: AbstractMatrix{R}, V <:  AbstractVector{R}} # For now M is not used, may use it in a future version
 
@@ -124,11 +68,7 @@ function prox_PRS_fam_cvxjl(Σ, M, γ, X, d) #(Σ::A, M::R, γ::R, X::A, d::V) w
 
 end
 
-```
 
-###### Second implementation using `JuMP`
-
-```julia
 ## put everything in a function (implementation using JuMP)
 function prox_PRS_fam_JuMP(Σ, M, γ, X, d; X_tl_sv = nothing, d_tl_sv = nothing, warm_start = false)
 
@@ -181,16 +121,7 @@ function prox_PRS_fam_JuMP(Σ, M, γ, X, d; X_tl_sv = nothing, d_tl_sv = nothing
 
 end
 
-```
 
-
-
-
-#### Create data to test
-We create the data now to test the function we just wrote.
-
-
-```julia
 ## All the parameters
 n = 10
 Σ1 = randn(n,n)
@@ -199,13 +130,8 @@ X = randn(n,n)
 d = randn(n)
 M = 1
 γ = 1
-```
-
-#### Test the function
-We test the function now to see if the function `prox_over_matrix` works as expected!
 
 
-```julia, results = "markup"
 ## Time to run the code
 @time X1, d1 = prox_PRS_fam_cvxjl(Σ, M, γ, X, d)
 
@@ -217,25 +143,11 @@ X_tl_sv = X2
 d_tl_sv = d2
 
 @time X2, d2 = prox_PRS_fam_JuMP(Σ, M, γ, X, d; X_tl_sv = X2, d_tl_sv = d2, warm_start = true)
-```
 
-`Output:` 
 
-```julia
   2.263578 seconds (11.69 k allocations: 1.033 MiB)
   1.613454 seconds (18.60 k allocations: 2.731 MiB)
   warm start enabled
   norm difference is = 0.0
   1.643022 seconds (19.30 k allocations: 2.764 MiB)
-```
 
-###### Creating `.jl` script file from the `.jmd` file
-
-To convert this `.jmd` file into a `.jl` file containing the code only, we can run the following code: 
-
-```julia
-cd("C:\\directory_that_contains_the_jmd_file")
-tangle("name_of_the_jmd_file.jmd", informat = "markdown")
-```
-
-which will create a file called `name_of_the_jmd_file.jl` in the same folder with the codes in the `.jmd` file.

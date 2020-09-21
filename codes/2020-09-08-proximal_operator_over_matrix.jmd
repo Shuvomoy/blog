@@ -221,7 +221,7 @@ d_tl_sv = d2
 @time X2, d2 = prox_PRS_fam_JuMP(Σ, M, γ, X, d; X_tl_sv = X2, d_tl_sv = d2, warm_start = true)
 ```
 
-`Output:` 
+`Output:`
 
 ```julia
   2.263578 seconds (11.69 k allocations: 1.033 MiB)
@@ -230,4 +230,3 @@ d_tl_sv = d2
   norm difference is = 0.0
   1.643022 seconds (19.30 k allocations: 2.764 MiB)
 ```
-
