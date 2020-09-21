@@ -313,8 +313,8 @@ The optimization problem above is nonconvex.
 \begin_inset Formula $\|X\|_{*}=\mathbf{tr}(X),$
 \end_inset
 
-for this reason this heuristic is also called minimum trace heuristic as
- well.
+for this reason this heuristic is also called minimum trace factor analysis
+ as well.
 \end_layout
 
 \begin_layout Standard
@@ -344,6 +344,10 @@ To compute the value of
 
 .
  
+\end_layout
+
+\begin_layout Standard
+
 \end_layout
 
 \end_body

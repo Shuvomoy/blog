@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.11.12
+# v0.11.14
 
 using Markdown
 using InteractiveUtils
@@ -8,8 +8,10 @@ using InteractiveUtils
 begin
 	# Load the packages
 	using Convex
+	using JuMP
 	using LinearAlgebra
 	using COSMO
+	using SCS
 end
 
 # ╔═╡ db7ebbc0-f1d7-11ea-0eb0-2d7b749aef2b
@@ -65,7 +67,7 @@ Let us write the solver function that is going to solve the optimization problem
 
 # ╔═╡ c261d490-f1d9-11ea-1f3f-e93b211d6d44
 # put everything in a function
-function prox_over_matrix(Σ, γ, X, d)
+function prox_over_matrix_Convex(Σ, γ, X, d)
 	
   # This functions takes the input data Σ, γ, X, d and evaluates the proximal operator of the function f at the point (X,d)
 	
@@ -76,15 +78,15 @@ function prox_over_matrix(Σ, γ, X, d)
 	
   # Create the variables
   #  --------------------
-  X_tl = Convex.Semidefinite(n) # Here Semidefinite(n) encodes that X_tl ≡ ̃X is a positive semidefinite matrix
-  d_tl = Convex.Variable(n) # d_tl ≡ ̃d
-  D_tl = diagm(d_tl) # Create the diagonal matrix ̃D from ̃d
+  X_tl_cvx = Convex.Semidefinite(n) # Here Semidefinite(n) encodes that X_tl ≡ ̃X is a positive semidefinite matrix
+  d_tl_cvx = Convex.Variable(n) # d_tl ≡ ̃d
+  D_tl_cvx = diagm(d_tl_cvx) # Create the diagonal matrix ̃D from ̃d
 	
   # Create terms of the objective function, which we write down in three parts
   #  --------------------------------------------------------------------------
-  t1 = square(norm2(Σ - X_tl - D_tl)) # norm2 function computes the Frobenius 
-  t2 = square(norm2(X-X_tl))          # norm for a matrix in Convex.jl
-  t3 = square(norm2(D-D_tl))
+  t1 = square(norm2(Σ - X_tl_cvx - D_tl_cvx)) # norm2 function computes the Frobenius 
+  t2 = square(norm2(X-X_tl_cvx))          # norm for a matrix in Convex.jl
+  t3 = square(norm2(D-D_tl_cvx))
 	
   # Create objective
   # ----------------
@@ -92,26 +94,31 @@ function prox_over_matrix(Σ, γ, X, d)
 	
   # create the problem instance
   # ---------------------------
-  problem = Convex.minimize(objective, [d_tl >= 0])
+  problem = Convex.minimize(objective, [d_tl_cvx >= 0])
 	
   # set the solver
   # ------------------
-  solver = () -> COSMO.Optimizer(verbose=false)
+  # solver = () -> SCS.Optimizer(verbose=false)
 	
   # solve the problem
   # -----------------
-  Convex.solve!(problem, solver)
+  Convex.solve!(problem, SCS.Optimizer(verbose=false))
 	
   # get the optimal solution
   # ------------------------	
-  X_sol = X_tl.value
-  d_sol = d_tl.value
+  X_sol = X_tl_cvx.value
+  d_sol = d_tl_cvx.value
 	
   # return the output	
   return X_sol, d_sol
 	
 end
 
+
+# ╔═╡ d225b1b0-fa1e-11ea-3950-d1011df616b7
+md"""
+We can write the same function using `JuMP` as well.
+"""
 
 # ╔═╡ a69e5a70-f207-11ea-1845-3b2e3616976e
 md"""
@@ -133,20 +140,51 @@ begin
 	γ = 1
 end
 
+# ╔═╡ ded20490-fa1e-11ea-373d-63c620008af0
+# put everything in a function
+function prox_over_matrix_JuMP(Σ, γ, X, d)
+
+	# This functions takes the input data Σ, γ, X, d and evaluates the proximal operator of the function f at the point (X,d)
+
+	n = length(d)
+	
+	prox_model = Model(optimizer_with_attributes(SCS.Optimizer, "verbose" => false))
+
+	@variables( prox_model,
+	begin
+		d_tl[1:n] >= 0
+		X_tl[1:n, 1:n], PSD
+	end
+	)
+
+	t_1 = vec(Σ - X_tl - diagm(d_tl))
+	t_2 = vec(X_tl-X)
+	t_3 = vec(diagm(d_tl)-D)
+	obj = t_1'*t_1 + ((1/(2*γ))*(t_2'*t_2 + t_3'*t_3))
+
+	@objective(prox_model, Min, obj)
+
+	optimize!(prox_model)
+
+	obj_val = objective_value(prox_model)
+	X_sol = value.(X_tl)
+	d_sol = value.(d_tl)
+
+	return X_sol, d_sol
+
+end
+
 # ╔═╡ 40a00df0-f22e-11ea-1383-bfa043625862
 md"""
 #### Test the function
 We test the function now to see if the function `prox_over_matrix` works as expected!
 """
 
-# ╔═╡ daef2520-f207-11ea-1e28-a13dcd6846d1
-X_o, x_o = prox_over_matrix(Σ, γ, X, x)
+# ╔═╡ 7f811e80-fa1f-11ea-2749-6d6cc64ef668
+@time prox_over_matrix_JuMP(Σ, γ, X, d)
 
-# ╔═╡ 852c13e0-f208-11ea-11f9-0303cb61cc96
-X_o
-
-# ╔═╡ 8d0cd4f0-f208-11ea-0200-c56844a8647f
-x_o
+# ╔═╡ ded8c5e0-fa1f-11ea-2e2d-85164c12a199
+prox_over_matrix_Convex(Σ, γ, X, d)
 
 # ╔═╡ Cell order:
 # ╠═db7ebbc0-f1d7-11ea-0eb0-2d7b749aef2b
@@ -154,9 +192,10 @@ x_o
 # ╠═43c6f79e-f206-11ea-0082-e3fd10d20eae
 # ╠═69814c20-f1d9-11ea-0bde-c9700dd85600
 # ╠═c261d490-f1d9-11ea-1f3f-e93b211d6d44
+# ╠═d225b1b0-fa1e-11ea-3950-d1011df616b7
+# ╠═ded20490-fa1e-11ea-373d-63c620008af0
 # ╠═a69e5a70-f207-11ea-1845-3b2e3616976e
 # ╠═b05f9b4e-f207-11ea-01f0-e561d5a3f0cc
 # ╠═40a00df0-f22e-11ea-1383-bfa043625862
-# ╠═daef2520-f207-11ea-1e28-a13dcd6846d1
-# ╠═852c13e0-f208-11ea-11f9-0303cb61cc96
-# ╠═8d0cd4f0-f208-11ea-0200-c56844a8647f
+# ╠═7f811e80-fa1f-11ea-2749-6d6cc64ef668
+# ╠═ded8c5e0-fa1f-11ea-2e2d-85164c12a199
