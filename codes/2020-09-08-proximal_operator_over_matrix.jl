@@ -151,3 +151,8 @@ d_tl_sv = d2
   norm difference is = 0.0
   1.643022 seconds (19.30 k allocations: 2.764 MiB)
 
+
+using Weave
+cd("C:\\Users\\shuvo\\Google Drive\\GitHub\\blog\\codes") # directory that contains the .jmd file
+tangle("2020-09-08-proximal_operator_over_matrix.jmd", informat = "markdown") # convert the .jmd file into a .jl file that will contain the code
+
