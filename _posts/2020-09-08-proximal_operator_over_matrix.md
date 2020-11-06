@@ -207,7 +207,7 @@ M = 1
 We test the function now to see if the function `prox_over_matrix` works as expected!
 
 
-```julia, results = "markup"
+```julia
 ## Time to run the code
 @time X1, d1 = prox_PRS_fam_cvxjl(Σ, M, γ, X, d)
 
