@@ -8,7 +8,7 @@ comments: true
 
 In this blog, we will show how to compute proximal operator of a constrained function. The entire code is written in markdown using the package [Weave.jl](https://github.com/JunoLab/Weave.jl). The corresponding `.jmd` notebook (can be opened both as a markdown file in any text editor or code in `Juno`), can be downloaded [here](https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/codes/2020-09-08-proximal_operator_over_matrix.jmd).<!-- more -->
 
-As an example we consider the function:
+As an example, we consider a constrained convex function that shows up in low-rank factor analysis problem. The function, where the matrices $X,D$ are the inputs, can be written as:
 
 $$
 \begin{eqnarray*}
@@ -16,8 +16,7 @@ f(X,D) & : & =\left\Vert \Sigma-X-D\right\Vert _{F}^{2}+I_{\mathcal{P}}(X,D),
 \end{eqnarray*}
 $$
 
-where $I_{\mathcal{P}}$ denotes the indicator function of the convex
-set
+where $I_{\mathcal{P}}$ denotes the indicator function of the convex set
 $$
 \mathcal{P}=\{(X,D)\in\mathbf{S}^{n}\times\mathbf{S}^{n}\mid X\succeq0,D=\mathbf{diag}(d),d\geq0,d\in \mathbf{R}^{n}, \Sigma-D \succeq 0\}.
 $$
@@ -38,9 +37,7 @@ $$
 \end{equation}
 $$
 
-where $$\widetilde{X}\in\mathbf{S}_{+}^{n},$$ and $$\widetilde{d}\in \mathbf{R}_{+}^{n}$$
-(*i.e.*, $\widetilde{D}=\mathbf{diag}(\widetilde{d}$)) are the
-optimization variables.
+where $$\widetilde{X}\in\mathbf{S}_{+}^{n},$$ and $$\widetilde{d}\in \mathbf{R}_{+}^{n}$$ (*i.e.*, $\widetilde{D}=\mathbf{diag}(\widetilde{d}$)) are the optimization variables.
 
 Now we solve this optimization problem using `Julia`. We will use the package `Convex` and `COSMO`, both open source `Julia` packages.
 
@@ -66,7 +63,7 @@ using SCS
 #### Solver function
 Let us write the solver function that is going to solve the optimization problem that we described above. The first implementation is using `Convex.jl` and the second one is via `JuMP`.
 
-###### First implementation using `Convex.jl`
+##### First implementation using `Convex.jl`
 
 
 ```julia
@@ -128,7 +125,7 @@ end
 
 ```
 
-###### Second implementation using `JuMP`
+##### Second implementation using `JuMP`
 
 ```julia
 ## put everything in a function (implementation using JuMP)
