@@ -45,6 +45,8 @@ We see that
 $$
 \mathcal G(A) = \left\{ (x,y) \mid \texttt{gAineq}(x,y) \geq 0\right\}.
 $$
+
+
 **SRG of $B$.** First, we draw the SRG of $B$ by typing the following code. We denote the real and imaginary variables corresponding to $\mathcal G(B)$ by $s,t$, respectively. 
 
 ```mathematica 
