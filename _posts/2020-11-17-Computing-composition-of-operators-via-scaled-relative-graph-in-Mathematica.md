@@ -7,7 +7,7 @@ comments: true
 
 ---
 
-This blog is based on the question posted [here](https://mathematica.stackexchange.com/questions/233264/plotting-minkowski-product-of-two-sets-in-complex-2d-plane) on https://mathematica.stackexchange.com/ and the answer provided by [`user64494`](https://mathematica.stackexchange.com/users/7152/user64494). 
+This blog is based on the question posted [here](https://mathematica.stackexchange.com/questions/233264/plotting-minkowski-product-of-two-sets-in-complex-2d-plane) on https://mathematica.stackexchange.com/ and the answer provided by [`user64494`](https://mathematica.stackexchange.com/users/7152/user64494). <!-- more -->
 
 Suppose, we are given two operators $A,B$, and we know their [scale relative graphs](https://arxiv.org/pdf/1902.09788.pdf), denoted by $\mathcal{G}(A)$ and $\mathcal{G}(B)$, respectively. We are interested to figure out the scaled relative graph of their composition $AB:x\mapsto A(B(x))$. For simplicity, we will assume that the regularity conditions under which $\mathcal{G}(AB)=\mathcal{G}(A)\mathcal{G}(B)$ hold; for more details, please see the paper on [scaled relative graph by Ryu et al](https://arxiv.org/pdf/1902.09788.pdf).  
 
@@ -56,7 +56,7 @@ gBineq = ComplexExpand[
 srgB = RegionPlot[gBineq >= 0, {s, -2, 2}, {t, -2, 2}]
 ```
 
-![image-20201118084104555](2020-11-17-Computing-composition-of-operators-via-scaled-relative-graph-in-Mathematica.assets/image-20201118084104555.png)
+![image-20201118084104555](https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/assets/image-20201118084104555.png)
 
 Similarly, $\mathcal G(B) = \left\{ (s,t) \mid \texttt{gBineq}(s,t) \geq 0\right\}$.
 
@@ -78,7 +78,7 @@ v = Plus @@ (Cases[zw, _Complex _]/I)
 (*Find the real component of zw*) u = Expand[zw - I v]
 ```
 
-![image-20201118084143443](2020-11-17-Computing-composition-of-operators-via-scaled-relative-graph-in-Mathematica.assets/image-20201118084143443.png)
+<img src="https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/assets/image-20201118084143443.png" alt="image-20201118084143443" style="zoom:67%;" />
 
 So, in terms of quantifier notation, the set description of $\mathcal {G}(A) \mathcal {G}(B)$ will be the following:
 $$
@@ -121,7 +121,7 @@ quantgAB =
 
 which gives the output: 
 
-![image-20201118084216189](2020-11-17-Computing-composition-of-operators-via-scaled-relative-graph-in-Mathematica.assets/image-20201118084216189.png)
+<img src="https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/assets/image-20201118084216189.png" alt="image-20201118084216189" style="zoom: 50%;" />
 
 Next, we can find the explicit form of $\mathcal{G}(AB)$ in $(u,v)$ by using the `Resolve` command.
 
@@ -132,7 +132,7 @@ gAB = Resolve[quantgAB, Reals]
 
 which produces the output: 
 
-![image-20201118084318543](2020-11-17-Computing-composition-of-operators-via-scaled-relative-graph-in-Mathematica.assets/image-20201118084318543.png)
+![image-20201118084318543](https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/assets/image-20201118084318543.png)
 
 Finally, we can plot $\mathcal{G}(AB)$ as follows.
 
@@ -142,7 +142,7 @@ Region[ImplicitRegion[gAB, {u, v}]]
 
 The output is: 
 
-![image-20201118084340687](2020-11-17-Computing-composition-of-operators-via-scaled-relative-graph-in-Mathematica.assets/image-20201118084340687.png)
+![image-20201118084340687](https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/assets/image-20201118084340687.png)
 
 
 
