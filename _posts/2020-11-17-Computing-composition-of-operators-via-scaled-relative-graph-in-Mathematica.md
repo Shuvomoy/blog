@@ -39,7 +39,7 @@ gAineq = ComplexExpand[Re[z] - \[Beta]*Abs[z]^2 /. z -> x + I*y]
 srgA = RegionPlot[gAineq >= 0, {x, -2, 2}, {y, -2, 2}]
 ```
 
-![image-20201118084023741](2020-11-17-Computing-composition-of-operators-via-scaled-relative-graph-in-Mathematica.assets/image-20201118084023741.png)
+![image-20201118084023741](https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/assets/image-20201118084023741.png)
 
 We see that $\mathcal G(A) = \left\{ (x,y) \mid \texttt{gAineq}(x,y) \geq 0\right\}$.
 
