@@ -142,7 +142,7 @@ Region[ImplicitRegion[gAB, {u, v}]]
 
 The output is: 
 
-<img src="Computing-composition-of-operators-via-scaled-relative-graph-in-Mathematica.assets/image-20201115160100309.png" alt="image-20201115160100309" style="zoom: 67%;" />
+<img src="/Computing-composition-of-operators-via-scaled-relative-graph-in-Mathematica.assets/image-20201115160100309.png" alt="image-20201115160100309" style="zoom: 67%;" />
 
 
 
