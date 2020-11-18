@@ -41,8 +41,10 @@ srgA = RegionPlot[gAineq >= 0, {x, -2, 2}, {y, -2, 2}]
 
 ![image-20201118084023741](https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/assets/image-20201118084023741.png)
 
-We see that $\mathcal G(A) = \left\{ (x,y) \mid \texttt{gAineq}(x,y) \geq 0\right\}$.
-
+We see that 
+$$
+\mathcal G(A) = \left\{ (x,y) \mid \texttt{gAineq}(x,y) \geq 0\right\}.
+$$
 **SRG of $B$.** First, we draw the SRG of $B$ by typing the following code. We denote the real and imaginary variables corresponding to $\mathcal G(B)$ by $s,t$, respectively. 
 
 ```mathematica 
@@ -58,7 +60,10 @@ srgB = RegionPlot[gBineq >= 0, {s, -2, 2}, {t, -2, 2}]
 
 ![image-20201118084104555](https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/assets/image-20201118084104555.png)
 
-Similarly, $\mathcal G(B) = \left\{ (s,t) \mid \texttt{gBineq}(s,t) \geq 0\right\}$.
+Similarly, 
+$$
+\mathcal G(B) = \left\{ (s,t) \mid \texttt{gBineq}(s,t) \geq 0\right\}.
+$$
 
 ### Quantifier definition of $\mathcal {G}(A) \mathcal {G}(B)$
 
@@ -82,16 +87,21 @@ v = Plus @@ (Cases[zw, _Complex _]/I)
 
 So, in terms of quantifier notation, the set description of $\mathcal {G}(A) \mathcal {G}(B)$ will be the following:
 $$
-\mathcal{G}(AB) = \mathcal {G}(A) \mathcal {G}(B) = \left\{ (u,v) \mid u = sx - ty, v = tx + sy, \texttt{gAineq}(x,y) \geq 0, \texttt{gBineq}(s,t) \geq 0\right \} \qquad (1)
+\begin{align*}
+ & \mathcal{G}(AB)\\
+ & =\mathcal{G}(A)\mathcal{G}(B)\\
+ & =\left\{ (u,v)\mid u=sx-ty,v=tx+sy,\texttt{gAineq}(x,y)\geq0,\texttt{gBineq}(s,t)\geq0\right\} \qquad(1)
+\end{align*}
 $$
 
 ### Finding $\mathcal{G}(AB)$ explicitly
 
 In $(1)$, we have $\mathcal{G}(AB)$ in a parametric form where we do not have $u,v$ explicitly, but it is expressed in terms of $x,y$. To figure out the explicit description of $\mathcal{G}(AB)$, we use quantifier elimination technique in `Mathematica`. First step is to observe that: 
 $$
-(u,v) \in \mathcal{G}(AB)  \\
-\Leftrightarrow \\
-\exists_{x,y,s,t \in \mathbf{R}} \; \left(u = sx - ty,\; v = tx + sy,\; \texttt{gAineq}(x,y) \geq 0,\; \texttt{gBineq}(s,t) \geq 0 \right)
+\begin{align*}
+ & (u,v)\in\mathcal{G}(AB)\\
+\Leftrightarrow & \exists_{x,y,s,t\in\mathbf{R}}\left(u=sx-ty,\;v=tx+sy,\;\texttt{gAineq}(x,y)\geq0,\;\texttt{gBineq}(s,t)\geq0\right)
+\end{align*}
 $$
 We next write down this quantifier definition in `Mathematica`. (The rest of the code is self-contained, by only changing the defining inequalities for $A,B$ we can find  $\mathcal{G}(AB)$ for any $A,B$.)
 
