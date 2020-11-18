@@ -39,7 +39,7 @@ gAineq = ComplexExpand[Re[z] - \[Beta]*Abs[z]^2 /. z -> x + I*y]
 srgA = RegionPlot[gAineq >= 0, {x, -2, 2}, {y, -2, 2}]
 ```
 
-![image-20201115144506847](/Computing-composition-of-operators-via-scaled-relative-graph-in-Mathematica.assets/image-20201115144506847-1605667092659.png)
+![image-20201115144506847](https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/assets/srg_graphs/image-20201115144506847-1605667092659.png)
 
 We see that $\mathcal G(A) = \left\{ (x,y) \mid \texttt{gAineq}(x,y) \geq 0\right\}$.
 
@@ -56,7 +56,7 @@ gBineq = ComplexExpand[
 srgB = RegionPlot[gBineq >= 0, {s, -2, 2}, {t, -2, 2}]
 ```
 
-![image-20201115150408610](/Computing-composition-of-operators-via-scaled-relative-graph-in-Mathematica.assets/image-20201115150408610-1605667074185.png)
+![image-20201115150408610](https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/assets/srg_graphs/image-20201115150408610-1605667074185.png)
 
 Similarly, $\mathcal G(B) = \left\{ (s,t) \mid \texttt{gBineq}(s,t) \geq 0\right\}$.
 
@@ -78,7 +78,7 @@ v = Plus @@ (Cases[zw, _Complex _]/I)
 (*Find the real component of zw*) u = Expand[zw - I v]
 ```
 
-<img src="/Computing-composition-of-operators-via-scaled-relative-graph-in-Mathematica.assets/image-20201115151649208.png" alt="image-20201115151649208" style="zoom: 50%;" />
+<img src="https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/assets/srg_graphs/image-20201115151649208.png" alt="image-20201115151649208" style="zoom: 50%;" />
 
 So, in terms of quantifier notation, the set description of $\mathcal {G}(A) \mathcal {G}(B)$ will be the following:
 $$
@@ -121,7 +121,7 @@ quantgAB =
 
 which gives the output: 
 
-![image-20201115154749025](/Computing-composition-of-operators-via-scaled-relative-graph-in-Mathematica.assets/image-20201115154749025-1605667021426.png)
+![image-20201115154749025](https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/assets/srg_graphs/image-20201115154749025-1605667021426.png)
 
 Next, we can find the explicit form of $\mathcal{G}(AB)$ in $(u,v)$ by using the `Resolve` command.
 
@@ -132,7 +132,7 @@ gAB = Resolve[quantgAB, Reals]
 
 which produces the output: 
 
-![image-20201115155204755](/Computing-composition-of-operators-via-scaled-relative-graph-in-Mathematica.assets/image-20201115155204755-1605666924450.png)
+![image-20201115155204755](https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/assets/srg_graphs/image-20201115155204755-1605666924450.png)
 
 Finally, we can plot $\mathcal{G}(AB)$ as follows.
 
@@ -142,7 +142,7 @@ Region[ImplicitRegion[gAB, {u, v}]]
 
 The output is: 
 
-<img src="/Computing-composition-of-operators-via-scaled-relative-graph-in-Mathematica.assets/image-20201115160100309.png" alt="image-20201115160100309" style="zoom: 67%;" />
+<img src="https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/assets/srg_graphs/image-20201115160100309.png" alt="image-20201115160100309" style="zoom: 67%;" />
 
 
 
