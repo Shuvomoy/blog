@@ -7,7 +7,7 @@ comments: true
 
 ---
 
-This blog is based on the question posted [here](https://mathematica.stackexchange.com/questions/233264/plotting-minkowski-product-of-two-sets-in-complex-2d-plane) on https://mathematica.stackexchange.com/ and the answer provided by [`user64494`](https://mathematica.stackexchange.com/users/7152/user64494). <!-- more -->
+This blog is based on the question posted [here](https://mathematica.stackexchange.com/questions/233264/plotting-minkowski-product-of-two-sets-in-complex-2d-plane) on [https://mathematica.stackexchange.com/](https://mathematica.stackexchange.com/) and the answer provided by [`user64494`](https://mathematica.stackexchange.com/users/7152/user64494). <!-- more -->
 
 Suppose, we are given two operators $A,B$, and we know their [scale relative graphs](https://arxiv.org/pdf/1902.09788.pdf), denoted by $\mathcal{G}(A)$ and $\mathcal{G}(B)$, respectively. We are interested to figure out the scaled relative graph of their composition $AB:x\mapsto A(B(x))$. For simplicity, we will assume that the regularity conditions under which $\mathcal{G}(AB)=\mathcal{G}(A)\mathcal{G}(B)$ hold; for more details, please see the paper on [scaled relative graph by Ryu et al](https://arxiv.org/pdf/1902.09788.pdf).  
 
@@ -69,10 +69,14 @@ $$
 
 ### Quantifier definition of $\mathcal {G}(A) \mathcal {G}(B)$
 
-We now write down the quantifier definition of $\mathcal {G}(A) \mathcal {G}(B)$. By definition: 
+We now write down the quantifier definition of $\mathcal {G}(A) \mathcal {G}(B)$. 
+
+By definition: 
 $$
-z=x+ i y \in \mathcal {G}(A), w=s+it\in \mathcal{G}(B)\Leftrightarrow zw = u + iv \in \mathcal {G}(A) \mathcal {G}(B)
+z=x+ i y \in \mathcal {G}(A), w=s+it\in \mathcal{G}(B)\Leftrightarrow zw = u + iv \in \mathcal {G}(A) \mathcal {G}(B).
 $$
+
+
 We can break down the equivalence above more by writing it down explicitly into real and imaginary parts.
 
 ```mathematica
@@ -88,23 +92,31 @@ v = Plus @@ (Cases[zw, _Complex _]/I)
 <img src="https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/assets/image-20201118084143443.png" alt="image-20201118084143443" style="zoom:67%;" />
 
 So, in terms of quantifier notation, the set description of $\mathcal {G}(A) \mathcal {G}(B)$ will be the following:
+
+
 $$
 \begin{align*}
  & \mathcal{G}(AB)\\
  & =\mathcal{G}(A)\mathcal{G}(B)\\
- & =\left\{ (u,v)\mid u=sx-ty,v=tx+sy,\texttt{gAineq}(x,y)\geq0,\texttt{gBineq}(s,t)\geq0\right\} \qquad(1)
+ & =\left\{ (u,v)\mid u=sx-ty,v=tx+sy,\texttt{gAineq}(x,y)\geq0,\texttt{gBineq}(s,t)\geq0\right\}. \qquad(1)
 \end{align*}
 $$
+
+
 
 ### Finding $\mathcal{G}(AB)$ explicitly
 
 In $(1)$, we have $\mathcal{G}(AB)$ in a parametric form where we do not have $u,v$ explicitly, but it is expressed in terms of $x,y$. To figure out the explicit description of $\mathcal{G}(AB)$, we use quantifier elimination technique in `Mathematica`. First step is to observe that: 
+
+
 $$
 \begin{align*}
  & (u,v)\in\mathcal{G}(AB)\\
-\Leftrightarrow & \exists_{x,y,s,t\in\mathbf{R}}\left(u=sx-ty,\;v=tx+sy,\;\texttt{gAineq}(x,y)\geq0,\;\texttt{gBineq}(s,t)\geq0\right)
+\Leftrightarrow & \exists_{x,y,s,t\in\mathbf{R}}\left(u=sx-ty,\;v=tx+sy,\;\texttt{gAineq}(x,y)\geq0,\;\texttt{gBineq}(s,t)\geq0\right).
 \end{align*}
 $$
+
+
 We next write down this quantifier definition in `Mathematica`. (The rest of the code is self-contained, by only changing the defining inequalities for $A,B$ we can find  $\mathcal{G}(AB)$ for any $A,B$.)
 
 ```mathematica
