@@ -7,7 +7,7 @@ comments: true
 
 ---
 
-This blog is based on the question posted [here](https://mathematica.stackexchange.com/questions/233264/plotting-minkowski-product-of-two-sets-in-complex-2d-plane) on [https://mathematica.stackexchange.com/](https://mathematica.stackexchange.com/) and the answer provided by [`user64494`](https://mathematica.stackexchange.com/users/7152/user64494). <!-- more -->
+This blog is based on a question I posted [here](https://mathematica.stackexchange.com/questions/233264/plotting-minkowski-product-of-two-sets-in-complex-2d-plane) on [https://mathematica.stackexchange.com/](https://mathematica.stackexchange.com/) and the answer provided by [`user64494`](https://mathematica.stackexchange.com/users/7152/user64494). <!-- more -->
 
 Suppose, we are given two operators $A,B$, and we know their [scale relative graphs](https://arxiv.org/pdf/1902.09788.pdf), denoted by $\mathcal{G}(A)$ and $\mathcal{G}(B)$, respectively. We are interested to figure out the scaled relative graph of their composition $AB:x\mapsto A(B(x))$. For simplicity, we will assume that the regularity conditions under which $\mathcal{G}(AB)=\mathcal{G}(A)\mathcal{G}(B)$ hold; for more details, please see the paper on [scaled relative graph by Ryu et al](https://arxiv.org/pdf/1902.09788.pdf).  
 
