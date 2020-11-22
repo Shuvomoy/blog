@@ -29,7 +29,7 @@ Why do you want to return to Gokul,
 
 Mathura's king?  
 
-
+  
 
 Your fine garments leaving
 
@@ -39,7 +39,7 @@ On the ground the scepter flinging
 
 Why pick up the flute to play?  
 
-
+  
 
 What magical song did the birds at Gokul sing?
 
@@ -49,7 +49,7 @@ And, your heart, in longing sighs,
 
 is no longer in kingly matters!  
 
-
+  
 
 Your subjects watch with worried eyes:
 
@@ -59,7 +59,7 @@ You stay awake the whole night, restless.
 
 You call the chariot at midnight, why?  
 
-
+  
 
 Slowly you would reach the shores of the river
 
@@ -69,7 +69,7 @@ You would feel the bittersweet pangs
 
 And you would think about Radha, of course!  
 
-
+  
 
 Your first love is another's wife today
 
