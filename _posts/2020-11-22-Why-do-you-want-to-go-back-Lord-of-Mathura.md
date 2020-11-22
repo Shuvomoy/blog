@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Why do you want to go back, Lord of Mathura? by Rituparno Ghosh
+title: "Why do you want to go back, Lord of Mathura?" by Rituparno Ghosh
 categories: [non-technical, music, poetry]  
 comments: true  
 ---
