@@ -25,7 +25,7 @@ What struck you suddenly this morning?
 Why do you want to return to Gokul,   
 Mathura's king?  
 
-​    
+
 
 Your fine garments leaving  
 The golden crown lowering  
