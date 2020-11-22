@@ -1,7 +1,7 @@
 ---
 layout: post
 title: If you did not give me love by Rabindranath Tagore  
-categories: [non-technical, Tagore]  
+categories: [non-technical, Tagore, poetry, music]  
 comments: true  
 ---
 

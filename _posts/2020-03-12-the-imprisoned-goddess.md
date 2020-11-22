@@ -1,7 +1,7 @@
 ---
 layout: post
 title: The Imprisoned Goddess by Jibanananda Das 
-categories: [non-technical]
+categories: [non-technical, poetry]
 comments: true
 ---
 
