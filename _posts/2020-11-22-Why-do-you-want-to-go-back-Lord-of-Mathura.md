@@ -55,7 +55,7 @@ And you would think about Radha, of course!
 
 
 
-Your first love is another's wife today  
+Your first love is another man's wife today  
 Household chores are hers alone  
 She wiped away the tears of separation long back  
 Why fill her with fresh dismay?  
