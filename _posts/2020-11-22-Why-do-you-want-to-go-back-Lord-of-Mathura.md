@@ -25,35 +25,35 @@ What struck you suddenly this morning?
 Why do you want to return to Gokul,   
 Mathura's king?  
 
-\n    
+    
 
 Your fine garments leaving  
 The golden crown lowering  
 On the ground the scepter flinging  
 Why pick up the flute to play?   
 
-\
+
 
 What magical song did the birds at Gokul sing?  
 That makes you give up your kingdom like dust  
 And, your heart, in longing sighs,  
 is no longer in kingly matters! 
 
-\ 
+
 
 Your subjects watch with worried eyes:  
 Your bed of roses seem thorns to you,  
 You stay awake the whole night, restless.  
 You call the chariot at midnight, why?  
 
-\
+
 
 Slowly you would reach the shores of the river  
 Lonely waters where breezes quiver  
 You would feel the bittersweet pangs  
 And you would think about Radha, of course!  
 
-\
+
 
 Your first love is another's wife today  
 Household chores are hers alone  
