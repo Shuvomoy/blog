@@ -27,7 +27,7 @@ What struck you suddenly this morning?
 
 Why do you want to return to Gokul, 
 
-Mathura's king?
+Mathura's king?  
 
 
 
@@ -37,7 +37,7 @@ The golden crown lowering
 
 On the ground the scepter flinging
 
-Why pick up the flute to play?
+Why pick up the flute to play?  
 
 
 
@@ -47,7 +47,7 @@ That makes you give up your kingdom like dust
 
 And, your heart, in longing sighs,
 
-is no longer in kingly matters!
+is no longer in kingly matters!  
 
 
 
@@ -57,7 +57,7 @@ Your bed of roses seem thorns to you,
 
 You stay awake the whole night, restless.
 
-You call the chariot at midnight, why?
+You call the chariot at midnight, why?  
 
 
 
@@ -67,7 +67,7 @@ Lonely waters where breezes quiver
 
 You would feel the bittersweet pangs
 
-And you would think about Radha, of course!
+And you would think about Radha, of course!  
 
 
 
