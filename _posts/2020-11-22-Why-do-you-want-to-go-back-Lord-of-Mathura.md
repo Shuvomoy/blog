@@ -60,6 +60,11 @@ Household chores are hers alone
 She wiped away the tears of separation long back  
 Why fill her with fresh dismay?  
 
+
+
+Why, then, do you want to return to Gokul,   
+Mathura's king?  
+
 ---
 
 <iframe width="500" height="300" src="https://www.youtube.com/embed/E7l-ouhp33M" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
