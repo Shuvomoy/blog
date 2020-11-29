@@ -145,13 +145,15 @@ Now we are going to create a shell script that will be used to submit the job. T
 
 
 ```julia
-#!/bin/sh
+#!/bin/bash
 
-# Initialize Modules
+# Initialize the module command first source
 source /etc/profile
 
 # Load Julia Module
-module load julia-latest
+# Find out the list of modules available by running the command
+#  module avai
+module load julia/1.5.2
 
 # Call your script as you would from the command line
 julia lasso.jl

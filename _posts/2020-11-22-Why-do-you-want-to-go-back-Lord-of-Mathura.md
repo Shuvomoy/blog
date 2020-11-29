@@ -9,6 +9,10 @@ comments: true
 
 
 
+![useful_image](2020-11-22-Why-do-you-want-to-go-back-Lord-of-Mathura.assets/radha_krishna.jpg)
+
+
+
 The song is about [Radha](https://en.wikipedia.org/wiki/Radha) and [Krishna](https://en.wikipedia.org/wiki/Krishna).<!-- more --> In this song, Krishna has become an emperor, which is far removed from the simplicity of his earlier life that he spent in [Gokul](https://en.wikipedia.org/wiki/Gokul). In Gokul, he was a cowherd with no material possessions besides a flute that he loved to play. Yet, he was happy and content. Today, as a king, Krishna has wealth, power, and every worldly pleasure a man can ask for, but he is not happy. In his heart, he yearns for the simple life in Gokul. Above everything, he cannot forget Radha, the love of his life. Radha loved Krishna unconditionally when he was another village boy. Today many attractive women desire Krishna the emperor, yet the purity of Radha's love is what his heart longs for. So, Krishna wishes to leave the capital of his kingdom [Mathura](https://en.wikipedia.org/wiki/Mathura) to return to Gokul and meet Radha, one last time. 
 
 
