@@ -5,7 +5,11 @@ categories: [non-technical]
 comments: true
 ---
 
-Recently, I finished reading a fantastic autobiography: [Will to Freedom by Egon Balas](https://www.goodreads.com/book/show/2771574-will-to-freedom). It is quite long, and I read it in small chunks as I am a very slow reader. I am so glad that I finished the book. <!-- more -->
+Recently, I finished reading a fantastic autobiography: [Will to Freedom by Egon Balas](https://www.goodreads.com/book/show/2771574-will-to-freedom). It is quite long, and I read it in small chunks as I am a very slow reader. I am so glad that I finished the book.
+
+![useful_image](https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/assets/egon_balas.png)
+
+ <!-- more -->
 
 
 
@@ -13,7 +17,7 @@ Egon Balas (1922-2019) is a giant in the field of integer programming. He contri
 
 
 
-Egon Balas was born and raised in Romania. As a young adult, he was very much interested in physics, literature, and, not very surprisingly, girls. However, when he was introduced to Marxism by a friend, his life took a turn; he came to firmly believe that Marxism has the answers to solve all the problems he was facing as a young Jewish man: oppression, anti-Semitism, and racism. 
+Egon Balas was born and raised in Romania. As a young adult, he was very much interested in physics, literature, and, not very surprisingly, girls. However, when he was introduced to Marxism by a friend, his life took a turn; he came to firmly believe that Marxism has the answers to solve all the problems he was facing as a young Jewish man: oppression, antisemitism, and racism. 
 
 
 
