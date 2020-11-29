@@ -7,11 +7,9 @@ comments: true
 
 Recently, I finished reading a fantastic autobiography: [Will to Freedom by Egon Balas](https://www.goodreads.com/book/show/2771574-will-to-freedom). It is quite long, and I read it in small chunks as I am a very slow reader. I am so glad that I finished the book.
 
-![useful_image](https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/assets/egon_balas.png)
+<img src="https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/assets/egon_balas.png" alt="useful_image" style="zoom:33%;" />
 
  <!-- more -->
-
-
 
 Egon Balas (1922-2019) is a giant in the field of integer programming. He contributed to many branches of integer programming: constraint propagation, lift and project method, extended formulation, and so on. For his contributions to mathematical programming, in 1995, he was awarded the John von Neumann Theory Prize---the highest honor in the field of operations research. But after reading his biography, I think perhaps such accolades tell us very little about a man and his journey. What a dramatic life he had!
 
