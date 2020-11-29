@@ -15,6 +15,7 @@ $text-color:       #333333;
 $background-color: #fffff8;
 $brand-color:      #2a7ae2;
 $brand-top-color:  #2583ad;
+$visted-color:     #800080;
 $hover-color:      #DD1144;
 
 $grey-color:       #828282;
