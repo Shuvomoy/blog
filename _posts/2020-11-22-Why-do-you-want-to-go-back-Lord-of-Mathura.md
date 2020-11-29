@@ -9,7 +9,7 @@ comments: true
 
 
 
-![useful_image](2020-11-22-Why-do-you-want-to-go-back-Lord-of-Mathura.assets/radha_krishna.jpg)
+![useful_image](https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/assets/radha_krishna.jpg)
 
 
 
