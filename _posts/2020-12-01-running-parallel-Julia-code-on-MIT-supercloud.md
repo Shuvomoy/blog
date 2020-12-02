@@ -25,7 +25,7 @@ $$
 
 
 
-where $x\in\mathbf{R}^{d}$ is the decision variable, and $A\in\mathbf{R}^{m\times d},b\in\mathbf{R}^{m},$ and $M>0$ are problem data.
+where $x\in\mathbf{R}^{d}$ is the decision variable, and $A\in\mathbf{R}^{m\times d},b\in\mathbf{R}^{m},$ and $M>0$ are problem data. The term $\mathbf{card}(x)$ represents the number of nonzero components of the vector $x$.
 
 **Setup.** We have a nonconvex optimization problem (sparse regression problem) and an algorithm [`NExOS`](https://github.com/Shuvomoy/NExOS.jl) that is able to compute a locally optimal solution of this problem under [certain regularity conditions](https://arxiv.org/pdf/2011.04552.pdf). Depending on different initializations, `NExOS` will provide us with different locally optimal solutions. So, naturally we can think of initializing our algorithm with different random points, observe the solutions provided by `NExOS` for different initializations and then pick the locally optimal solution that corresponds to the smallest objective value. We can achieve this task by using parallelization techniques provided in `Julia`. For this blog, we will consider `pmap`.
 
@@ -35,13 +35,19 @@ where $x\in\mathbf{R}^{d}$ is the decision variable, and $A\in\mathbf{R}^{m\time
 using ClusterManagers,Distributed
 
 # Add in the cores allocated by the scheduler as workers
+
 addprocs(SlurmManager(parse(Int,ENV["SLURM_NTASKS"])-1))
+
 print("Added workers: ")
+
 println(nworkers())
     
 using Random, NExOS, ProximalOperators, Distributions # load it centrally
 
 @everywhere using Random, NExOS, ProximalOperators, Distributions # load it on each process
+
+# DATA GENERATION: The following code will be run only on one core
+# ----------------------------------------------------------------
 
 # create the array of random initial points
 
@@ -77,6 +83,9 @@ array_z_randomized = create_array_z_randomized(n, N_random_points, M)
 
 array_z_randomized_formatted = [array_z_randomized[:,i] for i in 1:N_random_points]
 
+# DISTRIBUTED CODE: The following part of the code will be run parallely on different cores
+# -----------------------------------------------------------------------------------------
+
 # we write the distributed part that is loaded everywhere on the processes we created
 
 @everywhere begin
@@ -108,12 +117,26 @@ array_z_randomized_formatted = [array_z_randomized[:,i] for i in 1:N_random_poin
 
 end # end the begin block
 
+# serial implementation
+
+output_map =  map(sparse_reg_NExOS, array_z_randomized_formatted)
+
+# parallel implementatin
+
+output_pmap = pmap(sparse_reg_NExOS, array_z_randomized_formatted)
+
+# BENCHMARKING:
+# ------------
+
+# benchmarking the results, note that we did not benchmark the first time, because in that 
+# case we would also count the precompilation time
+
 using BenchmarkTools 
 
 BenchmarkTools.DEFAULT_PARAMETERS.seconds = 25 # The number of seconds budgeted for the benchmarking process. The trial will terminate if this time is exceeded (regardless of samples), but at least one sample will always be taken.
 
-# serial implementation
-b1 = @benchmark output_map =  map(sparse_reg_NExOS, array_z_randomized_formatted)
+# benchmark serial implementation
+b1 = @benchmark map(sparse_reg_NExOS, array_z_randomized_formatted)
 
 println("benchmark for serial code")
 println("*************************")
@@ -122,8 +145,8 @@ show(io, "text/plain", b1)
 s = String(take!(io))
 println(s)
 
-# parallel implementation
-b2 = @benchmark output_pmap = pmap(sparse_reg_NExOS, array_z_randomized_formatted)
+# benchmark parallel implementation
+b2 = @benchmark pmap(sparse_reg_NExOS, array_z_randomized_formatted)
 
 println("benchmark for parallel code")
 println("***************************")
@@ -131,6 +154,8 @@ io = IOBuffer()
 show(io, "text/plain", b2)
 s = String(take!(io))
 println(s)
+
+
 
 ```
 
@@ -173,30 +198,30 @@ That's it! Once the computation is done, we see from the output log file that pa
 benchmark for serial code
 *************************
 BenchmarkTools.Trial: 
-  memory estimate:  25.59 GiB
-  allocs estimate:  205147791
+  memory estimate:  26.20 GiB
+  allocs estimate:  210157358
   --------------
-  minimum time:     12.589 s (6.61% GC)
-  median time:      12.615 s (6.39% GC)
-  mean time:        12.615 s (6.39% GC)
-  maximum time:     12.641 s (6.17% GC)
+  minimum time:     14.033 s (7.09% GC)
+  median time:      14.093 s (7.41% GC)
+  mean time:        14.093 s (7.41% GC)
+  maximum time:     14.154 s (7.74% GC)
   --------------
   samples:          2
   evals/sample:     1
-    
 benchmark for parallel code
 ***************************
 BenchmarkTools.Trial: 
-  memory estimate:  449.75 KiB
-  allocs estimate:  10208
+  memory estimate:  449.78 KiB
+  allocs estimate:  10213
   --------------
-  minimum time:     1.471 s (0.00% GC)
-  median time:      1.504 s (0.00% GC)
-  mean time:        1.516 s (0.00% GC)
-  maximum time:     1.569 s (0.00% GC)
+  minimum time:     1.337 s (0.00% GC)
+  median time:      1.369 s (0.00% GC)
+  mean time:        1.377 s (0.00% GC)
+  maximum time:     1.436 s (0.00% GC)
   --------------
-  samples:          17
+  samples:          19
   evals/sample:     1
+
 ```
 
  

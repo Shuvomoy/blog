@@ -8,7 +8,7 @@ comments: true
 
 In applied mathematics, we often need to use inequalities to simplify our computation. Of course, verifying an inequality would requires picking up pen and paper and proving the it rigorously. However, a good idea prior to that proving phase is to test if the inequality holds for smaller dimensions. This verification for an inequality over smaller dimension can be done efficiently using `Mathematica`. Here are two simple examples.
 
-##### A simple example: AM-GM inequality
+### A simple example: AM-GM inequality
 
 We start with a very simple example: the well-known AM-GM inequality. It states that for $x>0,y>0$ we have 
 $$
@@ -37,7 +37,7 @@ Resolve[inequalityAMGM]
 
 where we get the output `True`, so we have verified the AM-GM inequality.
 
-##### Cauchy inequality
+### Cauchy inequality
 
 The Cauchy inequality probably one of the most famous inequalities. Let us verify it in `Mathematica` for dimension 3.
 
