@@ -7,7 +7,15 @@ comments: true
 
 I had a notebook of quotes and excerpts. Over the years I collected a lot of quotes and excerpts in it. I often sought refuge in some of the quotes, and they provided me great solace. Unfortunately, I have lost the notebook recently. In this blog I am just re-accumulating some of those quotes and excerpts (for which the sources are available) and adding a few new ones. I will update this blog as time progresses. <!-- more -->
 
-*Last update: July 11, 2020*
+*Last update: December 1, 2020*
+
+
+
+---
+
+It it takes very little for a soul to come back to life. Mostly, just a hint of hope will do.
+
+-- **Suparna Sharma**
 
 ---
 
@@ -27,7 +35,7 @@ Zindagī kyā hai anāsir meñ zuhūr-e-tartīb
 Maut kyā hai inhīñ ajzā kā pareshāñ honā  
 
 *What is life but a delicate arrangement of the five elements.*  
-*What is death but a distress among the very same elements.*  
+*What is death but a small disturbance in them.*  
 
 -- **[Brij Narayan Chakbast](https://en.wikipedia.org/wiki/Brij_Narayan_Chakbast)**
 
@@ -92,11 +100,7 @@ You don't race to get to the goal; the process of racing itself, of keeping the 
 
 This was the medical equivalent of *nish kam karma* yoga, Maharji's custom tailored path for me.
 
-
-
 -- **Larry Brilliant**
-
-
 
 ---
 
@@ -260,7 +264,7 @@ In a battle, the winners and the losers both lose.
 
 A friend of mine who spent years in India with a great teacher from the ancient forest tradition tells a moving story that, to my mind, makes the same point. Years after his beloved teacher had died, he was back in India staying at the home of his guru’s most devoted Indian disciple.
 
- “I must show you something,” the disciple said to my friend one day.“This is what he left for me.” My friend was excited, of course. Any trace of his teacher was nectar to him. He watched as the elderly man opened the creaking doors of an ancient wooden wardrobe and took something from the back of the bottom shelf. It was wrapped in an old, dirty cloth.
+ “I must show you something,” the disciple said to my friend one day. “This is what he left for me.” My friend was excited, of course. Any trace of his teacher was nectar to him. He watched as the elderly man opened the creaking doors of an ancient wooden wardrobe and took something from the back of the bottom shelf. It was wrapped in an old, dirty cloth.
 
  “Do you see?” he asked my friend.
 
@@ -305,7 +309,9 @@ People say love is weak, but they’re wrong: love is strong. In nearly everyone
 
 Imagine you’re trying to split a huge piece of wood with a small axe. You hit that piece of wood ninety-nine times and nothing happens. Then you hit it the hundredth time, and it splits open. You might wonder, after that hundredth whack, What did I do differently that time? Did I hold the axe differently; did I stand differently? Why did it work the hundredth time and not the other ninety-nine?
 
-But, of course, we needed all those earlier attempts to weaken the fiber of the wood. It doesn’t feel very good when we’re only on hit number thirty-four or thirty-five; it seems as if we aren’t making any progress at all. But we are, and not only because of the mechanical act of banging on the wood and weakening its fiber. What’s really transformative is our willingness to keep going, our openness to possibility, our patience, our effort, our humor, our growing self-knowledge, and the strength that we gain as we keep going. These intangible factors are the most vital to our success. In meditation practice, these elements are growing and deepening even when we’re sleepy, restless, bored, or anxious. They’re the qualities that move us toward transformation over time. They’re what splits open the wood, and the world.
+But, of course, we needed all those earlier attempts to weaken the fiber of the wood. It doesn’t feel very good when we’re only on hit number thirty-four or thirty-five; it seems as if we aren’t making any progress at all. But we are, and not only because of the mechanical act of banging on the wood and weakening its fiber. What’s really transformative is our willingness to keep going, our openness to possibility, our patience, our effort, our humor, our growing self-knowledge, and the strength that we gain as we keep going. These intangible factors are the most vital to our success. 
+
+In meditation practice, these elements are growing and deepening even when we’re sleepy, restless, bored, or anxious. They’re the qualities that move us toward transformation over time. They’re what splits open the wood, and the world.
 
 -- **Sharon Salzberg**
 

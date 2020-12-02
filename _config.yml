@@ -3,7 +3,12 @@ title: Shuvomoy Das Gupta
 tagline: Blog
 author: Shuvomoy Das Gupta
 email: shuvomoy [dot] dasgupta [at] gmail [dot] com
+name: Blogs by Shuvomoy Das Gupta
 description: "Blogs by Shuvomoy Das Gupta" # You can edit this line in _config.yml. It will appear in your document head meta and in your feed.xml site description
+url: https://shuvomoy.github.io/blog/
+feed_items: 10
+feed_update_period: daily
+feed_update_frequency: 1
 keywords: "Shuvomoy Das Gupta"
 baseurl: "/blog" # the subpath of your site, e.g. /blog
 locale: en_US
