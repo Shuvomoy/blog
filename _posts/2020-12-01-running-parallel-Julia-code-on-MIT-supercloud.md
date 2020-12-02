@@ -11,6 +11,8 @@ In this blog, we will discuss how to run  parallel `Julia` code on MIT Superclou
 As an example for running parallel code, we will consider solving sparse regression problem. 
 
 **Sparse regression problem.** The sparse regression problem (also known as regressor selection problem) is concerned with approximating a vector $b\in\mathbf{R}^{m}$ with a linear combination of at most $k$ columns of a matrix $A\in\mathbf{R}^{m\times d}$ with bounded coefficients. The problem can be written as the following optimization problem
+
+
 $$
 \begin{equation}
 \begin{array}{ll}
@@ -20,6 +22,8 @@ $$
 \end{array}
 \end{equation}
 $$
+
+
 
 where $x\in\mathbf{R}^{d}$ is the decision variable, and $A\in\mathbf{R}^{m\times d},b\in\mathbf{R}^{m},$ and $M>0$ are problem data.
 
