@@ -7,21 +7,25 @@ comments: true
 
 I had a notebook of quotes and excerpts. Over the years I collected a lot of quotes and excerpts in it. I often sought refuge in some of the quotes, and they provided me great solace. Unfortunately, I have lost the notebook recently. In this blog I am just re-accumulating some of those quotes and excerpts (for which the sources are available) and adding a few new ones. I will update this blog as time progresses. <!-- more -->
 
-*Last update: December 1, 2020*
-
-
+*Last update: December 6, 2020*
 
 ---
 
-It it takes very little for a soul to come back to life. Mostly, just a hint of hope will do.
+The soil of a man’s heart is stonier. A man grows what he can and tends it.
+
+-- **Stephen King**
+
+---
+
+“Yes. Exactly,” he said and lowered his chin to his chest. Tears dripped off the end of his nose. “Falling in love: what a horrible thing. For what it’s worth, I tried to have as little to do with you as possible. To see you as little as possible. Not just because I didn’t want to fall in love. I didn’t want you to fall in love, either...”
+
+-- **Joe Hill**
+
+---
+
+It takes very little for a soul to come back to life. Mostly, just a hint of hope will do.
 
 -- **Suparna Sharma**
-
----
-
-Let me tell you something you already know. The world ain't all sunshine and rainbows. It's a very mean and nasty place, and I don't care how tough you are, it will beat you to your knees and keep you there permanently if you let it. You, me, or nobody is gonna hit as hard as life. But it ain't about how hard you hit. It's about how hard you can get hit and keep moving forward; how much you can take and keep moving forward. That's how winning is done! Now if you know what you're worth, then go out and get what you're worth, but you gotta be willing to take the hits, and not pointing fingers saying you ain't where you wanna be because of him, or her, or anybody. Cowards do that and that ain't you. You're better than that!
-
--- **Rocky Balboa**
 
 ---
 
@@ -121,6 +125,12 @@ You can plan for a hundred years, but you don't know what will happen the next m
 It is the struggle itself that is most important. We must strive to be more than we are. It does not matter that we will not reach our ultimate goal. The effort itself yields its own reward.
 
 -- **Gene Roddenberry**
+
+---
+
+Let me tell you something you already know. The world ain't all sunshine and rainbows. It's a very mean and nasty place, and I don't care how tough you are, it will beat you to your knees and keep you there permanently if you let it. You, me, or nobody is gonna hit as hard as life. But it ain't about how hard you hit. It's about how hard you can get hit and keep moving forward; how much you can take and keep moving forward. That's how winning is done! Now if you know what you're worth, then go out and get what you're worth, but you gotta be willing to take the hits, and not pointing fingers saying you ain't where you wanna be because of him, or her, or anybody. Cowards do that and that ain't you. You're better than that!
+
+-- **Rocky Balboa**
 
 ---
 
