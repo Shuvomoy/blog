@@ -11,7 +11,7 @@ I had a notebook of quotes and excerpts. Over the years I collected a lot of quo
 
 ---
 
-The soil of a man’s heart is stonier. A man grows what he can and tends it.
+The soil of a man’s heart is stonier: a man grows what he can and tends it.
 
 -- **Stephen King**
 
@@ -38,8 +38,10 @@ You gotta work hard. And at the end of the day you have to look at everything yo
 Zindagī kyā hai anāsir meñ zuhūr-e-tartīb   
 Maut kyā hai inhīñ ajzā kā pareshāñ honā  
 
-*What is life but a delicate arrangement of the five elements.*  
-*What is death but a small disturbance in them.*  
+What is life: 
+When elements become ordered, that’s all.  
+What is death:
+But a moment when into chaos they fall.  
 
 -- **[Brij Narayan Chakbast](https://en.wikipedia.org/wiki/Brij_Narayan_Chakbast)**
 
@@ -98,9 +100,7 @@ You don't race to get to the goal; the process of racing itself, of keeping the 
 
 ---
 
-"If you want to be a public health doctor", Bill told me on the way home, "you have to change the way you get satisfaction. It's different than clinical medicine. You won't see immediate results. You won't have parents thanking you for bringing down the fever of their child. No one will name their child after you or say, 'Larry, you saved my family.' Here, satisfaction comes quietly, alone, late at night, when you are analyzing numbers. You won't be able to watch the curve of a child's fever on a hospital chart go down and feel good about yourself. You have to look at the chart and graphs of hundreds of anonymous cases, watching the epidemic curve instead.  Even when you succeed in stopping an epidemic, you may be the only one who knows what you did. The public doesn't often reward prevention---you won't be a hero. But if you are willing to dedicate yourself to getting outcomes that you alone may see, take quiet satisfaction in the scale of what public health accomplishes, and not worry about personal recognition, then public health and epidemiology will be a great source of happiness"
-
-
+"If you want to be a public health doctor", Bill told me on the way home, "you have to change the way you get satisfaction. It's different than clinical medicine. You won't see immediate results. You won't have parents thanking you for bringing down the fever of their child. No one will name their child after you or say, 'Larry, you saved my family.' Here, satisfaction comes quietly, alone, late at night, when you are analyzing numbers. You won't be able to watch the curve of a child's fever on a hospital chart go down and feel good about yourself. You have to look at the chart and graphs of hundreds of anonymous cases, watching the epidemic curve instead.  Even when you succeed in stopping an epidemic, you may be the only one who knows what you did. The public doesn't often reward prevention---you won't be a hero. But if you are willing to dedicate yourself to getting outcomes that you alone may see, take quiet satisfaction in the scale of what public health accomplishes, and not worry about personal recognition, then public health and epidemiology will be a great source of happiness."
 
 This was the medical equivalent of *nish kam karma* yoga, Maharji's custom tailored path for me.
 
@@ -245,14 +245,13 @@ If you knew, as I do, the power of giving, you would not let a single meal pass 
 You have the right to work only, but never to its fruits.  
 Let not the fruits of action be your motive, nor let your attachment be to inaction.   
 
-
---**Krishna**
+-- **Krishna**
 
 ---
 
 Those who have conquered themselves...live in peace, alike in cold and heat, pleasure and pain, praise and blame...To such people a clod of dirt, a stone, and gold are the same...Because they are impartial, they rise to great heights.
 
---**Krishna**
+-- **Krishna**
 
 ---
 
