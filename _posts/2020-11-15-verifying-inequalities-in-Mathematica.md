@@ -61,7 +61,11 @@ As our final example, we consider verifying an inequality that shows up in the p
 $$
 t_1 = f_i - f_j - \left\langle g_j \mid x_i - x_j \right\rangle - \frac{1}{2(1/(\mu / L))} \left( \frac{1}{L}\|g_i - g_j \|_2^2 + \mu \|x_i - x_j \|_2^2-\left\langle g_j - g_i \mid x_j - x_i\right\rangle\right)
 $$
+
+
 and
+
+
 $$
 \begin{align*}
 s_{i} & =\frac{\mu}{L-\mu}\left\langle g_{i}\mid x_{i}\right\rangle -\frac{\mu L}{2(L-\mu)}\|x_{i}\|_{2}^{2}-\frac{1}{2(L-\mu)}\|g_{i}\|_{2}^{2}\\
