@@ -369,6 +369,12 @@ Don’t aim at success—the more you aim at it and make it a target, the more y
 
 ---
 
+Live as if you were living for the second time and had acted as wrongly the first time as you are about to act now.
+
+--**Viktor Frankl**
+
+---
+
 
 A reader lives a thousand lives before he dies. The man who never reads lives only one.
 
