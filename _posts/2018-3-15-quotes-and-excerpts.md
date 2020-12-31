@@ -11,21 +11,15 @@ I had a notebook of quotes and excerpts. Over the years I collected a lot of quo
 
 ---
 
+You can easily judge the character of a man by how he treats those who can do nothing for him.
+
+-- **Malcolm S. Forbes.**
+
+---
+
 The soil of a man’s heart is stonier: a man grows what he can and tends it.
 
 -- **Stephen King**
-
----
-
-“Yes. Exactly,” he said and lowered his chin to his chest. Tears dripped off the end of his nose. “Falling in love: what a horrible thing. For what it’s worth, I tried to have as little to do with you as possible. To see you as little as possible. Not just because I didn’t want to fall in love. I didn’t want you to fall in love, either...”
-
--- **Joe Hill**
-
----
-
-It takes very little for a soul to come back to life. Mostly, just a hint of hope will do.
-
--- **Suparna Sharma**
 
 ---
 
