@@ -17,6 +17,12 @@ Recently, I came across a few old and new interviews of [Donald Knuth](https://e
 
 
 
+**Visualizers vs Symbolizers.** Well, you know, I’m visualizing the symbols. To me, the symbols are reality, in a way. I take a mathematical problem, I translate it into formulas, and then the formulas are the reality. I know how to transform one formula into another. That should be the subtitle of my book Concrete Mathematics: How to Manipulate Formulas. I’d like to talk about that a little. 
+
+I have a feeling that a lot of the brightest students don’t go into mathematics because---curious thing---they don’t need algebra at the level I did. I don’t think I was smarter than the other people in my class, but I learned algebra first. A lot of very bright students today don’t see any need for algebra. They see a problem, say, the sum of two numbers is 100 and the difference is 20, they just sort of say, “Oh, 60 and 40.” They’re so smart they don’t need algebra. They go on seeing lots of problems and they can just do them, without knowing how they do it, particularly. Then finally they get to a harder problem, where the only way to solve it is with algebra. But by that time, they haven’t learned the fundamental ideas of algebra. The fact that they were so smart prevented them from learning this important crutch that I think turned out to be important for the way I approach a problem. Then they say, “Oh, I can’t do math.” They do very well as biologists, doctors and lawyers. 
+
+
+
 **What graduate students should do when they have expertise in a certain area.** "When they [the students] reach this point [expertise in a certain area] I always tell them that now they have a responsibility to the rest of us. Namely, after they have solved their thesis problem and trained their brain for this problem area, they should look around for other, similar problems that require the same expertise. They should use their expertise now, while they have this unique ability, because they're going to lose it in a month. I emphasize that they shouldn't be satisfied with solving only one problem; they should also be thinking about other interesting problems that could be handled with the same methods."
 
 
