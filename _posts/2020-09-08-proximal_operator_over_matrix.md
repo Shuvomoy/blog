@@ -6,7 +6,7 @@ tags: [Julia]
 comments: true
 ---
 
-(Last update: January 13, 2020) In this blog, we will show how to compute proximal operator of a constrained function. The entire code is written in markdown using the package [Weave.jl](https://github.com/JunoLab/Weave.jl). The corresponding `.jmd` notebook (can be opened both as a markdown file in any text editor or code in `Juno`), can be downloaded [here](https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/codes/2020-09-08-proximal_operator_over_matrix.jmd).<!-- more -->
+(Last update: January 13, 2021) In this blog, we will show how to compute proximal operator of a constrained function. The entire code is written in markdown using the package [Weave.jl](https://github.com/JunoLab/Weave.jl). The corresponding `.jmd` notebook (can be opened both as a markdown file in any text editor or code in `Juno`), can be downloaded [here](https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/codes/2020-09-08-proximal_operator_over_matrix.jmd).<!-- more -->
 
 We will consider two examples, the first one arises in low-rank factor analysis problem, and the second one comes from lifted problem of a standard form binary integer optimization problem.
 
