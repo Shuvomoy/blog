@@ -6,7 +6,7 @@ tags: [Julia]
 comments: true 
 ---
 
-Suppose we define the following parametric type in Julia. 
+Suppose we define the following parametric type in Julia. <!-- more -->
 
 ```julia 
 abstract type CombinatorialProblem end
