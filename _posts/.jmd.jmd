@@ -12,7 +12,7 @@ If we are mutating an array type object, for proper mutation we must change what
 
 ```julia
 function frst_inpt_dbl_of_2nd_inpt!(A::AbstractMatrix{<: Real}, B::AbstractMatrix{<: Real})
-    A[:] = 2*B # this [:] notation ensures that we are changing the content of A 
+    A .= 2*B # this .= notation ensures that we are changing the content of A
     # 💀 if we do A = B, then it will only change the reference to the array A
 end
 ```
@@ -22,7 +22,7 @@ Let us test the function above.
 B = ones(5,5)
 A = similar(A)
 frst_inpt_dbl_of_2nd_inpt!(A, B)
-println(A)
+A
 ```
 which indeed gives us the output:
 ```julia
