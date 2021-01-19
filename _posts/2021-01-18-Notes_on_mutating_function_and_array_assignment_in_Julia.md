@@ -38,7 +38,7 @@ So the contents of `A` has indeed changed.
 Just to experiment, let us experiment with a *wrong* implementation below.
 
 ```julia
-function wrong_frst_inpt_dbl_of_2nd_inpt!(A::AbstractMatrix{<: Real}, B::AbstractMatrix{<: Real})
+function wrong_frst_inpt_dbl_of_2nd_inpt_💀!(A::AbstractMatrix{<: Real}, B::AbstractMatrix{<: Real})
     A = 2*B # this will change the references to A, not the values
 end
 ```
@@ -46,7 +46,7 @@ end
 ```julia
 B = ones(5,5)
 A = similar(A)
-wrong_frst_inpt_dbl_of_2nd_inpt!(A, B)
+wrong_frst_inpt_dbl_of_2nd_inpt_💀!(A, B)
 println(A)
 ```
 
