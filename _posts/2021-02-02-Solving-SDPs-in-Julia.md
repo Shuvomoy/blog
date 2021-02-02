@@ -6,7 +6,7 @@ tags: [Julia]
 comments: true 
 ---
 
-In this blog, we discuss how to solve semidefinite programs (SDPs) in ``Julia`` using ``Convex.jl``. We consider optimization problem of the form: 
+In this blog, we discuss how to solve semidefinite programs (SDPs) in ``Julia`` using ``Convex.jl``. We consider optimization problem of the form: <!-- more -->
 $$
 \begin{align*}
 \begin{array}{ll}
