@@ -186,7 +186,7 @@ julia pmap_julia.jl
 
 ## Submitting the job
 
-Now log in to MIT supercloud, copy the files created above to your working directory, and run the following command. 
+Now log in to MIT supercloud, copy the files created above to your working directory, and run the following command. Ensure that the `pwd` command results in the working directory, else use the command `cd directory_that_contains_the_code` to change the working directory.
 
 ```
 LLsub run_pmap_julia.sh
