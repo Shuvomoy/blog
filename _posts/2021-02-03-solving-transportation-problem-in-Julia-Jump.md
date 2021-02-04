@@ -10,8 +10,8 @@ In this blog, we will discuss how to solve a simple transportation problem  in `
 
 ---
 
-**Table of contents**
-[TOC]
+* TOC
+{:toc}
 
 ---
 
