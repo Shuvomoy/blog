@@ -6,7 +6,14 @@ tags: [Julia]
 comments: true 
 ---
 
-In this blog, we will discuss how to solve a simple transportation problem  in `JuMP+Julia`,  that exploits sparsity. This blog is based on an earlier notebook I created a few years ago. The blog is written using the package Weave.jl.
+In this blog, we will discuss how to solve a simple transportation problem  in `JuMP+Julia`,  that exploits sparsity. This blog is based on an earlier notebook I created a few years ago. The blog is written using the package Weave.jl. <!-- more -->
+
+---
+
+**Table of contents**
+[TOC]
+
+---
 
 #### Introduction
 
@@ -143,7 +150,7 @@ $$
 R=\{(p,o,d) \in P \times C \times C: \text{product } p \text{ has to be transported from city } o \text{ to city } d\}
 \end{align}
 $$
-be the set of all the routes that are relevant for the problem. So, we can define our decision variable $ \left(x_{(p,o,d)}\right)_{(p,o,d) \in R}$ such that for any $(p,o,d)\in R$, the quantity $x_{(p,o,d)}$ represents the amount of a product  $p$ that is transported from city $o$  to city $d$. From a data structure point of view, $ \left(x_{(p,o,d)}\right)_{(p,o,d) \in R}$ is a dictionary which
+be the set of all the routes that are relevant for the problem. So, we can define our decision variable $(x_{(p,o,d)})_{(p,o,d) \in R}$ such that for any $(p,o,d)\in R$, the quantity $x_{(p,o,d)}$ represents the amount of a product $p$ that is transported from city $o$  to city $d$. From a data structure point of view, $ \left(x_{(p,o,d)}\right)_{(p,o,d) \in R}$ is a dictionary which
 
 - takes $(p,o,d) \in R$ as its **key** and
 - has the **value** the optimum amount of the product $p$ to be shipped from city $o$ to city $d$.
