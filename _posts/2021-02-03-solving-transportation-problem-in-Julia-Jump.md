@@ -8,12 +8,8 @@ comments: true
 
 In this blog, we will discuss how to solve a simple transportation problem  in `JuMP+Julia`,  that exploits sparsity. This blog is based on an earlier notebook I created a few years ago. The blog is written using the package Weave.jl. <!-- more -->
 
----
-
 * TOC
 {:toc}
-
----
 
 #### Introduction
 
