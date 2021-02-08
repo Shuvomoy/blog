@@ -111,12 +111,19 @@ Lets see which solver is faster, `COSMO` or `Mosek`.
 
 
 ```julia
-@benchmark solve_SDP(A, b, C; solver_name=:COSMO)
+b1 = @benchmark solve_SDP(A, b, C; solver_name=:COSMO)
+
+println("benchmark for COSMO")
+println("*************************")
+io = IOBuffer()
+show(io, "text/plain", b1)
+s = String(take!(io))
+println(s)
 ```
 
 
-    out:
-    ---
+    benchmark for COSMO
+    *************************
     BenchmarkTools.Trial: 
       memory estimate:  4.33 MiB
       allocs estimate:  35786
@@ -131,12 +138,19 @@ Lets see which solver is faster, `COSMO` or `Mosek`.
 
 
 ```julia
-@benchmark solve_SDP(A, b, C; solver_name=:Mosek)
+b2 = @benchmark solve_SDP(A, b, C; solver_name=:Mosek)
+
+println("benchmark for Mosek")
+println("***************************")
+io = IOBuffer()
+show(io, "text/plain", b2)
+s = String(take!(io))
+println(s)
 ```
 
 
-    out:
-    ---
+    benchmark for Mosek
+    ***************************
     BenchmarkTools.Trial: 
       memory estimate:  3.81 MiB
       allocs estimate:  32015
