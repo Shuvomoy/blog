@@ -22,7 +22,7 @@ First, we load the necessary `Julia` packages.
 
 
 ```julia
-using SCS, COSMO, MosekTools, JuMP
+using SCS, COSMO, MosekTools, JuMP, LinearAlgebra
 
 using BenchmarkTools
 ```
