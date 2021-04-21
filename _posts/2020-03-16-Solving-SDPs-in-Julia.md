@@ -7,6 +7,8 @@ comments: true
 ---
 
 In this blog, we discuss how to solve semidefinite programs (SDPs) in ``Julia`` using ``Convex.jl``. We consider optimization problem of the form: <!-- more -->
+
+
 $$
 \begin{align*}
 \begin{array}{ll}
@@ -16,7 +18,9 @@ $$
 \end{array} & i=1,\ldots,m
 \end{align*}
 $$
- where $X\in\mathbf{S}^{n}$ is the decision variable, and each of the $A_{i}$ matrices and $C$ are also in $\mathbf{S}^{n}$. By the notation $\mathbf{S}^{n}$, we denote the set of all symmetric $n\times n$ matrices.  
+ 
+
+where $X\in\mathbf{S}^{n}$ is the decision variable, and each of the $A_{i}$ matrices and $C$ are also in $\mathbf{S}^{n}$. By the notation $\mathbf{S}^{n}$, we denote the set of all symmetric $n\times n$ matrices.  
 
 First, we load the necessary `Julia` packages.
 
@@ -70,7 +74,7 @@ function solve_SDP(A, b, C; solver_name=:COSMO)
 
 # Create variable
     if solver_name == :COSMO
-        model = Model(with_optimizer(COSMO.Optimizer))
+        model = Model(COSMO.Optimizer)
     elseif solver_name == :Mosek
         model = Model(optimizer_with_attributes(Mosek.Optimizer))
     end

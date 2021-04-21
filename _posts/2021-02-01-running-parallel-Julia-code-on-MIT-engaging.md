@@ -1,6 +1,7 @@
 ---
 layout: post 
 title: Running parallel Julia code on MIT Engaging
+categories: [programming] 
 tags: [Julia]
 comments: true 
 

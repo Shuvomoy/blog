@@ -9,6 +9,7 @@ using Convex
 using LinearAlgebra
 using COSMO
 using JuMP
+using MosekTools
 using SCS
 
 
@@ -76,9 +77,9 @@ function prox_PRS_fam_JuMP(Σ, M, γ, X, d; X_tl_sv = nothing, d_tl_sv = nothing
 
 	n = length(d)
 
-	prox_model = JuMP.Model(optimizer_with_attributes(SCS.Optimizer, "verbose" => false))
+	# prox_model = JuMP.Model(optimizer_with_attributes(SCS.Optimizer, "verbose" => false))
 
-	# prox_model = JuMP.Model(optimizer_with_attributes(Mosek.Optimizer))
+	prox_model = JuMP.Model(optimizer_with_attributes(Mosek.Optimizer))
 
 
 	@variables( prox_model,
@@ -98,10 +99,10 @@ function prox_PRS_fam_JuMP(Σ, M, γ, X, d; X_tl_sv = nothing, d_tl_sv = nothing
 
 
 
-    t_1 = vec(Σ - X_tl - diagm(d_tl))
+  t_1 = vec(Σ - X_tl - diagm(d_tl))
 	t_2 = vec(X_tl-X)
 	t_3 = vec(diagm(d_tl)-diagm(d))
-	obj = t_1'*t_1 + ((1/(2*γ))*(t_2'*t_2 + t_3'*t_3))
+	obj = X_tl[n,n] + t_1'*t_1 + ((1/(2*γ))*(t_2'*t_2 + t_3'*t_3))
 
 	@objective(prox_model, Min, obj)
 
@@ -109,7 +110,7 @@ function prox_PRS_fam_JuMP(Σ, M, γ, X, d; X_tl_sv = nothing, d_tl_sv = nothing
 		Symmetric(Σ - diagm(d_tl)) in PSDCone()
 	end)
 
-	set_silent(prox_model)
+	# set_silent(prox_model)
 
 	JuMP.optimize!(prox_model)
 
