@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+<url>
+    <loc>https://shuvomoy.github.io/blog)\blog\Defining-inner-constructor-with-parametric-types-in-Julia\index.html</loc>
+    <lastmod>2021-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://shuvomoy.github.io/blog)\blog\If-you-did-not-give-me-love\index.html</loc>
+    <lastmod>2021-05-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://shuvomoy.github.io/blog)\blog\Life-of-Egon-Balas\index.html</loc>
+    <lastmod>2021-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://shuvomoy.github.io/blog)\blog\Verifying-inequalities-in-Mathematica\index.html</loc>
+    <lastmod>2021-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://shuvomoy.github.io/blog)\blog\Saving_data_files_julia\index.html</loc>
+    <lastmod>2021-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://shuvomoy.github.io/blog)\blog\How-to-create-a_simple-package-in-julia\index.html</loc>
+    <lastmod>2021-05-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://shuvomoy.github.io/blog)\blog\Implementing-simple-gradient-descent-Julia\index.html</loc>
+    <lastmod>2021-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://shuvomoy.github.io/blog)\blog\Running-parallel-Julia-code-on-MIT-supercloud\index.html</loc>
+    <lastmod>2021-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://shuvomoy.github.io/blog)\blog\Notes-on-mutating-function-and-array-assignment-in-Julia\index.html</loc>
+    <lastmod>2021-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://shuvomoy.github.io/blog)\tags\index.html</loc>
+    <lastmod>2021-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://shuvomoy.github.io/blog)\blog\Computing-proximal-operator-of-a-constrained-function-in-Julia\index.html</loc>
+    <lastmod>2021-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://shuvomoy.github.io/blog)\404\index.html</loc>
+    <lastmod>0001-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://shuvomoy.github.io/blog)\blog\Solving_semidefinite_programming_problems_in_Julia\index.html</loc>
+    <lastmod>2021-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://shuvomoy.github.io/blog)\blog\Working-with-dataframes-Julia\index.html</loc>
+    <lastmod>2021-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://shuvomoy.github.io/blog)\blog\Computing-composition-of-operators-via-scaled-relative-graph-in-Mathematica\index.html</loc>
+    <lastmod>2021-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://shuvomoy.github.io/blog)\blog\Solving-transportation-problem-in-Julia-Jump\index.html</loc>
+    <lastmod>2021-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://shuvomoy.github.io/blog)\blog\The-holy-man-and-the-poisonous-snake\index.html</loc>
+    <lastmod>2021-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://shuvomoy.github.io/blog)\index.html</loc>
+    <lastmod>2021-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://shuvomoy.github.io/blog)\blog\Quotes-and-excerpts\index.html</loc>
+    <lastmod>2021-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://shuvomoy.github.io/blog)\blog\Running-parallel-Julia-code-on-MIT-engaging\index.html</loc>
+    <lastmod>2021-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://shuvomoy.github.io/blog)\blog\Why-do-you-want-to-go-back-Lord-of-Mathura\index.html</loc>
+    <lastmod>2021-05-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://shuvomoy.github.io/blog)\blog\Knuth-on-work-habits-and-problem-solving-and-happiness\index.html</loc>
+    <lastmod>2021-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+</urlset>

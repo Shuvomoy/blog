@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="stylesheet" href="/libs/katex/katex.min.css">
+     
+     <link rel="stylesheet" href="/libs/highlight/github.min.css">
+   
+    <link rel="stylesheet" href="/css/franklin.css">
+<link rel="stylesheet" href="/css/tufte.css">
+<link rel="stylesheet" href="/css/latex.css">
+<link rel="stylesheet" href="/css/adjust.css"> <!-- sheet to overwrite some clashing styles -->
+<link rel="icon" href="/assets/favicon.png">
+
+     <title>Computing scaled relative graph of composition of operators in Mathematica</title>  
+</head>
+
+<body>
+<div id="layout">
+  <div id="menu">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/tags/">Tags</a></li>
+    </ul>
+  </div>
+  <div id="main">
+
+
+
+<!-- Content appended here -->
+<div class="franklin-content"><h1 id="computing_scaled_relative_graph_of_composition_of_operators_in_mathematica"><a href="#computing_scaled_relative_graph_of_composition_of_operators_in_mathematica" class="header-anchor">Computing scaled relative graph of composition of operators in Mathematica</a></h1>
+<p><strong>Shuvomoy Das Gupta</strong></p>
+<p><em>November 17, 2020</em></p>
+<p>This blog is based on a question I posted <a href="https://mathematica.stackexchange.com/questions/233264/plotting-minkowski-product-of-two-sets-in-complex-2d-plane">here</a> on <a href="https://mathematica.stackexchange.com/">https://mathematica.stackexchange.com/</a> and the answer provided by <a href="https://mathematica.stackexchange.com/users/7152/user64494"><code>user64494</code></a>. </p>
+<p>Suppose, we are given two operators \(A,B\), and we know their <a href="https://arxiv.org/pdf/1902.09788.pdf">scale relative graphs</a>, denoted by \(\mathcal{G}(A)\) and \(\mathcal{G}(B)\), respectively. We are interested to figure out the scaled relative graph of their composition \(AB:x\mapsto A(B(x))\). For simplicity, we will assume that the regularity conditions under which \(\mathcal{G}(AB)=\mathcal{G}(A)\mathcal{G}(B)\) hold; for more details, please see the paper on <a href="https://arxiv.org/pdf/1902.09788.pdf">scaled relative graph by Ryu et al</a>.  </p>
+<hr />
+<p>Table of contents <div class="franklin-toc"><ol><li><a href="#setup">Setup</a></li><li><a href="#drawing_individual_srgs">Drawing individual SRGs</a></li><li><a href="#quantifier_definition_of_mathcal_ga_mathcal_gb">Quantifier definition of \(\mathcal {G}(A) \mathcal {G}(B)\)</a></li><li><a href="#finding_mathcalgab_explicitly">Finding \(\mathcal{G}(AB)\) explicitly</a></li></ol></div></p>
+<hr />
+<h3 id="setup"><a href="#setup" class="header-anchor">Setup</a></h3>
+<p>As an example, let us assume that \(A\) is \(\beta\)-cocoercive and \(B\) is \(\theta\)-averaged &#40;\(\theta\in (0,1)\)&#41;. Then, the scaled relative graph &#40;SRG&#41; of \(A\) will be</p>
+\[
+\mathcal{G}(A)=\left\{z \in \mathbf{C} \mid	\rm{Re}(z) \geq \beta |z|^2\right\},
+\]
+<p>and the SRG of \(B\) will be </p>
+\[
+\mathcal G(B)= \left\{ z\in \mathbf{C} \mid 2(1-\theta)\rm{Re}(z) \geq |z|^2 + (1-2\theta)\right\}.
+\]
+<p>For this example, let us assume, \(\beta = 1/2, \theta = 1/2\). </p>
+<h3 id="drawing_individual_srgs"><a href="#drawing_individual_srgs" class="header-anchor">Drawing individual SRGs</a></h3>
+<p>Let us first draw the individual SRGs for \(A\) and \(B\). </p>
+<p><strong>SRG of \(A\).</strong> First, we draw the SRG of \(A\) by typing the following code. We denote the real and imaginary variables corresponding to \(\mathcal G(A)\) by \(x,y\), respectively. </p>
+<pre><code class="language-mathematica">\&#91;Beta&#93; &#61; 1/2;
+
+&#40;*Inequality that defines the SRG of A*&#41;
+gAineq &#61; ComplexExpand&#91;Re&#91;z&#93; - \&#91;Beta&#93;*Abs&#91;z&#93;^2 /. z -&gt; x &#43; I*y&#93;
+
+&#40;*Plot the SRG of A*&#41;
+srgA &#61; RegionPlot&#91;gAineq &gt;&#61; 0, &#123;x, -2, 2&#125;, &#123;y, -2, 2&#125;&#93;</code></pre>
+<p><img src="https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/_assets/image-20201118084023741.png" alt="image-20201118084023741" /></p>
+<p>We see that </p>
+\[
+\mathcal G(A) = \left\{ (x,y) \mid \texttt{gAineq}(x,y) \geq 0\right\}.
+\]
+<p><strong>SRG of \(B\).</strong> First, we draw the SRG of \(B\) by typing the following code. We denote the real and imaginary variables corresponding to \(\mathcal G(B)\) by \(s,t\), respectively. </p>
+<pre><code class="language-mathematica">\&#91;Theta&#93; &#61; 1/2;
+
+&#40;*Inequality that defines the SRG of B*&#41; 
+gBineq &#61; ComplexExpand&#91;
+  2 &#40;1 - \&#91;Theta&#93;&#41; Re&#91;w&#93; - Abs&#91;w&#93;^2 - &#40;1 - 2 \&#91;Theta&#93;&#41; /. w -&gt; s &#43; I t&#93;
+
+&#40;*Plot the SRG of B*&#41;
+srgB &#61; RegionPlot&#91;gBineq &gt;&#61; 0, &#123;s, -2, 2&#125;, &#123;t, -2, 2&#125;&#93;</code></pre>
+<p><img src="https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/_assets/image-20201118084104555.png" alt="image-20201118084104555" /></p>
+<p>Similarly, </p>
+\[
+\mathcal G(B) = \left\{ (s,t) \mid \texttt{gBineq}(s,t) \geq 0\right\}.
+\]
+<h3 id="quantifier_definition_of_mathcal_ga_mathcal_gb"><a href="#quantifier_definition_of_mathcal_ga_mathcal_gb" class="header-anchor">Quantifier definition of \(\mathcal {G}(A) \mathcal {G}(B)\)</a></h3>
+<p>We now write down the quantifier definition of \(\mathcal {G}(A) \mathcal {G}(B)\). </p>
+<p>By definition: </p>
+\[
+z=x+ i y \in \mathcal {G}(A), w=s+it\in \mathcal{G}(B)\Leftrightarrow zw = u + iv \in \mathcal {G}(A) \mathcal {G}(B).
+\]
+<p>We can break down the equivalence above more by writing it down explicitly into real and imaginary parts.</p>
+<pre><code class="language-mathematica">&#40;*Find out what zw is*&#41;
+ zw &#61; ComplexExpand&#91;&#40;x &#43; I y&#41; &#40;s &#43; I t&#41;, Reals&#93;
+
+&#40;*Find the imaginary component of zw*&#41; 
+v &#61; Plus @@ &#40;Cases&#91;zw, _Complex _&#93;/I&#41;
+
+&#40;*Find the real component of zw*&#41; u &#61; Expand&#91;zw - I v&#93;</code></pre>
+<p>&lt;img src&#61;&quot;https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/_assets/image-20201118084143443.png&quot; alt&#61;&quot;image-20201118084143443&quot; style&#61;&quot;zoom:67&#37;;&quot; /&gt;</p>
+<p>So, in terms of quantifier notation, the set description of \(\mathcal {G}(A) \mathcal {G}(B)\) will be the following:</p>
+\[
+\begin{align*}
+ & \mathcal{G}(AB)\\
+ & =\mathcal{G}(A)\mathcal{G}(B)\\
+ & =\left\{ (u,v)\mid u=sx-ty,v=tx+sy,\texttt{gAineq}(x,y)\geq0,\texttt{gBineq}(s,t)\geq0\right\}. \qquad(1)
+\end{align*}
+\]
+<h3 id="finding_mathcalgab_explicitly"><a href="#finding_mathcalgab_explicitly" class="header-anchor">Finding \(\mathcal{G}(AB)\) explicitly</a></h3>
+<p>In \((1)\), we have \(\mathcal{G}(AB)\) in a parametric form where we do not have \(u,v\) explicitly, but it is expressed in terms of \(x,y\). To figure out the explicit description of \(\mathcal{G}(AB)\), we use quantifier elimination technique in <code>Mathematica</code>. First step is to observe that: </p>
+\[
+\begin{align*}
+ & (u,v)\in\mathcal{G}(AB)\\
+\Leftrightarrow & \exists_{x,y,s,t\in\mathbf{R}}\left(u=sx-ty,\;v=tx+sy,\;\texttt{gAineq}(x,y)\geq0,\;\texttt{gBineq}(s,t)\geq0\right).
+\end{align*}
+\]
+<p>We next write down this quantifier definition in <code>Mathematica</code>. &#40;The rest of the code is self-contained, by only changing the defining inequalities for \(A,B\) we can find \(\mathcal{G}(AB)\) for any \(A,B\).&#41;</p>
+<pre><code class="language-mathematica">&#40;* Clear the memory *&#41;
+ClearAll&#91;&quot;Global&#96;*&quot;&#93;;
+
+&#40;* Set value of \&#91;Beta&#93; and \&#91;Theta&#93; *&#41;
+\&#91;Beta&#93; &#61; 1/2; \&#91;Theta&#93; &#61; 1/2;
+
+&#40;* Define gAineq&#91;x,y&#93;, which defines the SRG of operator A via gAineq&#91;x,y&#93; &gt;&#61; 0 *&#41;
+gAineq&#91;x_, y_&#93; :&#61; 
+  ComplexExpand&#91;Re&#91;z&#93; - \&#91;Beta&#93;*Abs&#91;z&#93;^2 /. z -&gt; x &#43; I*y&#93;;
+
+&#40;* Define gBineq&#91;s,t&#93;, which defines the SRG of operator B via gBineq&#91;s,t&#93; &gt;&#61; 0 *&#41;
+gBineq&#91;s_, t_&#93; :&#61; 
+  ComplexExpand&#91;
+   2 &#40;1 - \&#91;Theta&#93;&#41; Re&#91;w&#93; - Abs&#91;w&#93;^2 - &#40;1 - 2 \&#91;Theta&#93;&#41; /. 
+    w -&gt; s &#43; I t&#93;;
+
+&#40;* Define the quantifier definition for G&#40;AB&#41; *&#41;
+quantgAB &#61; 
+ Exists&#91;&#123;x, y, s, t&#125;, 
+  u &#61;&#61; x s - y t &amp;&amp; v &#61;&#61; x t &#43; y s &amp;&amp; gAineq&#91;x, y&#93; &gt;&#61; 0 &amp;&amp; 
+   gBineq&#91;s, t&#93; &gt;&#61; 0&#93;</code></pre>
+<p>which gives the output: </p>
+<p>&lt;img src&#61;&quot;https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/_assets/image-20201118084216189.png&quot; alt&#61;&quot;image-20201118084216189&quot; style&#61;&quot;zoom: 50&#37;;&quot; /&gt;</p>
+<p>Next, we can find the explicit form of \(\mathcal{G}(AB)\) in \((u,v)\) by using the <code>Resolve</code> command.</p>
+<pre><code class="language-mathematica">&#40;* This will find the explicit form of SRG of AB *&#41;
+gAB &#61; Resolve&#91;quantgAB, Reals&#93;</code></pre>
+<p>which produces the output: </p>
+<p><img src="https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/_assets/image-20201118084318543.png" alt="image-20201118084318543" /></p>
+<p>Finally, we can plot \(\mathcal{G}(AB)\) as follows.</p>
+<pre><code class="language-mathematica">Region&#91;ImplicitRegion&#91;gAB, &#123;u, v&#125;&#93;&#93;</code></pre>
+<p>The output is: </p>
+<p><img src="https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/_assets/image-20201118084340687.png" alt="image-20201118084340687" /></p>
+<div class="page-foot">
+  <div class="copyright">
+    &copy; Shuvomoy Das Gupta. Last modified: May 18, 2021. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+  </div>
+</div>
+</div><!-- CONTENT ENDS HERE -->
+        </div> <!-- end of id=main -->
+    </div> <!-- end of id=layout -->
+    
+        <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
+    
+    
+        <script src="/libs/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();hljs.configure({tabReplace: '    '});</script>
+
+    
+  </body>
+</html>

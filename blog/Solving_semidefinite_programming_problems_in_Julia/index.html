@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="stylesheet" href="/libs/katex/katex.min.css">
+     
+     <link rel="stylesheet" href="/libs/highlight/github.min.css">
+   
+    <link rel="stylesheet" href="/css/franklin.css">
+<link rel="stylesheet" href="/css/tufte.css">
+<link rel="stylesheet" href="/css/latex.css">
+<link rel="stylesheet" href="/css/adjust.css"> <!-- sheet to overwrite some clashing styles -->
+<link rel="icon" href="/assets/favicon.png">
+
+     <title>How to solve semidefinite optimization problems in Julia</title>  
+</head>
+
+<body>
+<div id="layout">
+  <div id="menu">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/tags/">Tags</a></li>
+    </ul>
+  </div>
+  <div id="main">
+
+
+
+<!-- Content appended here -->
+<div class="franklin-content"><h1 id="how_to_solve_semidefinite_optimization_problems_in_julia"><a href="#how_to_solve_semidefinite_optimization_problems_in_julia" class="header-anchor">How to solve semidefinite optimization problems in Julia</a></h1>
+<p><strong>Shuvomoy Das Gupta</strong></p>
+<p><em>January 1, 2021</em></p>
+<p>In this blog, we discuss how to solve semidefinite programs &#40;SDPs&#41; in <code>Julia</code> using <code>Convex.jl</code>. We will consider two examples: &#40;i&#41; standard form semidefinite program, &#40;ii&#41; a somewhat more complicated semidefinite program.</p>
+<hr />
+<p><strong>Table of contents</strong></p>
+<div class="franklin-toc"><ol><li><a href="#standard_form_sdp">Standard form sdp</a></li><li><a href="#complicated_sdp">Complicated sdp</a></li></ol></div>
+<hr />
+<h3 id="standard_form_sdp"><a href="#standard_form_sdp" class="header-anchor">Standard form sdp</a></h3>
+<p>We consider optimization problem of the form: </p>
+\[
+\begin{align*}
+\begin{array}{ll}
+\textrm{minimize} & \mathbf{trace}(CX)\\
+\textrm{subject to} & \mathbf{trace}(A_{i}X)=b_{i},\\
+ & X\succeq0,
+\end{array} & i=1,\ldots,m
+\end{align*}
+\]
+<p>where \(X\in\mathbf{S}^{n}\) is the decision variable, and each of the \(A_{i}\) matrices and \(C\) are also in \(\mathbf{S}^{n}\). By the notation \(\mathbf{S}^{n}\), we denote the set of all symmetric \(n\times n\) matrices.  </p>
+<p>First, we load the necessary <code>Julia</code> packages.</p>
+<pre><code class="language-julia">using SCS, COSMO, MosekTools, JuMP, LinearAlgebra
+
+using BenchmarkTools</code></pre>
+<p>Let us create data \(A,C,b\) randomly.</p>
+<pre><code class="language-julia">function random_mat_create&#40;n&#41;
+    # this function creates a symmetric n×n matrix
+    A &#61; randn&#40;n,n&#41;
+    A &#61; A&#39;*A
+    A &#61; &#40;A&#43;A&#39;&#41;/2
+    return A
+end</code></pre>
+<p>Here is the data generation process, please change it to your need. </p>
+<pre><code class="language-julia">n &#61; 10
+m &#61; 20
+# set of all data matrices A_i
+# the data matrix A &#61; &#91;A1 A2 A3 ....&#93;
+A &#61; zeros&#40;n, m*n&#41; 
+b &#61; zeros&#40;m&#41;
+# just ensuring our problem is feasible
+X_test &#61; rand&#40;n,n&#41;
+X_test &#61; X_test&#39;*X_test
+X_test &#61; &#40;X_test&#43;X_test&#39;&#41;/2
+for i in 1:m
+    A&#91;:, &#40;i-1&#41;*n&#43;1:i*n&#93; .&#61; random_mat_create&#40;n&#41;
+    b&#91;i&#93; &#61; tr&#40;A&#91;:, &#40;i-1&#41;*n&#43;1:i*n&#93;*X_test&#41;
+end
+C &#61; abs.&#40;random_mat_create&#40;n&#41;&#41;</code></pre>
+<p>The following function solves the underlying SDP.</p>
+<pre><code class="language-julia">function solve_SDP&#40;A, b, C; solver_name&#61;:COSMO&#41;
+
+# Create variable
+    if solver_name &#61;&#61; :COSMO
+        model &#61; Model&#40;COSMO.Optimizer&#41;
+    elseif solver_name &#61;&#61; :Mosek
+        model &#61; Model&#40;optimizer_with_attributes&#40;Mosek.Optimizer&#41;&#41;
+    end
+
+    set_silent&#40;model&#41;
+
+    @variable&#40;model, X&#91;1:n, 1:n&#93;, PSD&#41;
+
+
+    @objective&#40;model, Min, tr&#40;C * X&#41;&#41;;
+    for j in 1:m
+        A_j &#61; A&#91;:, &#40;j - 1&#41; * n &#43; 1:j * n&#93;
+        @constraint&#40;model, tr&#40;A_j * X&#41; &#61;&#61; b&#91;j&#93;&#41;
+    end
+
+    optimize&#33;&#40;model&#41;
+
+    status &#61; JuMP.termination_status&#40;model&#41;
+    X_sol &#61; JuMP.value.&#40;X&#41;
+    obj_value &#61; JuMP.objective_value&#40;model&#41;
+
+    return status, X_sol, obj_value
+
+end</code></pre>
+<p>Time to solve the problem.</p>
+<pre><code class="language-julia">status, X_sol, obj_value &#61; solve_SDP&#40;A, b, C; solver_name&#61;:Mosek&#41;</code></pre>
+<pre><code class="language-julia">out: &#40;MathOptInterface.OPTIMAL, &#91;2.907044311952373 1.7130367276575142 … -0.056145513617222656 3.0230926674218024; 1.7130367276575142 3.419039624378557 … 1.0871948703965775 2.0577919984154334; … ; -0.056145513617222656 1.0871948703965775 … 0.7127834057861842 0.5195987956934747; 3.0230926674218024 2.0577919984154334 … 0.5195987956934747 4.234108180247669&#93;, 939.2696385581793&#41;</code></pre>
+<p>Lets see which solver is faster, <code>COSMO</code> or <code>Mosek</code>.</p>
+<pre><code class="language-julia">b1 &#61; @benchmark solve_SDP&#40;A, b, C; solver_name&#61;:COSMO&#41;
+
+println&#40;&quot;benchmark for COSMO&quot;&#41;
+println&#40;&quot;*************************&quot;&#41;
+io &#61; IOBuffer&#40;&#41;
+show&#40;io, &quot;text/plain&quot;, b1&#41;
+s &#61; String&#40;take&#33;&#40;io&#41;&#41;
+println&#40;s&#41;</code></pre>
+<pre><code class="language-julia">benchmark for COSMO
+*************************
+BenchmarkTools.Trial: 
+  memory estimate:  4.33 MiB
+  allocs estimate:  35786
+  --------------
+  minimum time:     36.964 ms &#40;0.00&#37; GC&#41;
+  median time:      40.552 ms &#40;0.00&#37; GC&#41;
+  mean time:        40.787 ms &#40;1.14&#37; GC&#41;
+  maximum time:     46.920 ms &#40;9.97&#37; GC&#41;
+  --------------
+  samples:          123
+  evals/sample:     1</code></pre>
+<pre><code class="language-julia">b2 &#61; @benchmark solve_SDP&#40;A, b, C; solver_name&#61;:Mosek&#41;
+
+println&#40;&quot;benchmark for Mosek&quot;&#41;
+println&#40;&quot;***************************&quot;&#41;
+io &#61; IOBuffer&#40;&#41;
+show&#40;io, &quot;text/plain&quot;, b2&#41;
+s &#61; String&#40;take&#33;&#40;io&#41;&#41;
+println&#40;s&#41;</code></pre>
+<pre><code class="language-julia">benchmark for Mosek
+***************************
+BenchmarkTools.Trial: 
+  memory estimate:  3.81 MiB
+  allocs estimate:  32015
+  --------------
+  minimum time:     6.647 ms &#40;0.00&#37; GC&#41;
+  median time:      7.524 ms &#40;0.00&#37; GC&#41;
+  mean time:        8.374 ms &#40;5.00&#37; GC&#41;
+  maximum time:     19.410 ms &#40;25.35&#37; GC&#41;
+  --------------
+  samples:          597
+  evals/sample:     1</code></pre>
+<p>So, on average, <code>Mosek</code> seems to be 5 times faster than <code>COSMO</code>. </p>
+<h3 id="complicated_sdp"><a href="#complicated_sdp" class="header-anchor">Complicated sdp</a></h3>
+<p>Denote,</p>
+\[
+\begin{align*}
+J & =\{(i,j)\mid j=i+1,i\in[0:N-1]\}\cup\{(i,j)\mid i=\star,j\in[0:N]\},
+\end{align*}
+\]
+<p>and</p>
+\[
+\mathbf{w}_{0}=e_{1}\in\mathbf{R}^{N+2},\mathbf{g}_{i}=e_{i+2}\in\mathbf{R}^{N+2},\mathbf{f}_{i}=e_{i+1}\in\mathbf{R}^{N+1},
+\]
+<p>where \(e_{i}\) is the unit vector with \(i\)th component equal to \(1\) and the rest being zero. Next, define</p>
+\[
+\begin{align*}
+ & S\left(\tau,\{\lambda_{i,j}\},\{\alpha_{i,j}^{\prime}\}\right)\\
+= & c_{w}\tau\mathbf{w}_{0}\mathbf{w}_{0}^{\top}+\\
+ & \frac{1}{2L}\Bigg[\sum_{i\in[0:N-1]}\lambda_{i,i+1}\left\{ (\mathbf{g}_{i}-\mathbf{g}_{i+1})\odot(\mathbf{g}_{i}-\mathbf{g}_{i+1})\right\} +\\
+ & \sum_{j\in[0:N]}\lambda_{\star,j}\left\{ (\mathbf{g}_{\star}-\mathbf{g}_{j})\odot(\mathbf{g}_{\star}-\mathbf{g}_{j})\right\} \Bigg]\\
+ & -\lambda_{\star,0}\{\mathbf{g}_{0}\odot\mathbf{w}_{0}\}\\
+ & -\sum_{i\in[1:N-1]}\Bigg[\lambda_{i,i+1}\left\{ \mathbf{g}_{i}\odot\mathbf{w}_{0}\right\} -\sum_{j\in[0:i-1]}\frac{\alpha_{i,j}^{\prime}}{L}\left\{ \mathbf{g}_{i}\odot\mathbf{g}_{j}\right\} \Bigg]\\
+ & -\left((\mathbf{g}_{N}\odot\mathbf{w}_{0})-\sum_{j\in[0:N-1]}\frac{\alpha_{N,j}^{\prime}}{L}\left\{ \mathbf{g}_{N}\odot\mathbf{g}_{j}\right\} \right)\\
+ & +\sum_{i\in[0:N-1]}\Bigg[\lambda_{i,i+1}\left\{ \mathbf{g}_{i+1}\odot\mathbf{w}_{0}\right\} -\sum_{j\in[0:i-1]}\frac{\alpha_{i,j}^{\prime}}{L}\left\{ \mathbf{g}_{i+1}\odot\mathbf{g}_{j}\right\} \Bigg],
+\end{align*}
+\]
+<p>where</p>
+\[
+\alpha_{i,j}^{\prime}=\begin{cases}
+\lambda_{i,i+1}\alpha_{i,j}, & \textrm{if }i\in[1:N-1],j\in[0:i-1]\\
+\alpha_{N,j}, & \textrm{if }i\in N,j\in[0:N-1]\\
+\lambda_{0,1}\underbrace{\alpha_{0,j}}_{=0}=0, & \textrm{if }i=0.
+\end{cases}
+\]
+<p>Then, the performance estimation optimization algorithm is:</p>
+\[
+\begin{array}{ll}
+\textrm{minimize} & \tau\\
+\textrm{subject to} & -\mathbf{f}_{N}+\mathbf{f}_{\star}+\sum_{(i,j)\in J}\lambda_{i,j}\left(\mathbf{f}_{j}-\mathbf{f}_{i}\right)+c_{f}\tau\left(\mathbf{f}_{0}-\mathbf{f}_{\star}\right)=0\\
+ & S\left(\tau,\{\lambda_{i,j}\},\{\alpha_{i,j}^{\prime}\}\right)\succeq0\\
+ & \left(\forall(i,j)\in J\right)\quad\lambda_{i,j}\geq0\\
+ & \tau\geq0,
+\end{array}
+\]
+<p>where the decision variables are \(\tau,\{\lambda_{i,j}\},\) and \(\{\alpha_{i,j}^{\prime}\}.\)  </p>
+<pre><code class="language-julia"># Load the packages
+using JuMP, MosekTools, Mosek, LinearAlgebra, SCS, COSMO, Literate, OffsetArrays</code></pre>
+<pre><code class="language-julia"># &#37;&#37; Some helper functions
+
+# &#37;&#37; construct e_i in R^n
+function e_i&#40;n, i&#41;
+    e_i_vec &#61; zeros&#40;n, 1&#41;
+    e_i_vec&#91;i&#93; &#61; 1
+    return e_i_vec
+end
+
+# &#37;&#37; construct symmetric outer product
+
+function ⊙&#40;a,b&#41;
+    return &#40;&#40;a*b&#39;&#41;&#43;&#40;b*a&#39;&#41;&#41; ./ 2
+end</code></pre>
+<pre><code class="language-julia"># &#37;&#37; Parameters to be tuned
+N &#61; 5
+L &#61; 1
+μ &#61; 0
+c_w &#61; 1
+c_f &#61; 0</code></pre>
+<p><strong>Putting everything in a function.</strong> Now, let us put everything in a function. We need to add the packages first.</p>
+<pre><code class="language-julia">function full_pep_solver&#40;N, L, μ, c_w, c_f&#41;
+
+    # define all the bold vectors
+    # --------------------------
+
+    # define 𝐰_0
+
+    𝐰_0 &#61; e_i&#40;N&#43;2, 1&#41;
+
+    𝐰_star &#61; zeros&#40;N&#43;2, 1&#41;
+
+    𝐠_star &#61; zeros&#40;N&#43;2,1&#41;
+
+    # define 𝐠_0, 𝐠_1, …, 𝐠_N
+
+    # first we define 𝐠_Julia vectors and then 𝐠 vectors
+
+    𝐠 &#61; OffsetArray&#40;zeros&#40;N&#43;2, N&#43;1&#41;, 1:N&#43;2, 0:N&#41;
+    # 𝐠&#61; &#91;𝐠_0 𝐠_1 𝐠_2 ... 𝐠_N&#93;
+    for i in 0:N
+        𝐠&#91;:,i&#93; &#61; e_i&#40;N&#43;2, i&#43;2&#41;
+    end
+
+
+    𝐟_star &#61; zeros&#40;N&#43;1,1&#41;
+
+    # time to define 𝐟_0, 𝐟_1, …, 𝐟_N
+
+    𝐟 &#61; OffsetArray&#40;zeros&#40;N&#43;1, N&#43;1&#41;, 1:N&#43;1, 0:N&#41;
+    # 𝐟 &#61; &#91;𝐟_0, 𝐟_1, …, 𝐟_N&#93;
+
+    for i in 0:N
+        𝐟&#91;:,i&#93; &#61; e_i&#40;N&#43;1, i&#43;1&#41;
+    end
+
+    # Define JuMP model
+    # ----------------
+
+    pep_model &#61; Model&#40;optimizer_with_attributes&#40;Mosek.Optimizer, &quot;MSK_DPAR_INTPNT_CO_TOL_PFEAS&quot; &#61;&gt; 1e-10&#41;&#41;
+
+    #define all the variables
+    # -------------------------------
+
+    # define α′ &#40;can be typed as \alpha&#91;TAB&#93;\prime&#91;TAB&#93;&#41;
+    @variable&#40;pep_model, α′&#91;1:N, 0:N-1&#93;&#41;
+
+    # define λ variables
+
+    @variable&#40;pep_model, λ_i_ip1&#91;0:N-1&#93; &gt;&#61; 0&#41;
+    # this defines &#40;λ_&#123;i,i&#43;1&#125;&#41;_&#123;i∈&#91;0:N-1&#93;&#125; in Julia indexing
+
+    @variable&#40;pep_model, λ_star_i&#91;0:N&#93; &gt;&#61; 0&#41;
+    # this defines &#40;λ_&#123;⋆,i&#125;&#41;_&#123;i∈&#91;0:N&#93;&#125; in Julia indexing
+
+    # define τ
+    @variable&#40;pep_model, τ &gt;&#61; 0&#41;
+
+    # define objective
+    # ------------------
+
+    @objective&#40;
+    pep_model,
+    Min,
+    τ
+    &#41;
+
+    # Add the linear equality constraint
+    # ----------------------------------
+    @constraint&#40;pep_model,
+    τ * c_f .* 𝐟&#91;:,0&#93; &#43; sum&#40;λ_i_ip1&#91;i&#93; .* &#40;𝐟&#91;:,i&#43;1&#93;-𝐟&#91;:,i&#93;&#41; for i in 0:N-1&#41;
+    &#43; sum&#40;λ_star_i&#91;i&#93; .* &#40;𝐟&#91;:,i&#93; - 𝐟_star&#41; for i in 0:N&#41;
+    .&#61;&#61; 𝐟&#91;:,N&#93; - 𝐟_star
+    &#41;
+
+    # Add the giant LMI constraint step by step
+    # ----------------------------------------
+
+    # Define all the terms one by one
+
+    term_1 &#61; c_w * τ * ⊙&#40;𝐰_0,𝐰_0&#41;
+
+    term_2_part_1 &#61; sum&#40;λ_i_ip1&#91;i&#93; .* ⊙&#40;𝐠&#91;:,i&#93;-𝐠&#91;:,i&#43;1&#93;,𝐠&#91;:,i&#93;-𝐠&#91;:,i&#43;1&#93;&#41; for i in 0:N-1&#41;
+
+    term_2_part_2 &#61; sum&#40;λ_star_i&#91;i&#93; .* ⊙&#40;𝐠_star - 𝐠&#91;:,i&#93;,𝐠_star - 𝐠&#91;:,i&#93;&#41; for i in 0:N&#41;
+
+    term_2 &#61; &#40;term_2_part_1 &#43; term_2_part_2&#41; ./ &#40;2*L&#41;
+
+    term_3 &#61; - λ_star_i&#91;0&#93; .* ⊙&#40;𝐠&#91;:,0&#93;,𝐰_0&#41;
+
+    term_4_part_1 &#61; - sum&#40; λ_i_ip1&#91;i&#93; .* ⊙&#40;𝐠&#91;:,i&#93;,𝐰_0&#41; for i in 1:N-1&#41;
+
+    term_4_part_2 &#61; &#40;1/L&#41; .*
+    sum&#40; sum&#40;α′&#91;i,j&#93; .* ⊙&#40;𝐠&#91;:,i&#93;,𝐠&#91;:,j&#93;&#41; for j in 0:i-1&#41; for i in 1:N-1&#41;
+
+    term_4 &#61; term_4_part_1 &#43; term_4_part_2
+
+    term_5 &#61; - &#40; ⊙&#40;𝐠&#91;:,N&#93;,𝐰_0&#41; - &#40;1/L&#41; .* sum&#40;α′&#91;N,j&#93; .* ⊙&#40;𝐠&#91;:,N&#93;,𝐠&#91;:,j&#93;&#41; for j in 0:N-1&#41;&#41;
+
+    term_6_part_1 &#61; sum&#40;λ_i_ip1&#91;i&#93; .* ⊙&#40;𝐠&#91;:,i&#43;1&#93;,𝐰_0&#41; for i in 0:N-1&#41;
+
+    term_6_part_2 &#61; - &#40;1/L&#41; .*
+    sum&#40; sum&#40; α′&#91;i,j&#93; .* ⊙&#40;𝐠&#91;:,i&#43;1&#93;,𝐠&#91;:,j&#93;&#41; for j in 0:i-1&#41; for i in 1:N-1&#41;
+
+    term_6 &#61; term_6_part_1 &#43; term_6_part_2
+
+    # oof, okay constructed the terms for the LMI constraint, let us hope that there is no mistake and add them together
+
+    S_mat &#61; term_1 &#43; term_2 &#43; term_3 &#43; term_4 &#43; term_5 &#43; term_6
+
+    # add the LMI constraint now
+
+    @constraint&#40;pep_model,
+    S_mat in PSDCone&#40;&#41;
+    &#41;
+
+    # time to optimize&#33;
+    # -----------------
+    optimize&#33;&#40;pep_model&#41;
+
+    println&#40;&quot;termination status &#61;&quot;, termination_status&#40;pep_model&#41; &#41;
+
+    α′_opt &#61; OffsetArray&#40;value.&#40;α′&#41;, 1:N, 0:N-1&#41;
+    λ_opt_i_ip1 &#61; OffsetVector&#40;value.&#40;λ_i_ip1&#41;, 0:N-1&#41;
+    λ_opt_star_i &#61; OffsetVector&#40;value.&#40;λ_star_i&#41;, 0:N&#41;
+    τ_opt &#61; value&#40;τ&#41;
+
+    # Recover α_&#123;i,j&#125; from α′_&#123;i,j&#125;
+    # -----------------------------
+
+    α_opt &#61; OffsetArray&#40;zeros&#40;size&#40;α′_opt&#41;&#41;, 1:N, 0:N-1&#41;
+
+    for i in 1:N-1
+        for j in 0:i-1
+            α_opt&#91;i,j&#93; &#61; &#40;α′_opt&#91;i,j&#93; / λ_opt_i_ip1&#91;i&#93;&#41;
+        end
+    end
+
+    for j in 0:N-1
+        α_opt&#91;N,j&#93; &#61; α′_opt&#91;N,j&#93;
+    end
+
+    # Recover h_&#123;i,j&#125; from α_&#123;i,j&#125;
+    # ----------------------------
+
+    h_opt &#61;  OffsetArray&#40;zeros&#40;size&#40;α_opt&#41;&#41;, 1:N, 0:N-1&#41;
+
+    # set h&#40;1,0&#41;
+    h_opt&#91;1,0&#93; &#61; α_opt&#91;1,0&#93;
+
+    # set the rest of the variables
+
+    for i in 2:N
+        for j in 0:i-1
+            if j &#61;&#61; i-1
+                h_opt&#91;i,j&#93; &#61; α_opt&#91;i,j&#93;
+            else
+                h_opt&#91;i,j&#93; &#61; α_opt&#91;i,j&#93; - α_opt&#91;i-1,j&#93;
+            end
+        end
+    end
+
+    # return all the outputs
+    # ----------------------
+
+    return   α′_opt, λ_opt_i_ip1, λ_opt_star_i, τ_opt, α_opt, h_opt
+
+end</code></pre>
+<p>Time to run and test.</p>
+<pre><code class="language-julia">α′_opt, λ_opt_i_ip1, λ_opt_star_i, τ_opt, α_opt, h_opt &#61; full_pep_solver&#40;N, L, μ, c_w, c_f&#41;</code></pre>
+<div class="page-foot">
+  <div class="copyright">
+    &copy; Shuvomoy Das Gupta. Last modified: May 20, 2021. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+  </div>
+</div>
+</div><!-- CONTENT ENDS HERE -->
+        </div> <!-- end of id=main -->
+    </div> <!-- end of id=layout -->
+    
+        <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
+    
+    
+        <script src="/libs/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();hljs.configure({tabReplace: '    '});</script>
+
+    
+  </body>
+</html>
