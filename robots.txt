@@ -1,4 +1,0 @@
-Sitemap: https://shuvomoy.github.io/blog\sitemap.xml
-
-User-agent: *
-Disallow:

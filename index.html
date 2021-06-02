@@ -1,45 +1,45 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+---
+layout: default
+---
+
+<div class="home">
+  <div class="post" itemscope itemtype="http://schema.org/BlogPosting" >
     
-    
-    <link rel="stylesheet" href="/css/franklin.css">
-<link rel="stylesheet" href="/css/tufte.css">
-<link rel="stylesheet" href="/css/latex.css">
-<link rel="stylesheet" href="/css/adjust.css"> <!-- sheet to overwrite some clashing styles -->
-<link rel="icon" href="/assets/favicon.png">
+    {% for post in paginator.posts %}
+  
+    <header class="post-header">
+      <h1 itemprop="name" class="post-title">
+        <a itemprop="url" class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+      </h1>
+      <meta itemprop="keywords" content="{{ post.tags | join: ',' }}" />
+      <p class="post-meta">
+      {{ site.locales[site.default_locale].PostedInCategories }}
+      {% for cat in post.categories %}
+      <a href="{{site.baseurl}}/categories/#{{ cat }}">{{ cat }}</a>&nbsp;
+      {% endfor %}
+      {% if post.tags != empty %}
+      {{ site.locales[site.default_locale].Taggedwith }}
+      {% for tag in post.tags %}
+      <a href="{{ site.baseurl }}/tags/#{{ tag }}" title="{{ tag }}">{{ tag }} </a>{% unless post.tags.last == tag %}, {% endunless %}
+      {% endfor %}
+      {% endif %}
+      <time itemprop="datePublished" datetime="{{ post.date | date: '%Y-%m-%d' }}">
+      {{ site.locales[site.default_locale].PostDate }}{{ post.date | date: "%b %-d, %Y" }}
+      </time>
+      </p>
+    </header>
 
-     <title>Home</title>  
-</head>
+    <article class="post-content" itemprop="articleBody">
+        {% if post.content contains "<!-- more -->" %}
+    {{ post.content | split:"<!-- more -->" | first  }}
+  {% else %}
+    {{ post.content | strip_html | truncatewords:100 }}
+  {% endif %}
+    </article> <!--<hr />-->
+    <b><a href="{{ site.baseurl }}{{ post.url }}">continue reading...</a></b>
+  <hr/>
 
-<body>
-<div id="layout">
-  <div id="menu">
-    <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="/tags/">Tags</a></li>
-    </ul>
-  </div>
-  <div id="main">
-
-
-
-<!-- Content appended here -->
-<div class="franklin-content"><h1 id="blogs_by_shuvomoy_das_gupta"><a href="#blogs_by_shuvomoy_das_gupta" class="header-anchor">Blogs by Shuvomoy Das Gupta</a></h1>
-<p>Hello world&#33; I am Shuvomoy Das Gupta, a Ph.D. student at the <a href="https://orc.mit.edu/">MIT Operations Research Center</a>. This blog is an attempt to improve my English. Here is my <a href="https://shuvomoy.github.io/site/">academic website</a>.</p>
-<h2 id="posts"><a href="#posts" class="header-anchor">Posts</a></h2>
-<ul class="blog-posts"><li><span><i>(2021-02-03) </i></span><a href="/blog/Solving-transportation-problem-in-Julia-Jump/">Solving transportation problems in Julia+JuMP</a><li><span><i>(2021-02-01) </i></span><a href="/blog/Running-parallel-Julia-code-on-MIT-engaging/">Running parallel Julia code on MIT Engaging</a><li><span><i>(2021-01-18) </i></span><a href="/blog/Notes-on-mutating-function-and-array-assignment-in-Julia/">Mutating function and array assignment in Julia</a><li><span><i>(2021-01-12) </i></span><a href="/blog/Defining-inner-constructor-with-parametric-types-in-Julia/"> Defining inner constructor with parametric types in Julia</a><li><span><i>(2021-01-01) </i></span><a href="/blog/Solving_semidefinite_programming_problems_in_Julia/">How to solve semidefinite optimization problems in Julia</a><li><span><i>(2020-12-21) </i></span><a href="/blog/The-holy-man-and-the-poisonous-snake/">The holy man and the venomous snake</a><li><span><i>(2020-12-01) </i></span><a href="/blog/Running-parallel-Julia-code-on-MIT-supercloud/">Running parallel Julia code on MIT Supercloud</a><li><span><i>(2020-11-22) </i></span><a href="/blog/Why-do-you-want-to-go-back-Lord-of-Mathura/">“Why do you want to go back, Lord of Mathura?” by Rituparno Ghosh</a><li><span><i>(2020-11-17) </i></span><a href="/blog/Computing-composition-of-operators-via-scaled-relative-graph-in-Mathematica/">Computing scaled relative graph of composition of operators in Mathematica</a><li><span><i>(2020-11-15) </i></span><a href="/blog/Verifying-inequalities-in-Mathematica/">Verifying inequalities in Mathematica</a><li><span><i>(2020-09-24) </i></span><a href="/blog/Computing-proximal-operator-of-a-constrained-function-in-Julia/">Computing proximal operator of a constrained function in Julia</a><li><span><i>(2020-05-05) </i></span><a href="/blog/Working-with-dataframes-Julia/">Working with dataframes in Julia</a><li><span><i>(2020-04-28) </i></span><a href="/blog/Saving_data_files_julia/"> Saving data files in Julia</a><li><span><i>(2020-04-25) </i></span><a href="/blog/Life-of-Egon-Balas/">Life of Egon Balas</a><li><span><i>(2020-04-13) </i></span><a href="/blog/Knuth-on-work-habits-and-problem-solving-and-happiness/">Donald Knuth on work habits, problem solving, and happiness</a><li><span><i>(2020-04-10) </i></span><a href="/blog/Implementing-simple-gradient-descent-Julia/">Simple gradient descent algorithm in Julia</a><li><span><i>(2020-03-24) </i></span><a href="/blog/If-you-did-not-give-me-love/">If you did not give me love by Rabindranath Tagore</a><li><span><i>(2020-03-22) </i></span><a href="/blog/How-to-create-a_simple-package-in-julia/">How to create a simple package in Julia</a><li><span><i>(2018-03-15) </i></span><a href="/blog/Quotes-and-excerpts/">Favorite Quotes and Excerpts</a></ul>
-<div class="page-foot">
-  <div class="copyright">
-    &copy; Shuvomoy Das Gupta. Last modified: June 02, 2021. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+    {% endfor %}
+  
   </div>
 </div>
-</div><!-- CONTENT ENDS HERE -->
-        </div> <!-- end of id=main -->
-    </div> <!-- end of id=layout -->
-    
-    
-  </body>
-</html>
