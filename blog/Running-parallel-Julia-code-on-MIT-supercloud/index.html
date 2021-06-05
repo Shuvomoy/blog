@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="stylesheet" href="/libs/katex/katex.min.css">
+     
+     <link rel="stylesheet" href="/libs/highlight/github.min.css">
+   
+    <link rel="stylesheet" href="/css/franklin.css">
+<link rel="stylesheet" href="/css/tufte.css">
+<link rel="stylesheet" href="/css/latex.css">
+<link rel="stylesheet" href="/css/adjust.css"> <!-- sheet to overwrite some clashing styles -->
+<link rel="icon" href="/assets/favicon.png">
+
+     <title>Running parallel Julia code on MIT Supercloud</title>  
+</head>
+
+<body>
+<div id="layout">
+  <div id="menu">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/tags/">Tags</a></li>
+    </ul>
+  </div>
+  <div id="main">
+
+
+
+<!-- Content appended here -->
+<div class="franklin-content"><h1 id="running_parallel_julia_code_on_mit_supercloud"><a href="#running_parallel_julia_code_on_mit_supercloud" class="header-anchor">Running parallel Julia code on MIT Supercloud</a></h1>
+<p><strong>Shuvomoy Das Gupta</strong></p>
+<p><em>December 1, 2020</em></p>
+<p>In this blog, we will discuss how to run  parallel <code>Julia</code> code on MIT Supercloud. For the basics on how to run <code>Julia</code> code in MIT Supercloud, please see my previous blog post <a href="https://shuvomoy.github.io/blog/programming/2020/01/24/Running-Julia-code-on-MIT-supercloud.html">here</a>. </p>
+<hr />
+<p><strong>Table of contents</strong></p>
+<div class="franklin-toc"><ol><li><a href="#sparse_regression_problem">Sparse regression problem. </a></li><li><a href="#shell_script_to_submit_the_job">Shell script to submit the job</a></li><li><a href="#submitting_the_job">Submitting the job</a></li></ol></div>
+<hr />
+<p>As an example for running parallel code, we will consider solving sparse regression problem. </p>
+<h2 id="sparse_regression_problem"><a href="#sparse_regression_problem" class="header-anchor">Sparse regression problem. </a></h2>
+<p>The sparse regression problem &#40;also known as regressor selection problem&#41; is concerned with approximating a vector \(b\in\mathbf{R}^{m}\) with a linear combination of at most \(k\) columns of a matrix \(A\in\mathbf{R}^{m\times d}\) with bounded coefficients. The problem can be written as the following optimization problem</p>
+\[
+\begin{equation}
+\begin{array}{ll}
+\textrm{minimize} & \|Ax-b\|_{2}^{2}+\frac{\beta}{2}\|x\|^{2}\\
+\textrm{subject to} & \mathbf{card}(x)\leq k\\
+ & \|x\|_{\infty}\leq M,
+\end{array}
+\end{equation}
+\]
+<p>where \(x\in\mathbf{R}^{d}\) is the decision variable, and \(A\in\mathbf{R}^{m\times d},b\in\mathbf{R}^{m},\) and \(M>0\) are problem data. The term \(\mathbf{card}(x)\) represents the number of nonzero components of the vector \(x\).</p>
+<p><strong>Setup.</strong> We have a nonconvex optimization problem &#40;sparse regression problem&#41; and an algorithm <a href="https://github.com/Shuvomoy/NExOS.jl"><code>NExOS</code></a> that is able to compute a locally optimal solution of this problem under <a href="https://arxiv.org/pdf/2011.04552.pdf">certain regularity conditions</a>. Depending on different initializations, <code>NExOS</code> will provide us with different locally optimal solutions. So, naturally we can think of initializing our algorithm with different random points, observe the solutions provided by <code>NExOS</code> for different initializations and then pick the locally optimal solution that corresponds to the smallest objective value. We can achieve this task by using parallelization techniques provided in <code>Julia</code>. For this blog, we will consider <code>pmap</code>.</p>
+<p><strong>Julia Code.</strong> The code for the <code>julia</code> file is given below, please save it in a text file and name it <code>pmap_julia.jl</code>.</p>
+<pre><code class="language-julia">using ClusterManagers,Distributed
+
+# Add in the cores allocated by the scheduler as workers
+
+addprocs&#40;SlurmManager&#40;parse&#40;Int,ENV&#91;&quot;SLURM_NTASKS&quot;&#93;&#41;-1&#41;&#41;
+
+print&#40;&quot;Added workers: &quot;&#41;
+
+println&#40;nworkers&#40;&#41;&#41;
+    
+using Random, NExOS, ProximalOperators, Distributions # load it centrally
+
+@everywhere using Random, NExOS, ProximalOperators, Distributions # load it on each process
+
+# DATA GENERATION: The following code will be run only on one core
+# ----------------------------------------------------------------
+
+# create the array of random initial points
+
+n &#61; 20
+
+M &#61; 1
+
+function random_z&#40;n, M&#41;
+    uniDst &#61; Uniform&#40;-M, M&#41;
+    x &#61; rand&#40;uniDst,n&#41;
+    z &#61; x
+    return z
+end
+
+## create array of random z s
+
+function create_array_z_randomized&#40;n, N_random_points, M&#41;
+    # this array has its first column all zeros and the rest are uniformly distrubted over &#91;-M,M&#93;
+    array_z_randomized &#61; zeros&#40;n, N_random_points&#41;
+    for i in 2:N_random_points
+        array_z_randomized&#91;:,i&#93; &#61; random_z&#40;n, M&#41;
+    end
+    return array_z_randomized
+end
+
+## necessary info to generate the data
+
+bigM &#61; 1e99 # this is the bigM, which is a global variable we are not gonna change
+
+N_random_points &#61; 100
+
+array_z_randomized &#61; create_array_z_randomized&#40;n, N_random_points, M&#41;
+
+array_z_randomized_formatted &#61; &#91;array_z_randomized&#91;:,i&#93; for i in 1:N_random_points&#93;
+
+# DISTRIBUTED CODE: The following part of the code will be run parallely on different cores
+# -----------------------------------------------------------------------------------------
+
+# we write the distributed part that is loaded everywhere on the processes we created
+
+@everywhere begin
+
+    ## create data
+    m &#61; 10
+    n &#61; 20
+    A &#61; randn&#40;m,n&#41;
+    b &#61; randn&#40;m&#41;
+    M &#61; 1
+    k &#61; convert&#40;Int64, round&#40;m/3&#41;&#41;
+    beta &#61; 10^-10
+
+
+    # Let us put everything in a function, which we are going to use later for parallel implementation.
+
+    C &#61; NExOS.SparseSet&#40;M, k&#41; # Create the set
+    f &#61; ProximalOperators.LeastSquares&#40;A, b, iterative &#61; true&#41; # Create the function
+    settings &#61; NExOS.Settings&#40;μ_max &#61; 2, μ_min &#61; 1e-8, μ_mult_fact &#61; 0.5, verbose &#61; false, freq &#61; 250, γ_updt_rule &#61; :adaptive, β &#61; beta&#41; # settings
+
+    #function sparse_reg_NExOS&#40;z0, C, f, settings&#41; # z0 is the initial point
+    function sparse_reg_NExOS&#40;z0&#41;
+        
+        problem &#61; NExOS.Problem&#40;f, C, settings.β, z0&#41; # problem instance
+        state_final &#61; NExOS.solve&#33;&#40;problem, settings&#41;
+        return state_final
+
+    end
+
+end # end the begin block
+
+# serial implementation
+
+output_map &#61;  map&#40;sparse_reg_NExOS, array_z_randomized_formatted&#41;
+
+# parallel implementatin
+
+output_pmap &#61; pmap&#40;sparse_reg_NExOS, array_z_randomized_formatted&#41;
+
+# BENCHMARKING:
+# ------------
+
+# benchmarking the results, note that we did not benchmark the first time, because in that 
+# case we would also count the precompilation time
+
+using BenchmarkTools 
+
+BenchmarkTools.DEFAULT_PARAMETERS.seconds &#61; 25 # The number of seconds budgeted for the benchmarking process. The trial will terminate if this time is exceeded &#40;regardless of samples&#41;, but at least one sample will always be taken.
+
+# benchmark serial implementation
+b1 &#61; @benchmark map&#40;sparse_reg_NExOS, array_z_randomized_formatted&#41;
+
+println&#40;&quot;benchmark for serial code&quot;&#41;
+println&#40;&quot;*************************&quot;&#41;
+io &#61; IOBuffer&#40;&#41;
+show&#40;io, &quot;text/plain&quot;, b1&#41;
+s &#61; String&#40;take&#33;&#40;io&#41;&#41;
+println&#40;s&#41;
+
+# benchmark parallel implementation
+b2 &#61; @benchmark pmap&#40;sparse_reg_NExOS, array_z_randomized_formatted&#41;
+
+println&#40;&quot;benchmark for parallel code&quot;&#41;
+println&#40;&quot;***************************&quot;&#41;
+io &#61; IOBuffer&#40;&#41;
+show&#40;io, &quot;text/plain&quot;, b2&#41;
+s &#61; String&#40;take&#33;&#40;io&#41;&#41;
+println&#40;s&#41;</code></pre>
+<h2 id="shell_script_to_submit_the_job"><a href="#shell_script_to_submit_the_job" class="header-anchor">Shell script to submit the job</a></h2>
+<p>Now we are going to create a shell script that will be used to submit the job. The code for the shell script is below. Please save it in a text file, and name it <code>run_pmap_julia.sh</code>. In the code, <code>SBATCH -o pmap_julia.log-&#37;j</code> indicates the name of the file where the output is written, and <code>SBATCH -n 14</code> indicates the number of cores or cpus allocated to the job. </p>
+<pre><code class="language-julia">#&#33;/bin/bash
+
+# Slurm sbatch options
+#SBATCH -o pmap_julia.log-&#37;j
+#SBATCH -n 14
+
+# Initialize the module command first source
+source /etc/profile
+
+# Load Julia Module
+module load julia/1.5.2
+ 
+# Load Gurobi Module
+# module load gurobi/gurobi-811            
+ 
+# Call your script as you would from the command line
+# Call your script as you would from the command line
+julia pmap_julia.jl</code></pre>
+<h2 id="submitting_the_job"><a href="#submitting_the_job" class="header-anchor">Submitting the job</a></h2>
+<p>Now log in to MIT supercloud, copy the files created above to your working directory, and run the following command. Ensure that the <code>pwd</code> command results in the working directory, else use the command <code>cd directory_that_contains_the_code</code> to change the working directory.</p>
+<pre><code class="language-julia">LLsub run_pmap_julia.sh</code></pre>
+<p>That&#39;s it&#33; Once the computation is done, we see from the output log file that parallelization has decreased the computation time significantly. </p>
+<pre><code class="language-julia">benchmark for serial code
+*************************
+BenchmarkTools.Trial: 
+  memory estimate:  26.20 GiB
+  allocs estimate:  210157358
+  --------------
+  minimum time:     14.033 s &#40;7.09&#37; GC&#41;
+  median time:      14.093 s &#40;7.41&#37; GC&#41;
+  mean time:        14.093 s &#40;7.41&#37; GC&#41;
+  maximum time:     14.154 s &#40;7.74&#37; GC&#41;
+  --------------
+  samples:          2
+  evals/sample:     1
+benchmark for parallel code
+***************************
+BenchmarkTools.Trial: 
+  memory estimate:  449.78 KiB
+  allocs estimate:  10213
+  --------------
+  minimum time:     1.337 s &#40;0.00&#37; GC&#41;
+  median time:      1.369 s &#40;0.00&#37; GC&#41;
+  mean time:        1.377 s &#40;0.00&#37; GC&#41;
+  maximum time:     1.436 s &#40;0.00&#37; GC&#41;
+  --------------
+  samples:          19
+  evals/sample:     1</code></pre>
+<p></p>
+<div class="page-foot">
+  <div class="copyright">
+    &copy; Shuvomoy Das Gupta. Last modified: May 20, 2021. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+  </div>
+</div>
+</div><!-- CONTENT ENDS HERE -->
+        </div> <!-- end of id=main -->
+    </div> <!-- end of id=layout -->
+    
+        <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
+    
+    
+        <script src="/libs/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();hljs.configure({tabReplace: '    '});</script>
+
+    
+  </body>
+</html>

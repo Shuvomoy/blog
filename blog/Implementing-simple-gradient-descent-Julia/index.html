@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="stylesheet" href="/libs/katex/katex.min.css">
+     
+     <link rel="stylesheet" href="/libs/highlight/github.min.css">
+   
+    <link rel="stylesheet" href="/css/franklin.css">
+<link rel="stylesheet" href="/css/tufte.css">
+<link rel="stylesheet" href="/css/latex.css">
+<link rel="stylesheet" href="/css/adjust.css"> <!-- sheet to overwrite some clashing styles -->
+<link rel="icon" href="/assets/favicon.png">
+
+     <title>Simple gradient descent algorithm in Julia</title>  
+</head>
+
+<body>
+<div id="layout">
+  <div id="menu">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/tags/">Tags</a></li>
+    </ul>
+  </div>
+  <div id="main">
+
+
+
+<!-- Content appended here -->
+<div class="franklin-content"><h1 id="implementing_a_simple_gradient_descent_algorithm_in_julia"><a href="#implementing_a_simple_gradient_descent_algorithm_in_julia" class="header-anchor">Implementing a simple gradient descent algorithm in Julia</a></h1>
+<p><strong>Shuvomoy Das Gupta</strong></p>
+<p><em>April 10, 2020</em></p>
+<p>In this blog, we discuss how to implement a simple gradient descent scheme in <code>Julia</code>. To do this, we will use the Julia package <code>ProximalOperators</code>, which is an excellent package to compute proximal operators and gradient of common convex functions. I highly recommend the package for anyone interested in operator splitting algorithms. You can find more information about the package at: <a href="https://github.com/kul-forbes/ProximalOperators.jl">https://github.com/kul-forbes/ProximalOperators.jl</a>.</p>
+<hr />
+<p><strong>Table of contents</strong></p>
+<div class="franklin-toc"><ol><li><ol><li><a href="#background">Background.</a></li><li><a href="#load_the_packages">Load the packages</a></li><li><a href="#create_the_types">Create the types</a></li><li><a href="#gd_problem"><code>GD_problem</code></a></li><li><a href="#gd_setting"><code>GD_setting</code></a></li><li><a href="#gd_state"><code>GD_state</code></a></li></ol></li><li><a href="#write_the_functions">Write the functions</a><ol><li><a href="#gd_iteration"><code>GD_iteration&#33;</code></a></li><li><a href="#gd_solver"><code>GD_solver</code></a></li></ol></li></ol></div>
+<hr />
+<p><strong>Jupyter notebook for this blog.</strong> The jupyter notebook for this blog can be downloaded from <a href="https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/codes/implementing_simple_gradient_descent_Julia.ipynb">this link</a> and viewed <a href="https://github.com/Shuvomoy/blog/blob/gh-pages/codes/implementing_simple_gradient_descent_Julia.ipynb">here</a>.  </p>
+<p>Before we implement gradient descent method, we first record some necessary background.</p>
+<h3 id="background"><a href="#background" class="header-anchor">Background.</a></h3>
+<p>Given a differentiable convex function \(f\), our goal is to solve \(\textrm{minimize}\;f(x)\), where \(x\in \mathbf{R}^n\) is the decision variable. To solve the problem above, we consider gradient descent algorithm. The gradient descent implements the following iteration scheme:</p>
+\(
+x_{n+1}  =  x_{n}-\gamma_{n}{\nabla f(x_{n})},\qquad (1)
+\)
+<p>where \({\nabla f(x_{n})}\) denotes a gradient of \(f\) evaluated at the iterate \(x_{n}\), and \(n\) is our iteration counter. As our step size rule, we pick a sequence that is square-summable but not summable, e.g., \(\gamma_{n}=1/n\), will do the job. </p>
+<p>We will go through the following steps:</p>
+<ol>
+<li><p>Load the packages</p>
+</li>
+<li><p>Create the types</p>
+</li>
+<li><p>Write the functions</p>
+</li>
+</ol>
+<h3 id="load_the_packages"><a href="#load_the_packages" class="header-anchor">Load the packages</a></h3>
+<p>Let us load the necessary packages that we are going to use.</p>
+<pre><code class="language-julia">## Load the packages to be used
+# -----------------------------
+# comment the first two lines if you already have ProximalOperators
+using Pkg
+Pkg.add&#40;&quot;ProximalOperators&quot;&#41;
+using ProximalOperators, LinearAlgebra</code></pre>
+<h3 id="create_the_types"><a href="#create_the_types" class="header-anchor">Create the types</a></h3>
+<p>Next, we define a few Julia types, that we require to write an optimization solver in <code>Julia</code>. </p>
+<h3 id="gd_problem"><a href="#gd_problem" class="header-anchor"><code>GD_problem</code></a></h3>
+<p>This type contains information about the problem instance, this bascially tells us what function \(f\) we are trying to optimize over, one initial point \(x_0\), and what should be the beginning step size \(\gamma_0\).</p>
+<pre><code class="language-julia">struct GD_problem&#123;F &lt;: ProximableFunction,A &lt;: AbstractVecOrMat&#123;&lt;:Real&#125;, R &lt;: Real&#125;
+    
+    # problem structure, contains information regarding the problem
+    
+    f::F # the objective function
+    x0::A # the intial condition
+    γ::R # the stepsize
+    
+end</code></pre>
+<p><strong>Usage of <code>GD_problem</code>.</strong>  For example, the user may wish to solve a simple least-squares problem using gradient descent. Then he can create a problem instance. A list of functions that we can use in this regard can be found in the documentation of <code>ProximalOperators</code>: <a href="https://kul-forbes.github.io/ProximalOperators.jl/latest">https://kul-forbes.github.io/ProximalOperators.jl/latest</a>.</p>
+<pre><code class="language-julia"># create a problem instance
+# ------------------------
+
+A &#61; randn&#40;6,5&#41;
+
+b &#61; randn&#40;6&#41;
+
+m, n &#61; size&#40;A&#41;
+
+# randomized intial point:
+
+x0 &#61; randn&#40;n&#41;
+
+f &#61; LeastSquares&#40;A, b&#41;
+
+γ &#61; 1.0
+
+# create GD_problem
+
+problem &#61; GD_problem&#40;f, x0, γ&#41;</code></pre>
+<pre><code class="language-julia">GD_problem&#40;description : Least squares penalty
+    domain      : n/a
+    expression  : n/a
+    parameters  : n/a, &#91;1.0193204973421695, 1.168794122203917, 1.296856638205154, 0.5001687528217552, 0.1500452441023732&#93;, 1.0&#41;</code></pre>
+<h3 id="gd_setting"><a href="#gd_setting" class="header-anchor"><code>GD_setting</code></a></h3>
+<p>This type contains different parameters required to implement our algorithm, such as, </p>
+<ul>
+<li><p>the initial step size \(\gamma\), </p>
+</li>
+<li><p>maximum number of iterations \(\textrm{maxit}\), </p>
+</li>
+<li><p>what should be the tolerance \(\textrm{tol}\) &#40;i.e., if \(\| \nabla{f(x)} \| \leq \textrm{tol}\), we take that \(x\) to be an optimal solution and terminate our algorithm&#41;, </p>
+</li>
+<li><p>whether to print out information about  the iterates or not controlled by a boolean variable \(\textrm{verbose}\), and </p>
+</li>
+<li><p>how frequently to print out such information controlled by the variable \(\textrm{freq}\).</p>
+</li>
+</ul>
+<p>The user may specify what values for these parameters above should be used. But if he does not specify anything, we should be able to have a default set of values to be used. We can achieve this by creating a simple constructor function for <code>GD_setting</code>.</p>
+<pre><code class="language-julia">struct GD_setting
+    
+    # user settings to solve the problem using Gradient Descent
+    
+    γ::Float64 # the step size
+    maxit::Int64 # maximum number of iteration
+    tol::Float64 # tolerance, i.e., if ||∇f&#40;x&#41;|| ≤ tol, we take x to be an optimal solution
+    verbose::Boolean # whether to print information about the iterates
+    freq::Int64 # how often print information about the iterates
+
+    # constructor for the structure, so if user does not specify any particular values, 
+    # then we create a GD_setting object with default values
+    function GD_setting&#40;; γ &#61; 1, maxit &#61; 1000, tol &#61; 1e-8, verbose &#61; false, freq &#61; 10&#41;
+        new&#40;γ, maxit, tol, verbose, freq&#41;
+    end
+    
+end</code></pre>
+<p><strong>Usage of <code>GD_setting</code>.</strong> For the previously described least squares problem, we create the following setting instance.</p>
+<pre><code class="language-julia">setting &#61; GD_setting&#40;verbose &#61; true, tol &#61; 1e-2, maxit &#61; 1000, freq &#61; 100&#41;</code></pre>
+<pre><code class="language-julia">GD_setting&#40;1, 1000, 0.01, true, 100&#41;</code></pre>
+<h3 id="gd_state"><a href="#gd_state" class="header-anchor"><code>GD_state</code></a></h3>
+<p>Now we define the type named <code>GD_state</code> that describes the state our algorithm at iteration number \(n\). The state is controlled by </p>
+<ul>
+<li><p>current iterte \(x_n\),</p>
+</li>
+<li><p>the gradient of \(f\) at the current iterate: \({\nabla{f}(x_n)}\),</p>
+</li>
+<li><p>the stepsize at iteration \(n\): \(\gamma_n\), and</p>
+</li>
+<li><p>iteration number: \(n\).</p>
+</li>
+</ul>
+<pre><code class="language-julia">mutable struct GD_state&#123;T &lt;: AbstractVecOrMat&#123;&lt;: Real&#125;, I &lt;: Integer, R &lt;: Real&#125; # contains information regarding one iterattion sequence
+    
+    x::T # iterate x_n
+    ∇f_x::T # one gradient ∇f&#40;x_n&#41;
+    γ::R # stepsize
+    n::I # iteration counter
+    
+end</code></pre>
+<p>Also, once the user has given the problem information by creating a problem instance <code>GD_problem</code>, we need a method to construct the initial value of the type <code>GD_state</code>,  as we did earlier for the least-squares problem. We create the initial state from the problem instance by writing a constructor function.</p>
+<pre><code class="language-julia">function GD_state&#40;problem::GD_problem&#41;
+    
+    # a constructor for the struct GD_state, it will take the problem data and create one state containing all 
+    # the iterate information, current state of the gradient etc so that we can start our gradient descent scheme
+    
+    # unpack information from iter which is GD_iterable type
+    x0 &#61; copy&#40;problem.x0&#41; # to be safe
+    f &#61; problem.f
+    γ &#61; problem.γ
+    ∇f_x, f_x &#61; gradient&#40;f, x0&#41;
+    n &#61; 1
+    
+    return GD_state&#40;x0, ∇f_x, γ, n&#41;
+    
+end</code></pre>
+<pre><code class="language-julia">GD_state</code></pre>
+<h2 id="write_the_functions"><a href="#write_the_functions" class="header-anchor">Write the functions</a></h2>
+<p>Now that we are done defining the types, we can now focus on writing the functions that will implement our gradient descent scheme. </p>
+<h3 id="gd_iteration"><a href="#gd_iteration" class="header-anchor"><code>GD_iteration&#33;</code></a></h3>
+<p>First, we need a function that will take the problem information and the state of our algorithm at iteration number \(n\), and then compute the next state for iteration number \(n+1\) according to &#40;1&#41;. </p>
+<pre><code class="language-julia">function GD_iteration&#33;&#40;problem::GD_problem, state::GD_state&#41;
+    
+    # this is the main iteration function, that takes the problem information, and the previous state, 
+    # and create the new state using Gradient Descent algorithm
+    
+    # unpack the current state information
+    x_n &#61; state.x
+    ∇f_x_n &#61; state.∇f_x
+    γ_n &#61; state.γ
+    n &#61; state.n
+    
+    # compute the next state
+    x_n_plus_1 &#61; x_n - γ_n*∇f_x_n
+    
+    # now load the computed values in the state
+    state.x &#61; x_n_plus_1
+    state.∇f_x, f_x &#61; gradient&#40;problem.f, x_n_plus_1&#41; # note that f_x is not used anywhere
+	# gradient&#40;f,x&#41; is a function in the ProximalOperators package, see its documentation 
+	# if more information is required
+    state.γ &#61; 1/&#40;n&#43;1&#41;
+    state.n &#61; n&#43;1
+    
+    # done computing return the new state
+    return state
+    
+end</code></pre>
+<pre><code class="language-julia">GD_iteration&#33; &#40;generic function with 1 method&#41;</code></pre>
+<h3 id="gd_solver"><a href="#gd_solver" class="header-anchor"><code>GD_solver</code></a></h3>
+<p>Now we are in a position to write the main solver function named <code>GD_solver</code> that will be used by the end user. Internally, this function will take the problem information and the problem setting, and then it will</p>
+<ul>
+<li><p>create the initial state,</p>
+</li>
+<li><p>keep updating the state using <code>GD_iteration&#33;</code> function until we reach the termination criterion or the maximum number of iterations,</p>
+</li>
+<li><p>print state of the algorithm if <code>verbose</code> is <code>true</code> at the specified frequency, and </p>
+</li>
+<li><p>return the final state.</p>
+</li>
+</ul>
+<pre><code class="language-julia">## The solver function
+
+function GD_solver&#40;problem::GD_problem, setting::GD_setting&#41;
+    
+    # this is the function that the end user will use to solve a particular problem, internally it is using the previously defined types and functions to run Gradient Descent Scheme
+    # create the intial state
+    state &#61; GD_state&#40;problem::GD_problem&#41;
+    
+    ## time to run the loop
+    while  &#40;state.n &lt; setting.maxit&#41; &amp; &#40;norm&#40;state.∇f_x, Inf&#41; &gt; setting.tol&#41;
+        # compute a new state
+        state &#61;  GD_iteration&#33;&#40;problem, state&#41;
+        # print information if verbose &#61; true
+        if setting.verbose &#61;&#61; true
+            if mod&#40;state.n, setting.freq&#41; &#61;&#61; 0
+                @info &quot;iteration &#61; &#36;&#40;state.n&#41; | obj val &#61; &#36;&#40;problem.f&#40;state.x&#41;&#41; | gradient norm &#61; &#36;&#40;norm&#40;state.∇f_x, Inf&#41;&#41;&quot;
+            end
+        end
+    end
+    
+    # print information regarding the final state
+    
+    @info &quot;final iteration &#61; &#36;&#40;state.n&#41; | final obj val &#61; &#36;&#40;problem.f&#40;state.x&#41;&#41; | final gradient norm &#61; &#36;&#40;norm&#40;state.∇f_x, Inf&#41;&#41;&quot;
+    return state
+    
+end</code></pre>
+<pre><code class="language-julia">GD_solver &#40;generic function with 1 method&#41;</code></pre>
+<p>​    </p>
+<p><strong>Usage of <code>GD_solver</code>.</strong> For the previously created <code>problem</code> and <code>setting</code>, we run our <code>GD_solver</code> function as follows.</p>
+<pre><code class="language-julia"># The following function will run the entire loop over the struct GradientDescent</code></pre>
+<pre><code class="language-julia">final_state_GD &#61; GD_solver&#40;problem, setting&#41;</code></pre>
+<pre><code class="language-julia">┌ Info: iteration &#61; 100 |  
+    │                 obj val &#61; 0.10616975436389622 | 
+    │                 gradient norm &#61; 0.02964822736954073
+    └ @ Main In&#91;9&#93;:16
+    ┌ Info: iteration &#61; 200 |  
+    │                 obj val &#61; 0.10526904472309405 | 
+    │                 gradient norm &#61; 0.019909231214547213
+    └ @ Main In&#91;9&#93;:16
+    ┌ Info: iteration &#61; 300 |  
+    │                 obj val &#61; 0.10499388213419013 | 
+    │                 gradient norm &#61; 0.01578344670011611
+    └ @ Main In&#91;9&#93;:16
+    ┌ Info: iteration &#61; 400 |  
+    │                 obj val &#61; 0.1048632843417343 | 
+    │                 gradient norm &#61; 0.013388371065530952
+    └ @ Main In&#91;9&#93;:16
+    ┌ Info: iteration &#61; 500 |  
+    │                 obj val &#61; 0.10478781849295837 | 
+    │                 gradient norm &#61; 0.011784780173541287
+    └ @ Main In&#91;9&#93;:16
+    ┌ Info: iteration &#61; 600 |  
+    │                 obj val &#61; 0.10473897267694926 | 
+    │                 gradient norm &#61; 0.010618620536011203
+    └ @ Main In&#91;9&#93;:16
+    ┌ Info: final iteration &#61; 667 | 
+    │     final obj val &#61; 0.10471495099365061 | 
+    │     final gradient norm &#61; 0.009995364642054971
+    └ @ Main In&#91;9&#93;:25
+
+
+
+
+
+    GD_state&#40;&#91;-0.747429923239562, 0.7857409304268766, -1.9752613372498569, -0.8109189160513681, 0.6537705422543739&#93;, &#91;-0.002114026011632561, -0.008995100759876307, 0.009995364642054971, 0.0024806200462658134, -0.004665182937515999&#93;, 0.0014992503748125937, 667&#41;</code></pre>
+<pre><code class="language-julia">println&#40;&quot;objective value found by our gradient descent &#36;&#40;f&#40;final_state_GD.x&#41;&#41;&quot;&#41;
+
+println&#40;&quot;real objective value &#36;&#40;f&#40;pinv&#40;A&#41;*b&#41;&#41; &quot;&#41;</code></pre>
+<pre><code class="language-julia">objective value found by our gradient descent 0.10471495099365061
+    real objective value 0.10452813292628083</code></pre>
+<p>So, we do decent in terms of finding a good solution&#33;</p>
+<div class="page-foot">
+  <div class="copyright">
+    &copy; Shuvomoy Das Gupta. Last modified: May 20, 2021. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+  </div>
+</div>
+</div><!-- CONTENT ENDS HERE -->
+        </div> <!-- end of id=main -->
+    </div> <!-- end of id=layout -->
+    
+        <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
+    
+    
+        <script src="/libs/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();hljs.configure({tabReplace: '    '});</script>
+
+    
+  </body>
+</html>

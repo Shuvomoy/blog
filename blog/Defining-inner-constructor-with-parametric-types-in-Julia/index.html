@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+     <link rel="stylesheet" href="/libs/highlight/github.min.css">
+   
+    <link rel="stylesheet" href="/css/franklin.css">
+<link rel="stylesheet" href="/css/tufte.css">
+<link rel="stylesheet" href="/css/latex.css">
+<link rel="stylesheet" href="/css/adjust.css"> <!-- sheet to overwrite some clashing styles -->
+<link rel="icon" href="/assets/favicon.png">
+
+     <title> Defining inner constructor with parametric types in Julia</title>  
+</head>
+
+<body>
+<div id="layout">
+  <div id="menu">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/tags/">Tags</a></li>
+    </ul>
+  </div>
+  <div id="main">
+
+
+
+<!-- Content appended here -->
+<div class="franklin-content"><h1 id="defining_inner_constructor_with_parametric_types_in_julia"><a href="#defining_inner_constructor_with_parametric_types_in_julia" class="header-anchor">Defining inner constructor with parametric types in Julia</a></h1>
+<p><strong>Shuvomoy Das Gupta</strong></p>
+<p><em>January 12, 2021</em></p>
+<p>Suppose we define the following parametric type in Julia. </p>
+<pre><code class="language-julia">abstract type CombinatorialProblem end
+
+struct BinIntOptSF&#123;V &lt;: AbstractVector&#123;&lt;: Real&#125;, M &lt;: AbstractMatrix&#123;&lt;: Real&#125;&#125; &lt;: CombinatorialProblem # means the concrete type BinIntOptSF is a subtype of the abstract type CombinatorialProblem
+    c::V
+    A::M
+    b::V
+end</code></pre>
+<p>This is a parametric type. We can create an instance of this type as follows. </p>
+<pre><code class="language-julia">m &#61; 4
+n &#61; 5
+c &#61; randn&#40;n&#41;
+A &#61; randn&#40;m,n&#41;
+b &#61; randn&#40;m&#41;
+sf_bin_int_opt &#61; BinIntOptSF&#40;c, A, b&#41;</code></pre>
+<p>Now suppose, we want to enforce the following check in an instance of the type: <code>A</code> must have number of rows less than or equal to number of columns, number of rows of <code>A</code> is equal number of entries in <code>b</code>, and number of columns of <code>A</code> is equal to the number of entries in <code>c</code>. </p>
+<p>In this case we can enforce the check by writing the following inner constructor for the parametric type. </p>
+<pre><code class="language-julia">struct BinIntOptSF2&#123;V &lt;: AbstractVector&#123;&lt;: Real&#125;, M &lt;: AbstractMatrix&#123;&lt;: Real&#125;&#125; &lt;: CombinatorialProblem
+
+    c::V
+    A::M
+    b::V
+    
+    # Inner constructor 
+    # -----------------
+    function BinIntOptSF2&#123;V,M&#125;&#40;c::V, A::M, b::V&#41; where &#123;V &lt;: AbstractVector&#123;&lt;: Real&#125;, M &lt;: AbstractMatrix&#123;&lt;: Real&#125;&#125;
+        
+        if size&#40;A,1&#41; &#33;&#61; size&#40;b,1&#41;
+            error&#40;&quot;A and b have incompatible direction&quot;&#41;
+        end
+        
+        if size&#40;A,1&#41; &gt; size&#40;A,2&#41;
+            error&#40;&quot;A must have number of row less than or equal to number of columns&quot;&#41;
+        end
+        
+        if size&#40;A,2&#41; &#33;&#61; size&#40;c,1&#41;
+            error&#40;&quot;A and c have incompatible dimension&quot;&#41;
+        end
+        
+        new&#123;V, M&#125;&#40;c,A,b&#41;
+    end
+
+# Writing the inner constructor above is going to replace the default constructor that is automatically defined by Julia. This may cause slight inconvenience, as we have to instantiate by running: bin_opt_instance &#61; BinIntOptSF2&#123;.,.&#125;&#40;...&#41;. Fortunately we can avoid this by adding the following line. 
+    
+    # Ensuring the one shot instantiation
+    # -----------------------------------
+    BinIntOptSF2&#40;c::V, A::M, b::V&#41; where &#123;V &lt;: AbstractVector&#123;&lt;: Real&#125;, M &lt;: AbstractMatrix&#123;&lt;: Real&#125;&#125; &#61; BinIntOptSF2&#123;V,M&#125;&#40;c,A,b&#41; 
+
+# We need to add this line so that we can instantiate by the convenient: bin_opt_instance &#61; BinIntOptSF2&#40;.&#41;. If we do not add this line, but call BinIntOptSF2&#40;.&#41;, then we will get an error &quot;No method matching...&quot;.
+    
+end</code></pre>
+<p>Let us instantiate the type above.</p>
+<pre><code class="language-julia">sf_bin_int_opt_2 &#61; BinIntOptSF2&#40;c, A, b&#41;</code></pre>
+<div class="page-foot">
+  <div class="copyright">
+    &copy; Shuvomoy Das Gupta. Last modified: May 18, 2021. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+  </div>
+</div>
+</div><!-- CONTENT ENDS HERE -->
+        </div> <!-- end of id=main -->
+    </div> <!-- end of id=layout -->
+    
+    
+        <script src="/libs/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();hljs.configure({tabReplace: '    '});</script>
+
+    
+  </body>
+</html>
