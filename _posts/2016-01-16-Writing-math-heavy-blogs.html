@@ -1,0 +1,36 @@
+--- 
+layout: post 
+title: How to Write Math-heavy Blogs in Jekyll
+categories: [non-technical] 
+comments: true 
+---
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+ <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+</head>
+<body>
+<p>Yesterday a friend of mine, who I force to read my blog, asked me how I write blogs that require lot of math equations. For his convenience, I am documenting the steps here in case it helps him and anyone else. <!-- more --></p>
+<ul>
+<li><p><strong>Write the blog in LyX.</strong> <a href="http://www.lyx.org/Home">LyX</a> is an open-source document processor that allows one to write professional looking documents. It supports LaTeX, which is great for creating math-heavy content. I have created an AutoHotkey file (please download it <a href="https://drive.google.com/file/d/0B3W-v4iV-aQmU1dDTTFPeXl1aFk/view?usp=sharing">here</a>) that allows to invoke shortcuts really easily, <em>e.g.,</em> pressing shift twice quickly will start the inline math mode (equivalent to $$ in LaTeX), typing <code>\df</code> and then pressing tab will start a displayed equation (equivalent to \<span>[</span> \<span>]</span> in LaTeX)<em> etc.</em> For equations, use these two modes ($$ and \<span>[</span>\<span>]</span>) only. If equation numbering is required then we have to do it manually. Here is an inline equation: <span class="math">\(E=mc^{2}\)</span>. Here is a displayed equation <span class="math">\[a^{2}+b^{2}=c^{2}\quad(1).\]</span></p></li>
+<li><p><strong>Convert the file to LaTeX.</strong> After we are done, we convert the document to LaTeX as follows: <code>File -&gt; Export -&gt; LaTeX (plain).</code></p></li>
+<li><p><strong>Convert the LaTeX file.</strong> Now we convert the .tex file into a .html file using <a href="http://pandoc.org/">Pandoc</a>. Install it if you do not have it. In Linux terminal (there are similar codes for Windows and Mac OS X) we type (without the quote): <code>pandoc -s name-of-the-file.tex --mathjax -o name-of-the-file.html.</code></p></li>
+<li><p><strong>Preparing the .html file for Jekyll.</strong> Now we open the created .html file using a text editor and add the following info at the beginning.</p></li>
+</ul>
+<pre><code>--- 
+layout: post 
+title: Name of the blog 
+categories: [Catagory 1, Catagory 2] 
+tags: [Tag 1, Tag 2] 
+comments: true 
+---</code></pre>
+<p>At some place in the .html write</p>
+<pre><code> &lt;!-- more --&gt; </code></pre>
+<p>. Whatever appears before this will appear as a highlight of your blog on the homepage. Now we save the .html file and rename it as YYYY-MM-DD-Name-of-the-blog.html. Now we just copy the .html file in the _posts folder of our Jekyll blog. That’s it!</p>
+</body>
+</html>

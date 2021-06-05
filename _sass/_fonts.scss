@@ -1,0 +1,50 @@
+// Font imports file. If you don't want these fonts, comment out these and add your own into the fonts directory 
+// and point the src attribute to the file.
+// 
+
+@font-face { 
+	font-family: ETBembo;
+    src: url("../fonts/ETBembo-RomanLF.ttf"); 
+}
+
+@font-face { 
+	font-family: "CMU Concrete";
+        src: url("../fonts/cmunorm.ttf"); 
+}
+
+@font-face { 
+	font-family: Shambhala;
+        src: url("../fonts/Shambhala-Regular.ttf"); 
+}
+
+/* Tex-Gyre-Pagella fonts */
+
+@font-face {
+  font-family: TexGyrePagella;
+  src: url("../fonts/texgyrepagella-regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: TexGyrePagella;
+  src: url("../fonts/texgyrepagella-italic.ttf");
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: TexGyrePagella;
+  src: url("../fonts/texgyrepagella-bold.ttf");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: TexGyrePagella;
+  src: url("../fonts/texgyrepagella-bolditalic.ttf");
+  font-weight: bold;
+  font-style: italic;
+}
+
+
